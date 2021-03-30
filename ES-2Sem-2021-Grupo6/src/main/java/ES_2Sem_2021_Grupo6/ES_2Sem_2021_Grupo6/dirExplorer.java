@@ -20,6 +20,8 @@ public class dirExplorer {
     private void explore(int level, String path, File file) {
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
+            
+            	//System.out.println("DEBUG : " + path  + child.getName());
                 explore(level + 1, path + "/" + child.getName(), child);
             }
         } else {

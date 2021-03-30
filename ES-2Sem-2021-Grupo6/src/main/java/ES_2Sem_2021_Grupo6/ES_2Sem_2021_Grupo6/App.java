@@ -21,6 +21,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class App 
 {
+	
+	private int sum(int a, int b) {
+		return a+b;
+	}
+	
     public static void main( String[] args ) throws IOException
     {
     	Workbook workbook = new XSSFWorkbook();
