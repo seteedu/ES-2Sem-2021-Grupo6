@@ -14,9 +14,10 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 public class MethodsHandler {
 
 	private static final String FILE_PATH = "C:\\Users\\hugof\\git\\ES-2Sem-2021-Grupo6\\ES-2Sem-2021-Grupo6\\src\\test\\java\\ES_2Sem_2021_Grupo6\\ES_2Sem_2021_Grupo6\\Teste.java";
-	private static int count=0;
 	private static HashMap<String, Integer> linhasMetodos = new HashMap<String, Integer>();
-	private static class MethodNamePrinter extends VoidVisitorAdapter<Void> {
+	
+	
+	private static class Visitor extends VoidVisitorAdapter<Void> {
 
 		@Override
 		public void visit(MethodDeclaration md, Void arg) {
@@ -26,10 +27,7 @@ public class MethodsHandler {
 			linhasMetodos.put(md.getName().toString(),array.length-2);
 			//System.out.println("Method Name Printed: " + md.getBody());
 		}
-	}
-
-	private static class ConstructorNamePrinter extends VoidVisitorAdapter<Void> {
-
+		
 		@Override
 		public void visit(ConstructorDeclaration md, Void arg) {
 			super.visit(md, arg);
@@ -39,13 +37,13 @@ public class MethodsHandler {
 			//System.out.println("Method Name Printed: " + md.getBody());
 			System.out.println("Constructor Name Printed: " + md.getName());
 		}
+		
+		
 	}
 	
 	public static int countMethods() throws FileNotFoundException {
 		CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
-		VoidVisitor<Void> constructorNameVisitor = new ConstructorNamePrinter();
-		VoidVisitor<Void> methodNameVisitor = new MethodNamePrinter();
-		constructorNameVisitor.visit(cu, null);
+		VoidVisitor<Void> methodNameVisitor = new Visitor();
 		methodNameVisitor.visit(cu, null);
 		System.out.println("Foram encontrados: " + linhasMetodos.size() + " métodos.");
 		System.out.println(linhasMetodos);
