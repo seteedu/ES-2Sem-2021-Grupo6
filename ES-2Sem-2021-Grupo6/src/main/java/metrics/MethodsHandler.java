@@ -19,6 +19,7 @@ public class MethodsHandler {
 	
 	private static class Visitor extends VoidVisitorAdapter<Void> {
 
+		//Visit de métodos
 		@Override
 		public void visit(MethodDeclaration md, Void arg) {
 			super.visit(md, arg);
@@ -28,6 +29,7 @@ public class MethodsHandler {
 			//System.out.println("Method Name Printed: " + md.getBody());
 		}
 		
+		//Visit de construtor
 		@Override
 		public void visit(ConstructorDeclaration md, Void arg) {
 			super.visit(md, arg);
