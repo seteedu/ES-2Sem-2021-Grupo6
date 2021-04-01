@@ -24,9 +24,7 @@ public class MethodsHandler {
 		public void visit(MethodDeclaration md, Void arg) {
 			super.visit(md, arg);
 			String[] array =md.getBody().toString().split("\n");
-			//System.out.print("+" + array[1] + "+" + array[array.length-2]);
 			linhasMetodos.put(md.getName().toString(),array.length-2);
-			//System.out.println("Method Name Printed: " + md.getBody());
 		}
 		
 		//Visit de construtor
@@ -34,15 +32,13 @@ public class MethodsHandler {
 		public void visit(ConstructorDeclaration md, Void arg) {
 			super.visit(md, arg);
 			String[] array =md.getBody().toString().split("\n");
-			//System.out.print("+" + array[1] + "+" + array[array.length-2]);
 			linhasMetodos.put(md.getName().toString(),array.length-2);
-			//System.out.println("Method Name Printed: " + md.getBody());
-			System.out.println("Constructor Name Printed: " + md.getName());
 		}
 		
 		
 	}
 	
+	//conta quantos métodos e quantas linhas
 	public static int countMethods() throws FileNotFoundException {
 		CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
 		VoidVisitor<Void> methodNameVisitor = new Visitor();
