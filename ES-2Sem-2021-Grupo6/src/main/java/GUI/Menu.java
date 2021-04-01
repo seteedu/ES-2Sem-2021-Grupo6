@@ -15,6 +15,8 @@ import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.Insets;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -27,7 +29,10 @@ import javax.swing.JSplitPane;
 
 public class Menu extends JFrame {
 	private JTextField textField;
+	private String dc = "";
+
 	public Menu() {
+		
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Utilizador\\git\\ES-2Sem-2021-Grupo6\\ES-2Sem-2021-Grupo6\\iscte_logo.png"));
 		getContentPane().setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -38,49 +43,52 @@ public class Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Projeto ES");
-		lblNewLabel.setBounds(561, 156, 199, 69);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Utilizador\\git\\ES-2Sem-2021-Grupo6\\ES-2Sem-2021-Grupo6\\iscte_logo.png"));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(lblNewLabel);
-
 		JButton btnNewButton = new JButton("Selecione um projeto Java");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				int returnValue = fileChooser.showOpenDialog(null);
 				if(returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = fileChooser.getSelectedFile();
-					System.out.println(selectedFile.getName());
+					dc=selectedFile.getAbsolutePath();
+					textField.setText(dc);
 				}
 			}
 		});
-		btnNewButton.setBounds(487, 256, 168, 43);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		
+		btnNewButton.setBounds(10, 243, 189, 23);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+
 		getContentPane().add(btnNewButton);
-		
+
 		textField = new JTextField();
-		textField.setBounds(665, 262, 199, 30);
+		textField.setBounds(209, 243, 675, 22);
 		textField.setToolTipText("");
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Utilizador\\Desktop\\istaLogo.png"));
-		lblNewLabel_1.setBounds(0, 0, 450, 471);
+		lblNewLabel_1.setBounds(209, -3, 450, 267);
 		getContentPane().add(lblNewLabel_1);
-		
+
 		JButton btnNewButton_1 = new JButton("Extrair métricas");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(!dc.equals("")) {
+					MetricMenu metric = new MetricMenu(dc);
+					metric.setVisible(true);
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(Menu.this,"É necessário selecionar um diretório");
+				}
 			}
 		});
-		btnNewButton_1.setBounds(710, 319, 107, 23);
+		btnNewButton_1.setBounds(11, 277, 188, 23);
 		getContentPane().add(btnNewButton_1);
-		
+
 	}
 
 	public static void main(String[] args) {

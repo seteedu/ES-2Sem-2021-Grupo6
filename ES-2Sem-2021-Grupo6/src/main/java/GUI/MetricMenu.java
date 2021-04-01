@@ -10,9 +10,18 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MetricMenu extends JFrame {
-	public MetricMenu() {
+	
+	private String dc;
+	
+	public MetricMenu(String dc) {
+		this.dc=dc;
+		
+		setResizable(false);
+		setSize(900,500);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Número de packages");
@@ -26,6 +35,12 @@ public class MetricMenu extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("VER EXCEL");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(dc);
+			}
+		});
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton.setBackground(Color.WHITE);
@@ -80,9 +95,9 @@ public class MetricMenu extends JFrame {
 		lblNewLabel_8.setBounds(629, 388, 192, 14);
 		getContentPane().add(lblNewLabel_8);
 	}
-	
-	public static void main(String[] args) {
-		new MetricMenu().setVisible(true);
+
+	private String getDirectory() {
+		return dc;
 	}
 	
 }
