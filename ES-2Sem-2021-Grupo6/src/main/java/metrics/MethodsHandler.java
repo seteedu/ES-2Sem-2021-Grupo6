@@ -53,6 +53,11 @@ public class MethodsHandler {
 	}
 	
 	
+	public ArrayList<Pair<String, Integer>> getPair(){
+		return list;
+	}
+	
+	
 	/*
 	public static void main(String[] args) throws FileNotFoundException {
 		countMethods();

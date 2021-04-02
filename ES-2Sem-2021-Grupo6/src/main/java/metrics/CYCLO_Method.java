@@ -2,6 +2,7 @@ package metrics;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -19,6 +20,8 @@ public class CYCLO_Method {
 
 	private static final String FILE_PATH = "C:\\Users\\samum\\eclipse-workspace\\Teste\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java";
 	private static int count = 1;
+	
+	private static ArrayList<Integer> nCycle = new ArrayList<>();
 
 	private static class Visitor extends VoidVisitorAdapter<Void> {
 
@@ -35,22 +38,25 @@ public class CYCLO_Method {
 
 		}
 		
+		@Override 
 		public void visit(SwitchStmt md, Void arg) {
 			super.visit(md, arg);
-			count = count + md.getEntries().size();
-			
+			count = count + md.getEntries().size();	
 		}
 		
+		@Override
 		public void visit(WhileStmt md, Void arg) {
 			super.visit(md, arg);
 			count++;
 		}
 		
+		@Override
 		public void visit(ForEachStmt md, Void arg) {
 			super.visit(md, arg);
 			count++;
 		}
 		
+		@Override
 		public void visit(DoStmt md, Void arg) {
 			super.visit(md, arg);
 			count++;
@@ -66,6 +72,7 @@ public class CYCLO_Method {
 				VoidVisitor<Void> cycloVisitor = new Visitor();
 				System.out.println("Method name: " +md.getName());
 				cycloVisitor.visit(md, null);
+				nCycle.add(count);
 				System.out.println("Count : " +count);
 				
 			}
@@ -79,9 +86,14 @@ public class CYCLO_Method {
 		//System.out.println("Total: " + count);
 
 	}
-	/*
-	public static void main(String[] args) throws FileNotFoundException {
-		countCyclo();
+	
+	public static ArrayList<Integer> getNCycles(){
+		return nCycle;
 	}
-	*/
+	
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		countCyclo("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java");
+	}
+	
 }
