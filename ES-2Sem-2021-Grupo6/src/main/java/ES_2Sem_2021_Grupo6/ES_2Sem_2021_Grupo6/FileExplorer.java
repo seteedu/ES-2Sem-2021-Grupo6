@@ -8,7 +8,6 @@ public class FileExplorer {
         File dir = new File("C:\\Users\\hugof\\git\\ES-2Sem-2021-Grupo6");
         showFiles(dir.listFiles());
     }
-	
 	public static void showFiles(File[] files) throws IOException {
         for (File file : files) {
             if (file.isDirectory()) {
