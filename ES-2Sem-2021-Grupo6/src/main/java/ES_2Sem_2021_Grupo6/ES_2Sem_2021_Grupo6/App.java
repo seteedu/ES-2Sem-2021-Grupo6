@@ -21,13 +21,31 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class App 
 {
+	private static Workbook workbook;
 	
-	private int sum(int a, int b) {
-		return a+b;
-	}
-	
-    public static void main( String[] args ) throws IOException
+    public App ( String file ) throws IOException
     {
+    	
+    	
+    	File currDir = new File(".");
+    	String path = currDir.getAbsolutePath();
+    	String fileLocation = path.substring(0, path.length() - 1) + "temp.xlsx";
+
+    	FileOutputStream outputStream;
+		
+    	try {
+			outputStream = new FileOutputStream(fileLocation);
+			workbook.write(outputStream);
+			workbook.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+    }
+    
+    public void preparingTemplate() {
     	Workbook workbook = new XSSFWorkbook();
 
     	Sheet sheet = workbook.createSheet("Persons");
@@ -65,41 +83,8 @@ public class App
     	cell = row.createCell(1);
     	cell.setCellValue(20);
     	cell.setCellStyle(style);
-    	
-    	File currDir = new File(".");
-    	String path = currDir.getAbsolutePath();
-    	String fileLocation = path.substring(0, path.length() - 1) + "temp.xlsx";
-
-    	FileOutputStream outputStream;
-		try {
-			outputStream = new FileOutputStream(fileLocation);
-			workbook.write(outputStream);
-			workbook.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		/*asdfsadadsfadsfadsfasdfadsfasssssasddads
-		 * 
-		 * adsf
-		 * asd
-		 * fa
-		 * dsf
-		 * ads
-		 * f
-		 * ad
-		 * fa
-		 * dsf
-		 * asd
-		 * f
-		 * adf
-		 * a
-		 * df
-		 * a
-		 * dsf
-		 * a
-		 * dsf
-		 * */
+    
     }
+    
+    
 }

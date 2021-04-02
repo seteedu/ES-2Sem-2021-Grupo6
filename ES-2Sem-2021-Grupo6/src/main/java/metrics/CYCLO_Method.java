@@ -72,16 +72,16 @@ public class CYCLO_Method {
 		}
 
 
-	public static void countCyclo() throws FileNotFoundException {
-		CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
+	public static void countCyclo(String s) throws FileNotFoundException {
+		CompilationUnit cu = StaticJavaParser.parse(new File(s));
 		VoidVisitor<Void> methodVisitor = new VisitorMethod();
 		methodVisitor.visit(cu, null);
 		//System.out.println("Total: " + count);
 
 	}
-	
+	/*
 	public static void main(String[] args) throws FileNotFoundException {
 		countCyclo();
 	}
-
+	*/
 }
