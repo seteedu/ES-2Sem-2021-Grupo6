@@ -9,16 +9,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+
+import ES_2Sem_2021_Grupo6.ES_2Sem_2021_Grupo6.FileHandler;
+
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 
 public class MetricMenu extends JFrame {
 	
-	private String dc;
 	
-	public MetricMenu(String dc) {
-		this.dc=dc;
+	
+	public MetricMenu(FileHandler fh) {
+		
 		
 		setResizable(false);
 		setSize(900,500);
@@ -38,7 +43,6 @@ public class MetricMenu extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(dc);
 			}
 		});
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -68,36 +72,33 @@ public class MetricMenu extends JFrame {
 		getContentPane().add(lblNewLabel_4);
 		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\Utilizador\\Desktop\\istaLogo.png"));
 		
-		JLabel lblNewLabel_5 = new JLabel("0");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setToolTipText("");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_5.setForeground(Color.BLACK);
-		lblNewLabel_5.setBackground(Color.WHITE);
-		lblNewLabel_5.setBounds(629, 268, 192, 14);
-		getContentPane().add(lblNewLabel_5);
+		JLabel numPackages = new JLabel("0");
+		numPackages.setHorizontalAlignment(SwingConstants.CENTER);
+		numPackages.setToolTipText("");
+		numPackages.setFont(new Font("Tahoma", Font.BOLD, 14));
+		numPackages.setForeground(Color.BLACK);
+		numPackages.setBackground(Color.WHITE);
+		numPackages.setBounds(629, 268, 192, 14);
+		getContentPane().add(numPackages);
 		
-		JLabel lblNewLabel_6 = new JLabel("0");
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_6.setBounds(629, 308, 192, 14);
-		getContentPane().add(lblNewLabel_6);
+		JLabel numClasses = new JLabel("0");
+		numClasses.setHorizontalAlignment(SwingConstants.CENTER);
+		numClasses.setFont(new Font("Tahoma", Font.BOLD, 14));
+		numClasses.setBounds(629, 308, 192, 14);
+		getContentPane().add(numClasses);
 		
-		JLabel lblNewLabel_7 = new JLabel("0");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_7.setBounds(629, 348, 192, 14);
-		getContentPane().add(lblNewLabel_7);
+		JLabel nomSumTotalLabel = new JLabel(String.valueOf(fh.getNomSumTotal()));
+		nomSumTotalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nomSumTotalLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		nomSumTotalLabel.setBounds(629, 348, 192, 14);
+		getContentPane().add(nomSumTotalLabel);
 		
-		JLabel lblNewLabel_8 = new JLabel("0");
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_8.setBounds(629, 388, 192, 14);
-		getContentPane().add(lblNewLabel_8);
+		JLabel locSumTotalLabel = new JLabel(String.valueOf(fh.getLocSumTotal()));
+		locSumTotalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		locSumTotalLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		locSumTotalLabel.setBounds(629, 388, 192, 14);
+		getContentPane().add(locSumTotalLabel);
 	}
 
-	private String getDirectory() {
-		return dc;
-	}
 	
 }

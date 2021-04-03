@@ -9,6 +9,17 @@ public class Result {
 	private int wmc;
 	private int locm;
 	private int cyclom;
+	
+	public Result(String package1, String class1, String method1, int nom, int loc, int wmc, int locm, int cyclom){
+		this.package1=package1;
+		this.class1=class1;
+		this.method1=method1;
+		this.nom=nom;
+		this.loc=loc;
+		this.wmc=wmc;
+		this.locm=locm;
+		this.cyclom=cyclom;
+	}
 		
 	public String getPackage1(){
 		return package1;

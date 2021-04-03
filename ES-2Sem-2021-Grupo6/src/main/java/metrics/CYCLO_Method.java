@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.stmt.DoStmt;
 import com.github.javaparser.ast.stmt.ForEachStmt;
@@ -15,6 +16,7 @@ import com.github.javaparser.ast.stmt.SwitchStmt;
 import com.github.javaparser.ast.stmt.WhileStmt;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.utils.Pair;
 
 public class CYCLO_Method {
 
@@ -75,6 +77,15 @@ public class CYCLO_Method {
 				nCycle.add(count);
 				System.out.println("Count : " +count);
 				
+			}
+			@Override
+			public void visit(ConstructorDeclaration md, Void arg) {
+				super.visit(md, arg);
+				VoidVisitor<Void> cycloVisitor = new Visitor();
+				System.out.println("Method name: " +md.getName());
+				cycloVisitor.visit(md, null);
+				nCycle.add(count);
+				System.out.println("Count : " +count);
 			}
 		}
 
