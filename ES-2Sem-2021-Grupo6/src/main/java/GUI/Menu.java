@@ -13,6 +13,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
+
+import ES_2Sem_2021_Grupo6.ES_2Sem_2021_Grupo6.FileHandler;
+
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,6 +23,8 @@ import javax.swing.JOptionPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JTextField;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -78,9 +83,19 @@ public class Menu extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!dc.equals("")) {
-					MetricMenu metric = new MetricMenu(dc);
-					metric.setVisible(true);
-					dispose();
+					try {
+						FileHandler fh = new FileHandler();
+						fh.handler(dc);
+						MetricMenu metric = new MetricMenu(fh);
+						metric.setVisible(true);
+						dispose();
+
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
 				}else {
 					JOptionPane.showMessageDialog(Menu.this,"É necessário selecionar um diretório");
 				}
