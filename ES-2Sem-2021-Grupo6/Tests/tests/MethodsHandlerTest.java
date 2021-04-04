@@ -21,6 +21,7 @@ class MethodsHandlerTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
+	
 
 	/**
 	 * @throws java.lang.Exception

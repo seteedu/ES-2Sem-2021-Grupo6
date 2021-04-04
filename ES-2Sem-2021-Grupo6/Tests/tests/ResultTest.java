@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
  * @author setee
  *
  */
+
 class ResultTest {
 
 	/**
@@ -52,6 +53,7 @@ class ResultTest {
 	void testGetClass1() {
 		fail("Not yet implemented");
 	}
+	
 
 	/**
 	 * Test method for {@link Metrics.Result#getMethod1()}.

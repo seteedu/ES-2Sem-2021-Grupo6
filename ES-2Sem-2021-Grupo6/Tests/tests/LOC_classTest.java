@@ -38,6 +38,7 @@ class LOC_classTest {
 	}
 
 	/**
+	 *
 	 * Test method for {@link Metrics.LOC_class#getLines()}.
 	 */
 	@Test
