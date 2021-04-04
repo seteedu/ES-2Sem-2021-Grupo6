@@ -1,4 +1,4 @@
-package ES_2Sem_2021_Grupo6.ES_2Sem_2021_Grupo6;
+package Main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,10 +15,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/**
- * Hello world!
- *
- */
+
+
 public class App 
 {
 	private static Workbook workbook;
@@ -72,10 +70,6 @@ public class App
 		
     }
   
-    /*
-    public static void main (String[] args) throws IOException {
-    	App app = new App();
-    }
-    */
+  
     
 }

@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
-import ES_2Sem_2021_Grupo6.ES_2Sem_2021_Grupo6.FileHandler;
+import Main.FileHandler;
 
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;

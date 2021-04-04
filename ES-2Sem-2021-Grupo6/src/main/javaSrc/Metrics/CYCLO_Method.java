@@ -1,4 +1,4 @@
-package metrics;
+package Metrics;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +20,6 @@ import com.github.javaparser.utils.Pair;
 
 public class CYCLO_Method {
 
-	private static final String FILE_PATH = "C:\\Users\\samum\\eclipse-workspace\\Teste\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java";
 	private static int count = 1;
 	
 	private static ArrayList<Integer> nCycle = new ArrayList<>();
@@ -89,22 +88,24 @@ public class CYCLO_Method {
 			}
 		}
 
-
 	public static void countCyclo(String s) throws FileNotFoundException {
 		CompilationUnit cu = StaticJavaParser.parse(new File(s));
 		VoidVisitor<Void> methodVisitor = new VisitorMethod();
 		methodVisitor.visit(cu, null);
-		//System.out.println("Total: " + count);
 
 	}
 	
 	public static ArrayList<Integer> getNCycles(){
 		return nCycle;
-	}
+	}	
 	
-	
-	public static void main(String[] args) throws FileNotFoundException {
-		countCyclo("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java");
+	public static void main (String[]args) {
+		try {
+			countCyclo("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
