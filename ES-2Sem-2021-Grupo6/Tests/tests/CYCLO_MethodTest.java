@@ -45,6 +45,7 @@ class CYCLO_MethodTest {
 		Collections.addAll(nCyclesB, 1, 1, 1, 1, 1, 6);
 	}	
 
+	
 	/**
 	 * Test method for {@link Metrics.CYCLO_Method#getNCycles()}.
 	 * @throws FileNotFoundException 
