@@ -1,13 +1,13 @@
-package ES_2Sem_2021_Grupo6.ES_2Sem_2021_Grupo6;
+package Main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import GUI.MetricMenu;
-import metrics.CYCLO_Method;
-import metrics.LOC_class;
-import metrics.MethodsHandler;
+import Metrics.CYCLO_Method;
+import Metrics.LOC_class;
+import Metrics.MethodsHandler;
 
 public class FileHandler {
 	

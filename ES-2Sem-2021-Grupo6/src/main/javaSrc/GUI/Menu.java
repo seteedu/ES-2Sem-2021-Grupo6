@@ -14,7 +14,7 @@ import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 
-import ES_2Sem_2021_Grupo6.ES_2Sem_2021_Grupo6.FileHandler;
+import Main.FileHandler;
 
 import java.awt.Insets;
 import javax.swing.JLabel;

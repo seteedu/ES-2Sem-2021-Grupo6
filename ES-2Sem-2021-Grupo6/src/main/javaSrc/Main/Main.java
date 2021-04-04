@@ -1,11 +1,11 @@
-package ES_2Sem_2021_Grupo6.ES_2Sem_2021_Grupo6;
+package Main;
 
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import metrics.*;
+import Metrics.*;
 
 
 public class Main {
@@ -42,7 +42,7 @@ public class Main {
 				locSum=loc;
 				locmSum+=locm;
 				cycloSum+=cyclo;
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAA" + locSum);
+				System.out.println("Número de linhas:" + locSum);
 				Result result = new Result(namePackage, nameClass, nameMethod, nom, loc, locm, 1 ,cyclo);
 				results.add(result);
 			}
