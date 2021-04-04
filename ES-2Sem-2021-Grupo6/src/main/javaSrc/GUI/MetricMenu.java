@@ -70,9 +70,9 @@ public class MetricMenu extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setBounds(392, 11, 429, 195);
 		getContentPane().add(lblNewLabel_4);
-		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\Utilizador\\Desktop\\istaLogo.png"));
+		lblNewLabel_4.setIcon(new ImageIcon(MetricMenu.class.getResource("/GUI/istaLogo.png")));
 		
-		JLabel numPackages = new JLabel("0");
+		JLabel numPackages = new JLabel(String.valueOf(fh.getPackageTotal()));
 		numPackages.setHorizontalAlignment(SwingConstants.CENTER);
 		numPackages.setToolTipText("");
 		numPackages.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -81,7 +81,7 @@ public class MetricMenu extends JFrame {
 		numPackages.setBounds(629, 268, 192, 14);
 		getContentPane().add(numPackages);
 		
-		JLabel numClasses = new JLabel("0");
+		JLabel numClasses = new JLabel(String.valueOf(fh.getClassTotal()));
 		numClasses.setHorizontalAlignment(SwingConstants.CENTER);
 		numClasses.setFont(new Font("Tahoma", Font.BOLD, 14));
 		numClasses.setBounds(629, 308, 192, 14);

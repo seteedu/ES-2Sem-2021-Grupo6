@@ -13,8 +13,8 @@ public class FileHandler {
 	
 	private static int nomSumTotal;
 	private static int locSumTotal;
-	private static int locmSumTotal; //MUDAR PARA NUMERO DE PACKAGES
-	private static int cycloSumTotal; //MUDAR PARA NUMERO DE CLASSES
+	private static int package_total;
+	private static int class_total;
 
 	
 	public static int getNomSumTotal() {
@@ -27,13 +27,13 @@ public class FileHandler {
 	}
 
 
-	public static int getLocmSumTotal() {
-		return locmSumTotal;
+	public static int getPackageTotal() {
+		return package_total;
 	}
 
 
-	public static int getCycloSumTotal() {
-		return cycloSumTotal;
+	public static int getClassTotal() {
+		return class_total;
 	}
 
 
@@ -45,14 +45,14 @@ public class FileHandler {
 		for (File f: list) {
 			if (f.isDirectory()) {
 				handler( f.getAbsolutePath());
+				package_total++;
 			}
 			else if (f.getPath().endsWith(".java")) {
 				Main main = new Main();
 				main.main(f.getAbsolutePath());
 				nomSumTotal+=main.getNomSum();
 				locSumTotal+=main.getLocSum();
-				
-				
+				class_total++;
 			}
 		}
 		
