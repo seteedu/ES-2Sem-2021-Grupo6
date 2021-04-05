@@ -14,6 +14,9 @@ import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 import Main.FileHandler;
 
 import java.awt.Insets;
@@ -91,6 +94,12 @@ public class Menu extends JFrame {
 						dispose();
 
 					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (EncryptedDocumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvalidFormatException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
