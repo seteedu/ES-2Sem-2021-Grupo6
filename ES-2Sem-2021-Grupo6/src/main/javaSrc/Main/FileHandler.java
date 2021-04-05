@@ -18,9 +18,9 @@ public class FileHandler {
 
 	private static int nomSumTotal;
 	private static int locSumTotal;
-	private static int locmSumTotal; // MUDAR PARA NUMERO DE PACKAGES
-	private static int cycloSumTotal; // MUDAR PARA NUMERO DE CLASSES
 	private static ArrayList<Result> result = new ArrayList<Result>();
+	private static int package_total;
+	private static int class_total;
 	
 	public static int getNomSumTotal() {
 		return nomSumTotal;
@@ -30,12 +30,13 @@ public class FileHandler {
 		return locSumTotal;
 	}
 
-	public static int getLocmSumTotal() {
-		return locmSumTotal;
+	public static int getPackageTotal() {
+		return package_total;
 	}
 
-	public static int getCycloSumTotal() {
-		return cycloSumTotal;
+
+	public static int getClassTotal() {
+		return class_total;
 	}
 	
 	
@@ -60,7 +61,4 @@ public class FileHandler {
 		}
 
 	}
-
-	
-
 }

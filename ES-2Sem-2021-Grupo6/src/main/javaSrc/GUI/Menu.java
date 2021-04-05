@@ -77,7 +77,7 @@ public class Menu extends JFrame {
 		textField.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Utilizador\\Desktop\\istaLogo.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/GUI/istaLogo.png")));
 		lblNewLabel_1.setBounds(209, -3, 450, 267);
 		getContentPane().add(lblNewLabel_1);
 
