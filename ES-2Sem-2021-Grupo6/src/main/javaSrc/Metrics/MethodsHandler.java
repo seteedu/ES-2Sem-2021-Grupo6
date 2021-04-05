@@ -15,7 +15,6 @@ import com.github.javaparser.utils.Pair;
 
 public class MethodsHandler {
 
-	private static final String FILE_PATH = "C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\GrammerException.java";
 	private static ArrayList<Pair<String,Integer>> list = new ArrayList<>(); 
 	
 	private static class Visitor extends VoidVisitorAdapter<Void> {
@@ -43,6 +42,7 @@ public class MethodsHandler {
 	
 	//conta quantos métodos e quantas linhas
 	public static int countMethods(String s) throws FileNotFoundException {
+		list.clear();
 		CompilationUnit cu = StaticJavaParser.parse(new File(s));
 		VoidVisitor<Void> methodNameVisitor = new Visitor();
 		methodNameVisitor.visit(cu, null);
@@ -58,10 +58,10 @@ public class MethodsHandler {
 	}
 	
 	
-	/*
+	
 	public static void main(String[] args) throws FileNotFoundException {
-		countMethods();
+		countMethods("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
 	}
-	*/
+	
 
 }

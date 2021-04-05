@@ -2,7 +2,6 @@ package Main;
 
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import Metrics.*;
@@ -10,40 +9,33 @@ import Metrics.*;
 
 public class Main {
 	
-	private static final String JAVA_PATH = "C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\GrammerException.java";
-	private static final String FILE_PATH = "C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles";
-	
-	private static ArrayList<Result> results = new ArrayList<>();
-	private static int nomSum;
-	private static int locSum;
-	private static int locmSum;
-	private static int cycloSum;
+	private ArrayList<Result> results = new ArrayList<>(); //array that transports the lines for excel
+	private int nomSum;	//total of methods in a class
+	private int locSum;	//total of lines in a class
+	private int wmcSum;	//total of complexity in a class
 	
 
 	
 	public void main (String path) {
-		CYCLO_Method cm = new CYCLO_Method();
-		LOC_class lc = new LOC_class();
 		MethodsHandler mh = new MethodsHandler();
 		
 		try {
-			cm.countCyclo(path);
-			lc.countLines(path);
-			mh.countMethods(path);
+			CYCLO_Method.countCyclo(path);
+			LOC_class.countLines(path);
+			MethodsHandler.countMethods(path);
+			for ( Integer c : CYCLO_Method.getNCycles() )
+				wmcSum += c;
 			for(int i = 0; i < mh.getPair().size(); i++) {
-				String namePackage ="packagem";
-				String nameClass = lc.nameClass();
+				String namePackage =LOC_class.getNamePackage();
+				String nameClass = LOC_class.getNameClass();
 				String nameMethod = mh.getPair().get(i).a;
 				int nom = mh.getPair().size();
-				int loc = lc.getLines().size();
+				int loc = LOC_class.getLines();
 				int locm = mh.getPair().get(i).b;
-				int cyclo = cm.getNCycles().get(i);
+				int cyclo = CYCLO_Method.getNCycles().get(i);
 				nomSum=nom;
 				locSum=loc;
-				locmSum+=locm;
-				cycloSum+=cyclo;
-				System.out.println("Número de linhas:" + locSum);
-				Result result = new Result(namePackage, nameClass, nameMethod, nom, loc, locm, 1 ,cyclo);
+				Result result = new Result(namePackage, nameClass, nameMethod, nom, loc, locm, wmcSum ,cyclo);	//creating the result for each method
 				results.add(result);
 			}
 			
@@ -55,27 +47,19 @@ public class Main {
 	}
 	
 	
-	
-	 public static ArrayList<Result> getResults(){
+	//used in FileHandler to get the results from each class
+	 public ArrayList<Result> getResults(){
 	  		return results;
 	 }
 	 
-	 public int getNomSum() {
+	//used in FileHandler to get the total of methods in each class
+	public int getNomSum() {
 			return nomSum;
-		}
-		public int getLocSum() {
-			return locSum;
-		}
-//		public int getWmcSum() {
-//			return wmcSum;
-//		}
-		public int getLocmSum() {
-			return locmSum;
-		}
-		public int getCycloSum() {
-			return cycloSum;
-		}
-	
+	}
 	 
+	//used in FileHandler to get the total of lines in each class
+	public int getLocSum() {
+			return locSum;
+	}
 	
 }

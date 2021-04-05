@@ -87,19 +87,12 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!dc.equals("")) {
 					try {
-						FileHandler fh = new FileHandler();
-						fh.handler(dc);
+						FileHandler fh = new FileHandler(dc);
 						MetricMenu metric = new MetricMenu(fh);
 						metric.setVisible(true);
 						dispose();
 
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					} catch (EncryptedDocumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InvalidFormatException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

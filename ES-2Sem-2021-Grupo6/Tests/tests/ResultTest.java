@@ -8,11 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Metrics.CYCLO_Method;
+import Metrics.Result;
+
 
 /**
  * @author setee
@@ -20,43 +22,22 @@ import Metrics.CYCLO_Method;
  */
 
 class ResultTest {
-	CYCLO_Method b;
-	static ArrayList<Integer> nCyclesB;
+	private static Result a;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		CYCLO_Method b = new CYCLO_Method();
-		nCyclesB = new ArrayList<Integer>();
+		a = new Result ("package", "class", "metodo", 1, 2, 3, 4, 5);
 	}
-
-	
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeEach
-	void setUp() throws Exception {
-		b.countCyclo("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
-		Collections.addAll(nCyclesB, 1, 1, 1, 1, 1, 6);
-	}
-
-	
-	/**
-	 * Test method for {@link Metrics.Result#Result(java.lang.String, java.lang.String, java.lang.String, int, int, int, int, int)}.
-	 */
-	@Test
-	void testResult() {
-		fail("Not yet implemented");
-	}
-
-	
+		
 	/**
 	 * Test method for {@link Metrics.Result#getPackage1()}.
 	 */
 	@Test
 	void testGetPackage1() {
-		fail("Not yet implemented");
+		Assertions.assertEquals("package", a.getPackage1());
 	}
 
 	
@@ -65,7 +46,7 @@ class ResultTest {
 	 */
 	@Test
 	void testGetClass1() {
-		fail("Not yet implemented");
+		Assertions.assertEquals("class", a.getClass1());
 	}
 	
 
@@ -75,7 +56,7 @@ class ResultTest {
 	 */
 	@Test
 	void testGetMethod1() {
-		fail("Not yet implemented");
+		Assertions.assertEquals("metodo", a.getMethod1());
 	}
 
 	
@@ -84,7 +65,7 @@ class ResultTest {
 	 */
 	@Test
 	void testGetNom() {
-		fail("Not yet implemented");
+		Assertions.assertEquals(1, a.getNom());
 	}
 
 	
@@ -93,7 +74,7 @@ class ResultTest {
 	 */
 	@Test
 	void testGetLoc() {
-		fail("Not yet implemented");
+		Assertions.assertEquals(2, a.getLoc());
 	}
 
 	
@@ -102,7 +83,7 @@ class ResultTest {
 	 */
 	@Test
 	void testGetWmc() {
-		fail("Not yet implemented");
+		Assertions.assertEquals(3, a.getWmc());
 	}
 
 	
@@ -111,7 +92,7 @@ class ResultTest {
 	 */
 	@Test
 	void testGetLocm() {
-		fail("Not yet implemented");
+		Assertions.assertEquals(4, a.getLocm());
 	}
 
 	/**
@@ -119,7 +100,7 @@ class ResultTest {
 	 */
 	@Test
 	void testGetCyclom() {
-		fail("Not yet implemented");
+		Assertions.assertEquals(5, a.getCyclom());
 	}
 
 }
