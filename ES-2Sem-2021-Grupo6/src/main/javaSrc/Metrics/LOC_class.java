@@ -14,14 +14,13 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class LOC_class {
 
-	private static ArrayList<String> copyArray = new ArrayList<String>();
-	private static String nameClass;
-	
-	
+	private static ArrayList<String> copyArray = new ArrayList<String>();	//transforms the String[] returned from visitor to ArrayList in order to ease the text formatation 
+	private static String nameClass;	//stores the class name
+	private static String namePackage;
 	
 	private static class Visitor extends VoidVisitorAdapter<Void> {
 
-		//Visit de métodos
+		//Visitor searches for Classes or Interfaces
 		@Override
 		public void visit(ClassOrInterfaceDeclaration md, Void arg) {
 			super.visit(md, arg);
@@ -36,29 +35,33 @@ public class LOC_class {
 						copyArray.remove(i);
 				}
 				System.out.println(copyArray.size());
+				System.out.println(nameClass);
 			}
 		}
 	}
 	
-	//conta quantos métodos e quantas linhas
-		public static int countLines(String s) throws FileNotFoundException {
+	//method that starts the visitor
+	public static void countLines(String s) throws FileNotFoundException {
+			copyArray.clear();
 			CompilationUnit cu = StaticJavaParser.parse(new File(s));
+			namePackage = cu.getPackageDeclaration().toString();
 			VoidVisitor<Void> methodNameVisitor = new Visitor();
 			methodNameVisitor.visit(cu, null);
+	}
+	
+	//used in Main to get the number of lines in each class
+	public static int getLines(){
 			return copyArray.size();
-		}
-	
-		public static ArrayList<String> getLines(){
-			return copyArray;
-		}
+	}
 		
-		public static String nameClass () {
-			return nameClass;
-		}
 	
-		public static void main(String[] args) throws FileNotFoundException {
-			countLines("C:\\Users\\hugof\\OneDrive - ISCTE-IUL\\3ºAno\\2º Semestre\\ES\\Projeto\\Teste\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
-		}
+	public static String getNameClass () {
+			return nameClass;
+	}
+	
+	public static String getNamePackage() {
+		return namePackage;
+	}
 
 	
 }

@@ -25,14 +25,14 @@ import Metrics.CYCLO_Method;
  */
 class CYCLO_MethodTest {
 
-	CYCLO_Method b;
-	static ArrayList<Integer> nCyclesB;
+	private static CYCLO_Method b;
+	private static ArrayList<Integer> nCyclesB;
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		CYCLO_Method b = new CYCLO_Method();
+		b = new CYCLO_Method();
 		nCyclesB = new ArrayList<Integer>();
 	}
 
