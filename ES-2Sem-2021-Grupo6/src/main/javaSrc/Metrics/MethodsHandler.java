@@ -15,7 +15,7 @@ import com.github.javaparser.utils.Pair;
 
 public class MethodsHandler {
 
-	private static ArrayList<Pair<String,Integer>> list = new ArrayList<>(); 
+	private static ArrayList<Pair<String,Integer>> list;
 	
 	private static class Visitor extends VoidVisitorAdapter<Void> {
 
@@ -41,8 +41,8 @@ public class MethodsHandler {
 	}
 	
 	//conta quantos métodos e quantas linhas
-	public static int countMethods(String s) throws FileNotFoundException {
-		list.clear();
+	public int countMethods(String s) throws FileNotFoundException {
+		list = new ArrayList<>(); 
 		CompilationUnit cu = StaticJavaParser.parse(new File(s));
 		VoidVisitor<Void> methodNameVisitor = new Visitor();
 		methodNameVisitor.visit(cu, null);
@@ -56,12 +56,4 @@ public class MethodsHandler {
 	public ArrayList<Pair<String, Integer>> getPair(){
 		return list;
 	}
-	
-	
-	
-	public static void main(String[] args) throws FileNotFoundException {
-		countMethods("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
-	}
-	
-
 }

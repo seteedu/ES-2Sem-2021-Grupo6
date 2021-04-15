@@ -14,7 +14,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class LOC_class {
 
-	private static ArrayList<String> copyArray = new ArrayList<String>();	//transforms the String[] returned from visitor to ArrayList in order to ease the text formatation 
+	private static ArrayList<String> copyArray;	//transforms the String[] returned from visitor to ArrayList in order to ease the text formatation 
 	private static String nameClass;	//stores the class name
 	private static String namePackage;
 	
@@ -41,8 +41,8 @@ public class LOC_class {
 	}
 	
 	//method that starts the visitor
-	public static void countLines(String s) throws FileNotFoundException {
-			copyArray.clear();
+	public void countLines(String s) throws FileNotFoundException {
+			copyArray = new ArrayList<String>();
 			CompilationUnit cu = StaticJavaParser.parse(new File(s));
 			namePackage = cu.getPackageDeclaration().toString();
 			VoidVisitor<Void> methodNameVisitor = new Visitor();

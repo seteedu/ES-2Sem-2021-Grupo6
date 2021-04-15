@@ -18,11 +18,12 @@ public class Main {
 	
 	public void main (String path) {
 		MethodsHandler mh = new MethodsHandler();
-		
+		LOC_class lc = new LOC_class();
+		CYCLO_Method cm = new CYCLO_Method();
 		try {
-			CYCLO_Method.countCyclo(path);
-			LOC_class.countLines(path);
-			MethodsHandler.countMethods(path);
+			cm.countCyclo(path);
+			lc.countLines(path);
+			mh.countMethods(path);
 			for ( Integer c : CYCLO_Method.getNCycles() )
 				wmcSum += c;
 			for(int i = 0; i < mh.getPair().size(); i++) {
