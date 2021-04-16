@@ -50,16 +50,16 @@ public class LOC_class {
 	}
 	
 	//used in Main to get the number of lines in each class
-	public static int getLines(){
+	public int getLines(){
 			return copyArray.size();
 	}
 		
 	
-	public static String getNameClass () {
+	public String getNameClass () {
 			return nameClass;
 	}
 	
-	public static String getNamePackage() {
+	public String getNamePackage() {
 		return namePackage;
 	}
 

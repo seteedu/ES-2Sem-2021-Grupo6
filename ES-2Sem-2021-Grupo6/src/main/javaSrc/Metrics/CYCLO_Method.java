@@ -104,7 +104,7 @@ public class CYCLO_Method {
 	}
 	
 	//used in Main to get the total of complexity in each class
-	public static ArrayList<Integer> getNCycles(){
+	public ArrayList<Integer> getNCycles(){
 		return nCycle;
 	}	
 }
