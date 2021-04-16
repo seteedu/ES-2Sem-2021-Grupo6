@@ -20,7 +20,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 public class CYCLO_Method {
 
 	private static int count = 1; //count of complexity always starts at one
-	private static ArrayList<Integer> nCycle = new ArrayList<>();	//store the number of complexity in each method
+	private static ArrayList<Integer> nCycle;	//store the number of complexity in each method
 
 	private static class Visitor extends VoidVisitorAdapter<Void> {
 
@@ -96,15 +96,15 @@ public class CYCLO_Method {
 		}
 
 	//method that starts the visitors 
-	public static void countCyclo(String s) throws FileNotFoundException {
-		nCycle.clear();
+	public void countCyclo(String s) throws FileNotFoundException {
+		nCycle= new ArrayList<>();
 		CompilationUnit cu = StaticJavaParser.parse(new File(s));
 		VoidVisitor<Void> methodVisitor = new VisitorMethod();
 		methodVisitor.visit(cu, null);
 	}
 	
 	//used in Main to get the total of complexity in each class
-	public static ArrayList<Integer> getNCycles(){
+	public ArrayList<Integer> getNCycles(){
 		return nCycle;
 	}	
 }

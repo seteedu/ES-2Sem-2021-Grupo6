@@ -18,21 +18,22 @@ public class Main {
 	
 	public void main (String path) {
 		MethodsHandler mh = new MethodsHandler();
-		
+		LOC_class lc = new LOC_class();
+		CYCLO_Method cm = new CYCLO_Method();
 		try {
-			CYCLO_Method.countCyclo(path);
-			LOC_class.countLines(path);
-			MethodsHandler.countMethods(path);
-			for ( Integer c : CYCLO_Method.getNCycles() )
+			cm.countCyclo(path);
+			lc.countLines(path);
+			mh.countMethods(path);
+			for ( Integer c : cm.getNCycles() )
 				wmcSum += c;
 			for(int i = 0; i < mh.getPair().size(); i++) {
-				String namePackage =LOC_class.getNamePackage();
-				String nameClass = LOC_class.getNameClass();
+				String namePackage =lc.getNamePackage();
+				String nameClass = lc.getNameClass();
 				String nameMethod = mh.getPair().get(i).a;
 				int nom = mh.getPair().size();
-				int loc = LOC_class.getLines();
+				int loc = lc.getLines();
 				int locm = mh.getPair().get(i).b;
-				int cyclo = CYCLO_Method.getNCycles().get(i);
+				int cyclo = cm.getNCycles().get(i);
 				nomSum=nom;
 				locSum=loc;
 				Result result = new Result(namePackage, nameClass, nameMethod, nom, loc, locm, wmcSum ,cyclo);	//creating the result for each method
