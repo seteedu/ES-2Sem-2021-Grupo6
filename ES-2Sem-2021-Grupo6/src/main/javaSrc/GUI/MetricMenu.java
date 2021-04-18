@@ -2,28 +2,37 @@ package GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import Main.FileHandler;
 
 import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JTable;
 
 
 public class MetricMenu extends JFrame {
-	
-	
-	
+	private JTable table;
+	 static JFileChooser jChooser;
+
+	 static DefaultTableModel model = null;
+	 static int tableWidth = 0; // set the tableWidth
+	 static int tableHeight = 0; // set the tableHeight
+	 static JScrollPane scroll;
 	public MetricMenu(FileHandler fh) {
-		
 		
 		setResizable(false);
 		setSize(900,500);
@@ -40,17 +49,35 @@ public class MetricMenu extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("VER EXCEL");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		btnNewButton.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.showOpenDialog(null);
+				File file = fileChooser.getSelectedFile();
+				excelTojTable excel = new excelTojTable(file);
+				excel.setVisible(true);
+				
+            }
+        });
+		
+		
+		
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setBounds(28, 297, 316, 106);
 		panel.add(btnNewButton);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(28, 11, 316, 275);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		table = new JTable();
+		table.setBounds(118, 219, -96, -195);
+		panel_1.add(table);
 		
 		JLabel lblNewLabel_1 = new JLabel("Número de classes");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -98,7 +125,5 @@ public class MetricMenu extends JFrame {
 		locSumTotalLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		locSumTotalLabel.setBounds(629, 388, 192, 14);
 		getContentPane().add(locSumTotalLabel);
-	}
-
-	
+	}	
 }
