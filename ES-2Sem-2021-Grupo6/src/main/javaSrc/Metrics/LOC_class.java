@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import com.github.javaparser.ParseProblemException;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -36,17 +37,25 @@ public class LOC_class {
 				}
 				System.out.println(copyArray.size());
 				System.out.println(nameClass);
+			} else {
+				System.out.println("SIZE DO ARRAY FODASSE : " +copyArray.size());
+				System.out.println("NÃO É UMA CLASSEEEEEEEEE FODASSE");
 			}
 		}
 	}
 	
 	//method that starts the visitor
-	public void countLines(String s) throws FileNotFoundException {
+	public int countLines(String s) throws FileNotFoundException {
 			copyArray = new ArrayList<String>();
+			try {
 			CompilationUnit cu = StaticJavaParser.parse(new File(s));
 			namePackage = cu.getPackageDeclaration().toString();
 			VoidVisitor<Void> methodNameVisitor = new Visitor();
 			methodNameVisitor.visit(cu, null);
+			} catch (ParseProblemException e) {
+				System.out.println("PARSE EXCEPTION");
+			}
+			return copyArray.size();
 	}
 	
 	//used in Main to get the number of lines in each class
@@ -60,7 +69,10 @@ public class LOC_class {
 	}
 	
 	public String getNamePackage() {
-		return namePackage;
+		String[] array = namePackage.split(" ");
+		//System.out.println("DEBUG: " + array[array.length-1]);
+		String[] array2 = array[array.length-1].split(";");
+		return array2[0];
 	}
 
 	

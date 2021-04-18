@@ -1,9 +1,11 @@
 package Metrics;
 
+import java.awt.AWTException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import com.github.javaparser.ParseProblemException;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
@@ -98,9 +100,14 @@ public class CYCLO_Method {
 	//method that starts the visitors 
 	public void countCyclo(String s) throws FileNotFoundException {
 		nCycle= new ArrayList<>();
+		System.out.println("DEBUG: " + s);
+		try {
 		CompilationUnit cu = StaticJavaParser.parse(new File(s));
 		VoidVisitor<Void> methodVisitor = new VisitorMethod();
 		methodVisitor.visit(cu, null);
+		} catch (ParseProblemException e) {
+			System.out.println("PARSE EXCEPTION");
+		}
 	}
 	
 	//used in Main to get the total of complexity in each class
