@@ -13,9 +13,10 @@ public class FileHandler {
 
 	private static int nomSumTotal;
 	private static int locSumTotal;
-	private static int package_total;
+	private static int package_total=0;
 	private static int class_total;
 	private static ArrayList<Result> result = new ArrayList<Result>();
+	private static ArrayList<String> lastpkg = new ArrayList<String>();
 	
 	public FileHandler(String path) {
 		try {
@@ -38,6 +39,12 @@ public class FileHandler {
 				main.main(f.getAbsolutePath());
 				nomSumTotal += main.getNomSum();
 				locSumTotal += main.getLocSum();
+				if(!lastpkg.contains(main.getPackage() ) ) {
+					lastpkg.add(main.getPackage());
+					package_total++;
+					System.out.println("###################### PACKAGE: " + main.getPackage());
+					System.out.println("##################### NUMORO: "+ package_total);
+				}
 				result.addAll(main.getResults());
 			}
 		}

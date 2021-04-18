@@ -13,6 +13,7 @@ public class Main {
 	private int nomSum;	//total of methods in a class
 	private int locSum;	//total of lines in a class
 	private int wmcSum;	//total of complexity in a class
+	private String pkg;
 	
 
 	
@@ -28,6 +29,7 @@ public class Main {
 				wmcSum += c;
 			for(int i = 0; i < mh.getPair().size(); i++) {
 				String namePackage =lc.getNamePackage();
+				pkg = namePackage;
 				String nameClass = lc.getNameClass();
 				String nameMethod = mh.getPair().get(i).a;
 				int nom = mh.getPair().size();
@@ -61,6 +63,10 @@ public class Main {
 	//used in FileHandler to get the total of lines in each class
 	public int getLocSum() {
 			return locSum;
+	}
+	
+	public String getPackage() {
+		return pkg;
 	}
 	
 }
