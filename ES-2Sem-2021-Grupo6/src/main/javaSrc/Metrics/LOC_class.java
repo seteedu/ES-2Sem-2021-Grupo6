@@ -37,12 +37,15 @@ public class LOC_class {
 				}
 				System.out.println(copyArray.size());
 				System.out.println(nameClass);
+			} else {
+				System.out.println("SIZE DO ARRAY FODASSE : " +copyArray.size());
+				System.out.println("NÃO É UMA CLASSEEEEEEEEE FODASSE");
 			}
 		}
 	}
 	
 	//method that starts the visitor
-	public void countLines(String s) throws FileNotFoundException {
+	public int countLines(String s) throws FileNotFoundException {
 			copyArray = new ArrayList<String>();
 			try {
 			CompilationUnit cu = StaticJavaParser.parse(new File(s));
@@ -52,6 +55,7 @@ public class LOC_class {
 			} catch (ParseProblemException e) {
 				System.out.println("PARSE EXCEPTION");
 			}
+			return copyArray.size();
 	}
 	
 	//used in Main to get the number of lines in each class
