@@ -41,12 +41,10 @@ public class FileHandler {
 				main.main(f.getAbsolutePath());
 				nomSumTotal += main.getNomSum();
 				locSumTotal += main.getLocSum();
+				class_total = class_total + main.getTotalClass();
 				if (!lastpkg.contains(main.getPackage()) && main.getPackage()!=(null)) {
 					lastpkg.add(main.getPackage());
 					package_total++;
-					System.out.println("###################### CLASSE: " +main.getClassName());
-					System.out.println("###################### PACKAGE: " + main.getPackage());
-					System.out.println("##################### NUMORO: " + package_total);
 				}
 				result.addAll(main.getResults());
 			}
