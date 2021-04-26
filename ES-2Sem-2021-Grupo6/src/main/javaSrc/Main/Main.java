@@ -11,6 +11,7 @@ public class Main {
 	private int nomSum; // total of methods in a class
 	private int locSum; // total of lines in a class
 	private int wmcSum; // total of complexity in a class
+	private int total_class;
 	private String pkg;
 	private String classe;
 
@@ -59,6 +60,7 @@ public class Main {
 					results.add(result);
 				}
 			}
+				total_class++;
 
 		  }
 
@@ -83,6 +85,10 @@ public class Main {
 	// used in FileHandler to get the total of lines in each class
 	public int getLocSum() {
 		return locSum;
+	}
+	
+	public int getTotalClass() {
+		return total_class;
 	}
 
 	public String getPackage() {
