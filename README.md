@@ -3,5 +3,5 @@ Eduardo Picoito Nº87429
 Hugo Figueiras Nº87667
 Samuel Machado Nº87685
 David Santos Nº87411
-João borges Nº87644
+João Borges Nº87644
 Miguel Melo Nº87536
