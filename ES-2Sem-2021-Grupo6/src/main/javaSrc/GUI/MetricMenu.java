@@ -25,7 +25,6 @@ import javax.swing.JTable;
 
 
 public class MetricMenu extends JFrame {
-	private JTable table;
 	 static JFileChooser jChooser;
 
 	 static DefaultTableModel model = null;
@@ -70,14 +69,9 @@ public class MetricMenu extends JFrame {
 		btnNewButton.setBounds(28, 297, 316, 106);
 		panel.add(btnNewButton);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(28, 11, 316, 275);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		table = new JTable();
-		table.setBounds(118, 219, -96, -195);
-		panel_1.add(table);
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBounds(76, 298, 89, 23);
+		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("Número de classes");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));

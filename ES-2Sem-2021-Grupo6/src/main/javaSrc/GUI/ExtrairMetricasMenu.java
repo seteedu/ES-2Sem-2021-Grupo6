@@ -35,12 +35,15 @@ import javax.swing.JPanel;
 import javax.swing.JInternalFrame;
 import javax.swing.JSplitPane;
 
-public class Menu extends JFrame {
+public class ExtrairMetricasMenu extends JFrame {
 	private JTextField textField;
 	private String dc = "";
+	//private MainMenu mainmenu;
 
-	public Menu() {
-		
+	public ExtrairMetricasMenu(MainMenu mainmenu) {
+
+		//this.mainmenu=mainmenu;
+
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Utilizador\\git\\ES-2Sem-2021-Grupo6\\ES-2Sem-2021-Grupo6\\iscte_logo.png"));
 		getContentPane().setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -77,38 +80,54 @@ public class Menu extends JFrame {
 		textField.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/GUI/istaLogo.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(ExtrairMetricasMenu.class.getResource("/GUI/istaLogo.png")));
 		lblNewLabel_1.setBounds(209, -3, 450, 267);
 		getContentPane().add(lblNewLabel_1);
 
 		JButton btnNewButton_1 = new JButton("Extrair métricas");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!dc.equals("")) {
-					try {
-						FileHandler fh = new FileHandler(dc);
-						MetricMenu metric = new MetricMenu(fh);
-						metric.setVisible(true);
-						dispose();
-
-					} catch (EncryptedDocumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					
-				}else {
-					JOptionPane.showMessageDialog(Menu.this,"É necessário selecionar um diretório");
-				}
+				
+				//if(metricas extraidas com sucesso ??)
+					JOptionPane.showMessageDialog(ExtrairMetricasMenu.this,"Métricas extraidas com sucesso");
 			}
 		});
+		
+		//		btnNewButton_1.addActionListener(new ActionListener() {
+		//			public void actionPerformed(ActionEvent arg0) {
+		//				if(!dc.equals("")) {
+		//					try {
+		//						FileHandler fh = new FileHandler(dc);
+		//						MetricMenu metric = new MetricMenu(fh);
+		//						metric.setVisible(true);
+		//						dispose();
+		//
+		//					} catch (EncryptedDocumentException e) {
+		//						// TODO Auto-generated catch block
+		//						e.printStackTrace();
+		//					}
+		//					
+		//					
+		//				}else {
+		//					JOptionPane.showMessageDialog(Menu.this,"É necessário selecionar um diretório");
+		//				}
+		//			}
+		//		});
 		btnNewButton_1.setBounds(11, 277, 188, 23);
 		getContentPane().add(btnNewButton_1);
 
-	}
+		JButton btnNewButton_2 = new JButton("Voltar");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				mainmenu.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_2.setBounds(402, 376, 89, 23);
+		getContentPane().add(btnNewButton_2);
 
-	public static void main(String[] args) {
-		new Menu().setVisible(true);
 	}
 }
