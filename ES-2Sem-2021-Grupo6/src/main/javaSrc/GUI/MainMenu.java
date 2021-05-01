@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import org.apache.poi.EncryptedDocumentException;
 
+import Main.Excell_Summary;
 import Main.FileHandler;
 
 import javax.swing.JLabel;
@@ -57,11 +58,7 @@ public class MainMenu extends JFrame {
 		btnVerExcel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.showOpenDialog(null);
-				File file = fileChooser.getSelectedFile();
-				FileHandler fh = new FileHandler(file.getAbsolutePath());
-				MetricMenu metric = new MetricMenu(fh);
+				MetricMenu metric = new MetricMenu(new Excell_Summary());
 				metric.setVisible(true);
 				dispose();
 			}

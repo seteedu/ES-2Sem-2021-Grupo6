@@ -11,12 +11,7 @@ import Metrics.Result;
 
 public class FileHandler {
 
-	private static int nomSumTotal;
-	private static int locSumTotal;
-	private static int package_total = 0;
-	private static int class_total;
 	private static ArrayList<Result> result = new ArrayList<Result>();
-	private static ArrayList<String> lastpkg = new ArrayList<String>();
 
 	public FileHandler(String path) {
 		try {
@@ -27,7 +22,7 @@ public class FileHandler {
 	}
 
 	// directory explorer
-	public static ArrayList<Result> handler(String path)
+	public ArrayList<Result> handler(String path)
 			throws IOException, EncryptedDocumentException, InvalidFormatException {
 		File root = new File(path);
 		File[] list = root.listFiles();
@@ -39,37 +34,10 @@ public class FileHandler {
 														// class
 				Main main = new Main();
 				main.main(f.getAbsolutePath());
-				nomSumTotal += main.getNomSum();
-				locSumTotal += main.getLocSum();
-				class_total = class_total + main.getTotalClass();
-				if (!lastpkg.contains(main.getPackage()) && main.getPackage()!=(null)) {
-					lastpkg.add(main.getPackage());
-					package_total++;
-				}
 				result.addAll(main.getResults());
 			}
 		}
 		return result;
 
-	}
-
-	// get total of methods in a file
-	public static int getNomSumTotal() {
-		return nomSumTotal;
-	}
-
-	// get total of lines in a file
-	public static int getLocSumTotal() {
-		return locSumTotal;
-	}
-
-	// get total of packages in a file
-	public static int getPackageTotal() {
-		return package_total;
-	}
-
-	// get total of classes in a file
-	public static int getClassTotal() {
-		return class_total;
 	}
 }

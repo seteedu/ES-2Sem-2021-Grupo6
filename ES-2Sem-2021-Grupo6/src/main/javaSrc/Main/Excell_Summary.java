@@ -20,14 +20,12 @@ public class Excell_Summary {
 	private int num_methods;
 	private int num_lines;
 	
-	public Excell_Summary(String f) throws IOException {
-		File file = new File(f);
-		getMetrics(file);
+	public Excell_Summary() {
 	}
 	
 	
 	
-	private void getMetrics(File file) throws IOException {
+	public void getMetrics(File file) throws IOException {
 		try {
 			FileInputStream is = new FileInputStream(file);
 			
@@ -49,6 +47,7 @@ public class Excell_Summary {
 	            it++;
 	        }
 	        System.out.println(count);
+	        num_packages=count;
 	        double count_lines = 0;
 	        int count_classes = 0;
 	        it = 1;
@@ -67,7 +66,9 @@ public class Excell_Summary {
 	            it++;
 	        }
 	        System.out.println(count_classes);
+	        num_classes=count_classes;
 	        System.out.println(count_lines);
+	        num_lines=(int) count_lines;
 	        
 	        count = 0;
 	        it = 1;
@@ -83,7 +84,8 @@ public class Excell_Summary {
 	            }
 	            it++;
 	        }
-	        System.out.println(count); 
+	        System.out.println(count);
+	        num_methods=count;
 	        
 	        workbook.close();
 	        is.close();
@@ -92,17 +94,22 @@ public class Excell_Summary {
 			e.printStackTrace();
 		}
 	}
-	 
 	
-	public static void main(String[] args) {
-		try {
-			Excell_Summary e = new Excell_Summary("C:\\Users\\35196\\git\\ES-2Sem-2021-Grupo6\\ES-2Sem-2021-Grupo6\\temp.xlsx");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	public int getNumPackages() {
+		return num_packages;
 	}
 	
+	public int getNumClasses() {
+		return num_classes;
+	}
 	
+	public int getNumMethods() {
+		return num_methods;
+	}
 	
+	public int getNumLines() {
+		return num_lines;
+	}
+	 
 }
