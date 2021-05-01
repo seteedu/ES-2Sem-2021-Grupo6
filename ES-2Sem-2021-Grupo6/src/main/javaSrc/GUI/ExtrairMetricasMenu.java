@@ -8,11 +8,13 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -41,18 +43,18 @@ public class ExtrairMetricasMenu extends JFrame {
 	//private MainMenu mainmenu;
 
 	public ExtrairMetricasMenu(MainMenu mainmenu) {
-
-		//this.mainmenu=mainmenu;
-
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Utilizador\\git\\ES-2Sem-2021-Grupo6\\ES-2Sem-2021-Grupo6\\iscte_logo.png"));
-		getContentPane().setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		setSize(900,500);
+		getContentPane().setLayout(null);
+		
 		setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		getContentPane().setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		setForeground(Color.LIGHT_GRAY);
 		setTitle("Projeto ES");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(null);
+		
+		pack();
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		JButton btnNewButton = new JButton("Selecione um projeto Java");
 		btnNewButton.addMouseListener(new MouseAdapter() {
