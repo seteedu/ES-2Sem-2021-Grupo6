@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import Main.Excell_Summary;
@@ -20,6 +21,8 @@ import Main.FileHandler;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -33,11 +36,15 @@ public class MetricMenu extends JFrame {
 	 static int tableWidth = 0; // set the tableWidth
 	 static int tableHeight = 0; // set the tableHeight
 	 static JScrollPane scroll;
-	public MetricMenu(Excell_Summary es) {
+	public MetricMenu(Excell_Summary es, MainMenu mainmenu) {
 		
 		setResizable(false);
 		setSize(900,500);
 		getContentPane().setLayout(null);
+		
+		pack();
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("Número de packages");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -48,10 +55,6 @@ public class MetricMenu extends JFrame {
 		panel.setBounds(10, 11, 372, 414);
 		getContentPane().add(panel);
 		panel.setLayout(null);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(76, 298, 89, 23);
-		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("Número de classes");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -128,5 +131,16 @@ public class MetricMenu extends JFrame {
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setBounds(28, 297, 316, 106);
 		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				mainmenu.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(595, 437, 89, 23);
+		getContentPane().add(btnNewButton_1);
 	}	
 }
