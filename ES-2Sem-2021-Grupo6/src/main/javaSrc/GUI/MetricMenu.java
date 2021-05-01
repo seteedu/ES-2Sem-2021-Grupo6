@@ -14,12 +14,14 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import Main.Excell_Summary;
 import Main.FileHandler;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JTable;
 
@@ -31,7 +33,7 @@ public class MetricMenu extends JFrame {
 	 static int tableWidth = 0; // set the tableWidth
 	 static int tableHeight = 0; // set the tableHeight
 	 static JScrollPane scroll;
-	public MetricMenu(FileHandler fh) {
+	public MetricMenu(Excell_Summary es) {
 		
 		setResizable(false);
 		setSize(900,500);
@@ -46,28 +48,6 @@ public class MetricMenu extends JFrame {
 		panel.setBounds(10, 11, 372, 414);
 		getContentPane().add(panel);
 		panel.setLayout(null);
-		
-		JButton btnNewButton = new JButton("VER EXCEL");
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.showOpenDialog(null);
-				File file = fileChooser.getSelectedFile();
-				excelTojTable excel = new excelTojTable(file);
-				excel.setVisible(true);
-				
-            }
-        });
-		
-		
-		
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setBounds(28, 297, 316, 106);
-		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("New button");
 		btnNewButton_1.setBounds(76, 298, 89, 23);
@@ -93,7 +73,7 @@ public class MetricMenu extends JFrame {
 		getContentPane().add(lblNewLabel_4);
 		lblNewLabel_4.setIcon(new ImageIcon(MetricMenu.class.getResource("/GUI/istaLogo.png")));
 		
-		JLabel numPackages = new JLabel(String.valueOf(fh.getPackageTotal()));
+		JLabel numPackages = new JLabel(String.valueOf(es.getNumPackages()));
 		numPackages.setHorizontalAlignment(SwingConstants.CENTER);
 		numPackages.setToolTipText("");
 		numPackages.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -102,22 +82,51 @@ public class MetricMenu extends JFrame {
 		numPackages.setBounds(629, 268, 192, 14);
 		getContentPane().add(numPackages);
 		
-		JLabel numClasses = new JLabel(String.valueOf(fh.getClassTotal()));
+		JLabel numClasses = new JLabel("0");
 		numClasses.setHorizontalAlignment(SwingConstants.CENTER);
 		numClasses.setFont(new Font("Tahoma", Font.BOLD, 14));
 		numClasses.setBounds(629, 308, 192, 14);
 		getContentPane().add(numClasses);
 		
-		JLabel nomSumTotalLabel = new JLabel(String.valueOf(fh.getNomSumTotal()));
+		JLabel nomSumTotalLabel = new JLabel("0");
 		nomSumTotalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nomSumTotalLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		nomSumTotalLabel.setBounds(629, 348, 192, 14);
 		getContentPane().add(nomSumTotalLabel);
 		
-		JLabel locSumTotalLabel = new JLabel(String.valueOf(fh.getLocSumTotal()));
+		JLabel locSumTotalLabel = new JLabel("0");
 		locSumTotalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		locSumTotalLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		locSumTotalLabel.setBounds(629, 388, 192, 14);
 		getContentPane().add(locSumTotalLabel);
+		
+		JButton btnNewButton = new JButton("VER EXCEL");
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.showOpenDialog(null);
+					File file = fileChooser.getSelectedFile();
+					es.getMetrics(file);
+					numPackages.setText(String.valueOf(es.getNumPackages()));
+					numClasses.setText(String.valueOf(es.getNumClasses()));
+					nomSumTotalLabel.setText(String.valueOf(es.getNumMethods()));
+					locSumTotalLabel.setText(String.valueOf(es.getNumLines()));
+					//excelTojTable excel = new excelTojTable(file);
+					//excel.setVisible(true);
+				} catch (IOException e) {
+					// ESCREVER NA GUI FICHEIRO NAO ENCONTRADO
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setForeground(Color.BLACK);
+		btnNewButton.setBounds(28, 297, 316, 106);
+		panel.add(btnNewButton);
 	}	
 }
