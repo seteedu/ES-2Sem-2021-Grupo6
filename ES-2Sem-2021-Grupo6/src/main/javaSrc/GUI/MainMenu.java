@@ -21,6 +21,8 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainMenu extends JFrame {
 	MainMenu mainmenu = this;
@@ -81,7 +83,15 @@ public class MainMenu extends JFrame {
 			}
         });
 		
-		JButton btnNewButton_2 = new JButton("Regras\r\n");
+		JButton btnNewButton_2 = new JButton("Regras");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MenuRegras regras = new MenuRegras(mainmenu);
+				regras.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_2.setBounds(252, 228, 127, 50);
 		panel.add(btnNewButton_2);
 	}
