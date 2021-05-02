@@ -20,7 +20,7 @@ public class Main {
 		LOC_class lc = new LOC_class();
 		CYCLO_Method cm = new CYCLO_Method();
 		try {
-			if (lc.countLines(path) > 0) {
+			if (lc.countLines(path) > 2) {
 				System.out.println("%%%%%%%%%%%%%%% : " +lc.getNameClass());
 				classe = lc.getNameClass();
 				pkg = lc.getNamePackage();
