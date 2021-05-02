@@ -1,52 +1,52 @@
 package CodeSmell;
 
+import java.util.ArrayList;
+
 public class Rule {
-	
-	private Threshold t1;
-	private Threshold t2;
+
 	private String id;
 	private String codeSmell;
-	
-	
-	public Rule (String id, Threshold t1, Threshold t2, String codeSmell) {
-		this.t1 = t1;
-		this.t2 = t2;
+	private ArrayList<Threshold> t_list;
+
+
+	public Rule (String id, String codeSmell) {
+		t_list = new ArrayList<Threshold>();
 		this.id = id;
 		this.codeSmell = codeSmell;
 	}
-	
-	public Rule (String id, Threshold t1, String codeSmell) {
-		this.t1 = t1;
-		this.id = id;
-		this.codeSmell = codeSmell;
+
+	public void add_threshold(Threshold t){
+		t_list.add(t);
 	}
-	
-	public void setThreshold (Threshold nt1, Threshold nt2 ) {
-		this.t1 = nt1;
-		this.t2 = nt2;
-	}
-	
+
 	@Override
 	public String toString() {
-		if (t2 != null)
-			return codeSmell + ": " +t1.toString() + " " + t2.toString();
-		else
-			return codeSmell + ": " +t1.toString();
+
+		String rule = codeSmell + ": ";
+
+		for(Threshold t: t_list){
+			rule = rule + " " + t.toString();
+		}
+
+		return rule;
 	}
-	
+
 
 	public String toFile() {
-		if (t2 != null)
-			return codeSmell + ", " + t1.toFile() + ", " + t2.toFile();
-		else 
-			return codeSmell + ", " + t1.toFile();
+		String rule = id + ", " + codeSmell;
+
+		for(Threshold t: t_list){
+			rule = rule + ", " + t.toFile();
+		}
+
+		return rule;
 	}	
-	
-	
+
+
 	public String getId() {
 		return id;
 	}
-	
-	
-	
+
+
+
 }
