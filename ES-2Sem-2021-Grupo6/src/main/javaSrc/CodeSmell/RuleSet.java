@@ -99,6 +99,16 @@ public class RuleSet {
 			}
 		}
 	}
+	
+	
+	public void changeRule(String id, String codeSmell, ArrayList<Threshold> ts){
+		Rule r = new Rule(id,codeSmell);
+		for(Threshold t : ts)
+			r.add_threshold(t);
+		
+		rules.replace(id, r);
+	}
+	
 
 	public static void main(String[] args) {
 		RuleSet r = new RuleSet();
