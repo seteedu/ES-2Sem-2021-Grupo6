@@ -56,7 +56,9 @@ public class Logic_Expressions {
 		Logic_Expressions n = new Logic_Expressions();
 		Threshold t1 = new Threshold("ola",  "<",2, "and");
 		Threshold t2 = new Threshold("ola", "<", 2);
-		Rule a1 = new Rule ("um", t1, t2, "God_class");
+		Rule a1 = new Rule ("um","God_class");
+		a1.add_threshold(t1);
+		a1.add_threshold(t2);
 		System.out.println(a1.toFile());
 		n.expression(a1);
 	}

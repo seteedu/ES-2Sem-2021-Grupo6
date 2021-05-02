@@ -6,14 +6,14 @@ public class Threshold{
 	private String math;
 	private String logic;
 	
-	public Threshold (String name,  String math,int value, String logic) {
+	public Threshold (String name,  String math, int value, String logic) {
 		this.name = name;
 		this.value = value;
 		this.math = math;
 		this.logic = logic;
 	}
 	
-	public Threshold (String name,  String math,int value) {
+	public Threshold (String name,  String math, int value) {
 		this.name = name;
 		this.value = value;
 		this.math = math;
