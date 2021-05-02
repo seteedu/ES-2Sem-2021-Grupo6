@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JMenu;
@@ -16,6 +17,9 @@ public class MenuRegras extends JFrame {
 		setResizable(false);
 		setSize(900,500);
 		getContentPane().setLayout(null);
+		
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		textField = new JTextField();
 		textField.setBounds(41, 67, 180, 32);

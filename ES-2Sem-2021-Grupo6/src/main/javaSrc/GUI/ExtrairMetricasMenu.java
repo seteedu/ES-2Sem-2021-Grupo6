@@ -52,7 +52,7 @@ public class ExtrairMetricasMenu extends JFrame {
 		setForeground(Color.LIGHT_GRAY);
 		setTitle("Projeto ES");
 		
-		pack();
+		
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

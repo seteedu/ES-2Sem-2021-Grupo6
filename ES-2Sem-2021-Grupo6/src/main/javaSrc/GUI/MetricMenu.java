@@ -42,7 +42,6 @@ public class MetricMenu extends JFrame {
 		setSize(900,500);
 		getContentPane().setLayout(null);
 		
-		pack();
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
