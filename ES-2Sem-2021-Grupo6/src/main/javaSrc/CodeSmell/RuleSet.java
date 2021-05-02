@@ -58,18 +58,40 @@ public class RuleSet {
 		
 	}
 	
-	public void writeFile(File f) {
-		try {
-		      FileWriter myWriter = new FileWriter(f);
-		      for (HashMap.Entry mapElement : rules.entrySet()) {
-		            //String key = (String)mapElement.getKey();
-		            String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
-		            myWriter.write(s);
-		      }
-		      myWriter.close();
-		    } catch (IOException e) {
-		      e.printStackTrace();
-		    }
+	public void writeFile(String fs) {
+		File f = new File(fs);
+		if(f.exists()) {
+			try {
+			      FileWriter myWriter = new FileWriter(f);
+			      for (HashMap.Entry mapElement : rules.entrySet()) {
+			            //String key = (String)mapElement.getKey();
+			            String s = mapElement.getKey() + ", " + ((Rule) mapElement.getValue()).toFile() + "\n";
+			            myWriter.write(s);
+			      }
+			      myWriter.close();
+			 } catch (IOException e) {
+			      e.printStackTrace();
+			 }
+		}
+		else {
+			try {
+			      if (f.createNewFile()) {
+			        System.out.println("File created: " + f.getName());
+			        FileWriter myWriter = new FileWriter(f);
+				      for (HashMap.Entry mapElement : rules.entrySet()) {
+				            //String key = (String)mapElement.getKey();
+				            String s = mapElement.getKey() + ", " +  ((Rule) mapElement.getValue()).toFile() + "\n";
+				            myWriter.write(s);
+				      }
+				      myWriter.close();
+			      } else {
+			        System.out.println("File already exists.");
+			      }
+			    } catch (IOException e) {
+			      System.out.println("An error occurred.");
+			      e.printStackTrace();
+			    }
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -80,6 +102,7 @@ public class RuleSet {
 		Rule a1 = new Rule ("um", t1, t2, "God_class");
 		r.addRule(a1);
 		r.showRules();
+		r.writeFile("C:\\Users\\35196\\Desktop\\teste.txt");
 	}
 }
 

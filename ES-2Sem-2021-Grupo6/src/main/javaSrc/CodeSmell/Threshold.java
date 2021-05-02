@@ -27,4 +27,11 @@ public class Threshold{
 			return  name + " " + math + " " + value + " " + logic;
 	}
 	
+	public String toFile() {
+		if (logic == null)
+			return name + ", " + math + ", " + value;
+		else 
+			return name + ", " + math + ", " + value + ", " + logic;
+	}
+	
 }

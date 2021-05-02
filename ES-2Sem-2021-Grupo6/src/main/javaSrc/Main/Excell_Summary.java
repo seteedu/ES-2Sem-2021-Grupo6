@@ -32,7 +32,7 @@ public class Excell_Summary {
 			XSSFWorkbook workbook = new XSSFWorkbook(is);
 			XSSFSheet firstSheet = (XSSFSheet) workbook.getSheetAt(0);
 	        String np = firstSheet.getRow(1).getCell(1).getStringCellValue();
-	        int count = 0;
+	        int count = 1;
 	        int it = 1;
 	        int last = firstSheet.getLastRowNum();
 	        while (it != last) {
@@ -48,8 +48,8 @@ public class Excell_Summary {
 	        }
 	        System.out.println(count);
 	        num_packages=count;
-	        double count_lines = 0;
-	        int count_classes = 0;
+	        double count_lines = firstSheet.getRow(1).getCell(2).getNumericCellValue();
+	        int count_classes = 1;
 	        it = 1;
 	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
 	        while (it != last) {
