@@ -4,13 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Iterator;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 
 public class Excell_Summary {
 
@@ -22,7 +20,6 @@ public class Excell_Summary {
 	
 	public Excell_Summary() {
 	}
-	
 	
 	
 	public void getMetrics(File file) throws IOException {
@@ -48,7 +45,7 @@ public class Excell_Summary {
 	        }
 	        System.out.println(count);
 	        num_packages=count;
-	        double count_lines = firstSheet.getRow(1).getCell(2).getNumericCellValue();
+	        double count_lines = firstSheet.getRow(1).getCell(5).getNumericCellValue();
 	        int count_classes = 1;
 	        it = 1;
 	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
@@ -69,23 +66,8 @@ public class Excell_Summary {
 	        num_classes=count_classes;
 	        System.out.println(count_lines);
 	        num_lines=(int) count_lines;
-	        
-	        count = 0;
-	        it = 1;
-	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
-	        while (it != last) {
-	            XSSFRow nextRow = firstSheet.getRow(it);
-	            if( nextRow.getCell(2) != null) {
-		            String cell = nextRow.getCell(2).getStringCellValue();
-		            if (!np.equals(cell)) {
-		            	np = cell;
-		            	count ++;
-		            }                
-	            }
-	            it++;
-	        }
-	        System.out.println(count);
-	        num_methods=count;
+	        num_methods= firstSheet.getLastRowNum();
+	        System.out.println(num_methods);
 	        
 	        workbook.close();
 	        is.close();
@@ -111,5 +93,4 @@ public class Excell_Summary {
 	public int getNumLines() {
 		return num_lines;
 	}
-	 
 }
