@@ -34,6 +34,15 @@ public class Rule {
 			return codeSmell + ": " +t1.toString();
 	}
 	
+
+	public String toFile() {
+		if (t2 != null)
+			return codeSmell + ", " + t1.toFile() + ", " + t2.toFile();
+		else 
+			return codeSmell + ", " + t1.toFile();
+	}	
+	
+	
 	public String getId() {
 		return id;
 	}
