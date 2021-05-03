@@ -35,9 +35,8 @@ public class MenuRegras extends JFrame {
 	private JScrollPane pane;
 	private JTextField textField_2;
 	private JComboBox comboBox_Metrica;
-	private JComboBox comboBox_logica;
-	private JComboBox comboBox_Sinal;
-	private String[] codeSmell = {"isGodClass","isLongMethod"};
+	JComboBox comboBox_Sinal;
+	private String[] codeSmell = {"is_God_Class","is_Long_Method"};
 	private String[] metricasClasse = {"LOC_Class","WMC_Class","NOM_Class"};
 	private String[] metricasMetodos = {"LOC_Method","CYCLO_Method"};
 	private JComboBox comboBox = new JComboBox(codeSmell);
@@ -192,7 +191,6 @@ public class MenuRegras extends JFrame {
 
 		comboBox.addActionListener(cbActionListener);
 
-
 		JLabel ifLabel = new JLabel("SE (");
 		ifLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		ifLabel.setBounds(144, 267, 45, 43);
@@ -266,10 +264,10 @@ public class MenuRegras extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Métrica:");
 		lblNewLabel_2.setBounds(31, 26, 46, 14);
 		panel.add(lblNewLabel_2);
-
-		if(comboBox.getSelectedItem().equals("isLongMethod")) {
+		
+		if(comboBox.getSelectedItem().equals("is_Long_Method")) {
 			comboBox_Metrica = new JComboBox(metricasMetodos);
-		} else if (comboBox.getSelectedItem().equals("isGodClass") ){
+		} else if (comboBox.getSelectedItem().equals("is_God_Class") ){
 			comboBox_Metrica = new JComboBox(metricasClasse);
 		}
 

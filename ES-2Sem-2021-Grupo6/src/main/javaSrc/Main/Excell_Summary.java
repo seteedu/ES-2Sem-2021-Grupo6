@@ -17,10 +17,7 @@ public class Excell_Summary {
 	private int num_classes;
 	private int num_methods;
 	private int num_lines;
-	
-	public Excell_Summary() {
-	}
-	
+		
 	
 	public void getMetrics(File file) throws IOException {
 		try {
@@ -45,6 +42,8 @@ public class Excell_Summary {
 	        }
 	        System.out.println(count);
 	        num_packages=count;
+	        
+	        double count_methods = firstSheet.getRow(1).getCell(4).getNumericCellValue();
 	        double count_lines = firstSheet.getRow(1).getCell(5).getNumericCellValue();
 	        int count_classes = 1;
 	        it = 1;
@@ -56,8 +55,11 @@ public class Excell_Summary {
 		            if (!np.equals(cell)) {
 		            	np = cell;
 		            	count_classes ++;
-		            	if(nextRow.getCell(5) != null)
+		            	if(nextRow.getCell(5) != null && nextRow.getCell(4)!=null) {
+		            		count_methods += nextRow.getCell(4).getNumericCellValue();
 		            		count_lines += nextRow.getCell(5).getNumericCellValue();
+		            	}
+		            		
 		            }                
 	            }
 	            it++;
@@ -66,7 +68,7 @@ public class Excell_Summary {
 	        num_classes=count_classes;
 	        System.out.println(count_lines);
 	        num_lines=(int) count_lines;
-	        num_methods= firstSheet.getLastRowNum();
+	        num_methods = (int) count_methods;
 	        System.out.println(num_methods);
 	        
 	        workbook.close();
