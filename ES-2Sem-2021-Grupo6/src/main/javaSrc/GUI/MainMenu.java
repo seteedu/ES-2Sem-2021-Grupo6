@@ -83,7 +83,7 @@ public class MainMenu extends JFrame {
 			}
         });
 		
-		JButton btnNewButton_2 = new JButton("Regras");
+		JButton btnNewButton_2 = new JButton("Criar Regras");
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -94,6 +94,19 @@ public class MainMenu extends JFrame {
 		});
 		btnNewButton_2.setBounds(252, 228, 127, 50);
 		panel.add(btnNewButton_2);
+		
+		JButton btnModificarRegras = new JButton("Modificar Regras");
+		btnModificarRegras.setBounds(252, 288, 127, 50);
+		panel.add(btnModificarRegras);
+		
+		btnModificarRegras.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ModificarRegras regras = new ModificarRegras(mainmenu);
+				regras.setVisible(true);
+				dispose();
+			}
+		});
 	}
 	public static void main(String[] args) {
 		new MainMenu().setVisible(true);

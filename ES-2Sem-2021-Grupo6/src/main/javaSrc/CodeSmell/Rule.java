@@ -6,11 +6,10 @@ public class Rule {
 
 	private String id;
 	private String codeSmell;
-	private ArrayList<Threshold> t_list;
+	private ArrayList<Threshold> t_list = new ArrayList<Threshold>();
 
 
 	public Rule (String id, String codeSmell) {
-		t_list = new ArrayList<Threshold>();
 		this.id = id;
 		this.codeSmell = codeSmell;
 	}
@@ -46,6 +45,13 @@ public class Rule {
 	public String getId() {
 		return id;
 	}
+
+	public ArrayList<Threshold> getT_list() {
+		return t_list;
+	}
+
+	
+	
 
 
 

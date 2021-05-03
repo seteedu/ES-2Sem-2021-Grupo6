@@ -109,18 +109,22 @@ public class RuleSet {
 		rules.replace(id, r);
 	}
 	
+	public HashMap<String, Rule> getHashMap(){
+		return rules;
+	}
 
 	public static void main(String[] args) {
 		RuleSet r = new RuleSet();
 		r.initializeMap("C:\\Users\\joaom\\Desktop\\teste.txt");
 		Threshold t1 = new Threshold("ola",  "<",2, "and");
 		Threshold t2 = new Threshold("ola", "<", 2);
-		Rule a1 = new Rule ("um", "God_class");
+		Rule a1 = new Rule ("Regra1", "God_class");
 		a1.add_threshold(t1);
 		a1.add_threshold(t2);
 		r.addRule(a1);
-		r.showRules();
-		r.writeFile("C:\\Users\\joaom\\Desktop\\teste.txt");
+		//r.showRules();
+		//r.writeFile("C:\\Users\\joaom\\Desktop\\teste.txt");
 	}
+	
 }
 
