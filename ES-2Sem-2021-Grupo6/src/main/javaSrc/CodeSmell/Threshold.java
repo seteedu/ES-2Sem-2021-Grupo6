@@ -34,4 +34,22 @@ public class Threshold{
 			return name + ", " + math + ", " + value + ", " + logic;
 	}
 	
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getMath() {
+		return math;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+	
+	public String getLogic() {
+		return logic;
+	}
+	
+	
 }

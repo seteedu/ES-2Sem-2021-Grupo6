@@ -46,6 +46,14 @@ public class Rule {
 	public String getId() {
 		return id;
 	}
+	
+	public ArrayList<Threshold> getThresholds(){
+		return t_list;
+	}
+	
+	public String getCodeSmell() {
+		return codeSmell;
+	}
 
 
 
