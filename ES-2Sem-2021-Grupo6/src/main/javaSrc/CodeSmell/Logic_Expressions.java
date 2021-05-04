@@ -1,7 +1,5 @@
 package CodeSmell;
 
-import java.util.ArrayList;
-
 public class Logic_Expressions {
 	
 		

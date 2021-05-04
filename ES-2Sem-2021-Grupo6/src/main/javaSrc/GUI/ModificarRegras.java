@@ -26,21 +26,7 @@ public class ModificarRegras extends JFrame {
 	private Rule rule;
 	private JTextField textFieldLimite;
 	private JTextField textFieldnomeregra;
-	public ModificarRegras(MainMenu mainmenu) {
-		// REGRAS PARA TESTAR
-		RuleSet rs = new RuleSet();
-		Threshold t1 = new Threshold("ola",  "<",2, "and");
-		Threshold t2 = new Threshold("ola", "<", 2);
-		Rule a1 = new Rule ("Regra1", "isGodClass");
-		a1.add_threshold(t1);
-		a1.add_threshold(t2);
-		rs.addRule(a1);
-		Rule a2 = new Rule ("Regra2", "isLongMethod");
-		a2.add_threshold(t1);
-		a2.add_threshold(t2);
-		rs.addRule(a2);
-		// FIM DE TESTE
-		
+	public ModificarRegras(MainMenu mainmenu, RuleSet rs) {		
 		setResizable(false);
 		setSize(900,500);
 		getContentPane().setLayout(null);
@@ -123,7 +109,7 @@ public class ModificarRegras extends JFrame {
 				l2.clear();
 				String selectedItem =(String) listRegras.getSelectedValue();
 				rule=rs.getHashMap().get(selectedItem);
-				for(Threshold t:rule.getT_list()) {
+				for(Threshold t:rule.getThresholds()) {
 					l2.addElement(t.toString());
 				}
 				listLimites.setModel(l2);
@@ -136,7 +122,7 @@ public class ModificarRegras extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int selectedItemIndex = listLimites.getSelectedIndex();
-				Threshold oldThresHold = rule.getT_list().get(selectedItemIndex);
+				Threshold oldThresHold = rule.getThresholds().get(selectedItemIndex);
 				
 				if(oldThresHold.getLogic()==null){
 					comboBoxlogica.removeAllItems();
@@ -149,12 +135,12 @@ public class ModificarRegras extends JFrame {
 					comboBoxlogica.addItem("OU");
 				}
 				
-				if(rule.getCodeSmell().equals("isGodClass") ){
+				if(rule.getCodeSmell().equals("is_God_Class") ){
 					comboBoxMetrica.removeAllItems();
 					comboBoxMetrica.addItem("LOC_Class");
 					comboBoxMetrica.addItem("WMC_Class");
 					comboBoxMetrica.addItem("NOM_Class");
-				} else if (rule.getCodeSmell().equals("isLongMethod")) {
+				} else if (rule.getCodeSmell().equals("is_Long_Method")) {
 					comboBoxMetrica.removeAllItems();
 					comboBoxMetrica.addItem("LOC_Method");
 					comboBoxMetrica.addItem("CYCLO_Method");

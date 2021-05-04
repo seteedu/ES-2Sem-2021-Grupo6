@@ -1,7 +1,6 @@
 package GUI;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -11,38 +10,32 @@ import CodeSmell.Threshold;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.JMenu;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import java.awt.Container;
-import java.awt.Frame;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class MenuRegras extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
-	private JScrollPane pane;
 	private JTextField textField_2;
-	private JComboBox comboBox_Metrica;
-	private JComboBox comboBox_logica;
-	private JComboBox comboBox_Sinal;
+	private JComboBox<Object> comboBox_Metrica;
+	private JComboBox<?> comboBox_logica;
+	private JComboBox<?> comboBox_Sinal;
 	private String[] codeSmell = {"is_God_Class","is_Long_Method"};
 	private String[] metricasClasse = {"LOC_Class","WMC_Class","NOM_Class"};
 	private String[] metricasMetodos = {"LOC_Method","CYCLO_Method"};
-	private JComboBox comboBox = new JComboBox(codeSmell);
+	private JComboBox<?> comboBox = new JComboBox<Object>(codeSmell);
 	private ArrayList<Threshold> arraylist = new ArrayList<>();
 
 	private Object makeObj(final String item)  {
@@ -270,13 +263,13 @@ public class MenuRegras extends JFrame {
 		panel.add(lblNewLabel_2);
 
 		if(comboBox.getSelectedItem().equals("isLongMethod")) {
-			comboBox_Metrica = new JComboBox(metricasMetodos);
+			comboBox_Metrica = new JComboBox<Object>(metricasMetodos);
 		} else if (comboBox.getSelectedItem().equals("is_God_Class") ){
-			comboBox_Metrica = new JComboBox(metricasClasse);
+			comboBox_Metrica = new JComboBox<Object>(metricasClasse);
 		}
 
 		String[] ss = {"","E","OU"};
-		comboBox_logica = new JComboBox(ss);
+		comboBox_logica = new JComboBox<Object>(ss);
 		comboBox_logica.setBounds(500, 50, 86, 21);
 		panel.add(comboBox_logica);
 
@@ -284,7 +277,7 @@ public class MenuRegras extends JFrame {
 		panel.add(comboBox_Metrica);
 
 		String[] s = {"<",">"};
-		comboBox_Sinal = new JComboBox(s);
+		comboBox_Sinal = new JComboBox<Object>(s);
 		comboBox_Sinal.setBounds(245, 50, 65, 20);
 		panel.add(comboBox_Sinal);
 

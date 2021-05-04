@@ -119,7 +119,7 @@ public class MainMenu extends JFrame {
 		btnModificarRegras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ModificarRegras regras = new ModificarRegras(mainmenu);
+				ModificarRegras regras = new ModificarRegras(mainmenu, rs);
 				regras.setVisible(true);
 				dispose();
 			}
