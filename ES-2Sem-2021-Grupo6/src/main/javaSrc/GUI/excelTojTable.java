@@ -31,7 +31,7 @@ public class excelTojTable extends JFrame {
 	static JFileChooser jChooser;
 	static int tableWidth = 0; // set the tableWidth
 	static int tableHeight = 0; // set the tableHeight
-
+ //adsasd
 	public excelTojTable(File file) {
 		super("Import Excel To JTable");
 		if (!file.getName().endsWith("xls")) {
