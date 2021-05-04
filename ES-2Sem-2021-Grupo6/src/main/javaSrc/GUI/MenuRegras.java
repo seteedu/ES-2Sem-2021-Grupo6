@@ -5,6 +5,8 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import CodeSmell.Rule;
+import CodeSmell.RuleSet;
 import CodeSmell.Threshold;
 
 import javax.swing.JLabel;
@@ -35,7 +37,8 @@ public class MenuRegras extends JFrame {
 	private JScrollPane pane;
 	private JTextField textField_2;
 	private JComboBox comboBox_Metrica;
-	JComboBox comboBox_Sinal;
+	private JComboBox comboBox_logica;
+	private JComboBox comboBox_Sinal;
 	private String[] codeSmell = {"is_God_Class","is_Long_Method"};
 	private String[] metricasClasse = {"LOC_Class","WMC_Class","NOM_Class"};
 	private String[] metricasMetodos = {"LOC_Method","CYCLO_Method"};
@@ -47,7 +50,7 @@ public class MenuRegras extends JFrame {
 	}
 
 
-	public MenuRegras(MainMenu mainmenu) {
+	public MenuRegras(MainMenu mainmenu, RuleSet rs) {
 		setResizable(false);
 		setSize(900,500);
 		getContentPane().setLayout(null);
@@ -110,7 +113,6 @@ public class MenuRegras extends JFrame {
 					lbl_sucesso.setVisible(false);
 					lblARegraNo.setText("A regra não pode terminar numa proposição logica");
 					lblARegraNo.setVisible(true);
-					System.out.println(arraylist);
 				} else {
 					if(textField.getText().equals("")) {
 						lblARegraNo.setText("Por favor dê um título à regra!");
@@ -118,9 +120,10 @@ public class MenuRegras extends JFrame {
 					}else {
 						lblARegraNo.setVisible(false);
 						lbl_sucesso.setVisible(true);
-						//RETORNAR ARRAU LIST PARA BACKEND
-						System.out.println(arraylist);
-						arraylist.clear();
+						//RETORNAR ARRAY LIST PARA BACKEND
+						Rule rule = new Rule (textField.getText(), comboBox.getSelectedItem().toString(), arraylist);
+						rs.addRule(rule);
+						arraylist = new ArrayList<>();
 						textField.setText("");
 						textField_2.setText("");
 						comboBox.setEnabled(true);
@@ -173,14 +176,14 @@ public class MenuRegras extends JFrame {
 				String s = (String) comboBox.getSelectedItem();//get the selected item
 
 				switch (s) {//check for a match
-				case "isGodClass":
+				case "is_God_Class":
 					comboBox_Metrica.removeAllItems();
 					comboBox_Metrica.addItem(makeObj("LOC_Class"));
 					comboBox_Metrica.addItem(makeObj("WMC_Class"));
 					comboBox_Metrica.addItem(makeObj("NOM_Class"));
 					break;
 
-				case "isLongMethod":
+				case "is_Long_Method":
 					comboBox_Metrica.removeAllItems();
 					comboBox_Metrica.addItem(makeObj("LOC_Method"));
 					comboBox_Metrica.addItem(makeObj("CYCLO_Method"));
@@ -190,6 +193,7 @@ public class MenuRegras extends JFrame {
 		};
 
 		comboBox.addActionListener(cbActionListener);
+
 
 		JLabel ifLabel = new JLabel("SE (");
 		ifLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -264,8 +268,8 @@ public class MenuRegras extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Métrica:");
 		lblNewLabel_2.setBounds(31, 26, 46, 14);
 		panel.add(lblNewLabel_2);
-		
-		if(comboBox.getSelectedItem().equals("is_Long_Method")) {
+
+		if(comboBox.getSelectedItem().equals("isLongMethod")) {
 			comboBox_Metrica = new JComboBox(metricasMetodos);
 		} else if (comboBox.getSelectedItem().equals("is_God_Class") ){
 			comboBox_Metrica = new JComboBox(metricasClasse);
