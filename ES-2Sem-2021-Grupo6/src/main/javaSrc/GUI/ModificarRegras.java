@@ -25,40 +25,41 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class ModificarRegras extends JFrame {
 	private Rule rule;
 	private JTextField textFieldLimite;
 	private JTextField textFieldnomeregra;
 	private int selectedItemIndex;
-	public ModificarRegras(MainMenu mainmenu, RuleSet rs) {		
+
+	public ModificarRegras(MainMenu mainmenu, RuleSet rs) {
 		setResizable(false);
-		setSize(900,500);
+		setSize(900, 500);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		WindowListener exitListener = new WindowAdapter() {
 
-		    @Override
-		    public void windowClosing(WindowEvent e) {
-		    	rs.writeFile(MainMenu.FILE_PATH);
-		    	System.exit(0);
-		    }
+			@Override
+			public void windowClosing(WindowEvent e) {
+				rs.writeFile(MainMenu.FILE_PATH);
+				System.exit(0);
+			}
 		};
 		this.addWindowListener(exitListener);
 
 		JLabel lblRegras = new JLabel("Regras:");
 		lblRegras.setBounds(259, 27, 45, 13);
 		getContentPane().add(lblRegras);
-		
-		
+
 		JLabel lblLimites = new JLabel("Limites:");
 		lblLimites.setBounds(537, 27, 45, 13);
 		getContentPane().add(lblLimites);
-		
+
 		JLabel lblMtetrica = new JLabel("Métrica:");
 		lblMtetrica.setBounds(119, 322, 46, 14);
 		getContentPane().add(lblMtetrica);
-		
+
 		JComboBox comboBoxMetrica = new JComboBox();
 		comboBoxMetrica.setBounds(119, 355, 127, 21);
 		getContentPane().add(comboBoxMetrica);
@@ -66,40 +67,38 @@ public class ModificarRegras extends JFrame {
 		JComboBox comboBoxSinal = new JComboBox();
 		comboBoxSinal.setBounds(362, 355, 75, 21);
 		getContentPane().add(comboBoxSinal);
-		
+
 		textFieldLimite = new JTextField();
 		textFieldLimite.setColumns(10);
 		textFieldLimite.setBounds(553, 356, 56, 20);
 		getContentPane().add(textFieldLimite);
-		
+
 		JLabel lblNewLabel_Limite = new JLabel("Limite:");
 		lblNewLabel_Limite.setBounds(553, 322, 46, 14);
 		getContentPane().add(lblNewLabel_Limite);
-		
-		
+
 		JComboBox comboBoxlogica = new JComboBox();
 		comboBoxlogica.setBounds(725, 354, 56, 22);
 		getContentPane().add(comboBoxlogica);
-		
+
 		JLabel lblNewLabel = new JLabel("E/OU:");
 		lblNewLabel.setBounds(725, 322, 46, 14);
 		getContentPane().add(lblNewLabel);
-		
+
 		textFieldnomeregra = new JTextField();
 		textFieldnomeregra.setBounds(426, 292, 111, 20);
 		getContentPane().add(textFieldnomeregra);
 		textFieldnomeregra.setColumns(10);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Nome da regra:");
 		lblNewLabel_1.setBounds(334, 295, 87, 14);
 		getContentPane().add(lblNewLabel_1);
-		
-		
+
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setEnabled(false);
 		btnConfirmar.setBounds(553, 416, 117, 23);
 		getContentPane().add(btnConfirmar);
-		
+
 		JButton btnNewButton_Voltar = new JButton("Voltar");
 		btnNewButton_Voltar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -110,59 +109,67 @@ public class ModificarRegras extends JFrame {
 		});
 		btnNewButton_Voltar.setBounds(334, 417, 89, 23);
 		getContentPane().add(btnNewButton_Voltar);
-		
+
 		JLabel lblNewLabel_Warning = new JLabel("Por favor inisira um valor válido!");
+		lblNewLabel_Warning.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_Warning.setForeground(Color.RED);
-		lblNewLabel_Warning.setBounds(507, 386, 179, 13);
+		lblNewLabel_Warning.setBounds(478, 387, 261, 13);
 		getContentPane().add(lblNewLabel_Warning);
-		
-		//ACTION LISTERNERS
-		
+		lblNewLabel_Warning.setVisible(false);
+
+		JLabel lbl_confirmar = new JLabel("Regra alterada com sucesso!");
+		lbl_confirmar.setForeground(Color.GREEN);
+		lbl_confirmar.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_confirmar.setBounds(680, 420, 159, 14);
+		getContentPane().add(lbl_confirmar);
+		lbl_confirmar.setVisible(false);
+
+		// ACTION LISTERNERS
+
 		JList<String> listRegras = new JList<>(createRegrasList(rs));
 
 		JList<String> listLimites = new JList<>();
 		listLimites.setBounds(537, 50, 231, 193);
 		getContentPane().add(listLimites);
-		
+
 		DefaultListModel<String> l2 = new DefaultListModel<>();
 
 		listRegras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				lbl_confirmar.setVisible(false);
 				textFieldnomeregra.setText((String) listRegras.getSelectedValue());
 				listLimites.clearSelection();
 				btnConfirmar.setEnabled(false);
 				l2.clear();
-				String selectedItem =(String) listRegras.getSelectedValue();
-				rule=rs.getHashMap().get(selectedItem);
-				for(Threshold t:rule.getThresholds()) {
+				String selectedItem = (String) listRegras.getSelectedValue();
+				rule = rs.getHashMap().get(selectedItem);
+				for (Threshold t : rule.getThresholds()) {
 					l2.addElement(t.toString());
 				}
 				listLimites.setModel(l2);
 
 			}
 		});
-		
-		
+
 		listLimites.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedItemIndex = listLimites.getSelectedIndex();
 				Threshold oldThresHold = rule.getThresholds().get(selectedItemIndex);
-				
-				if(oldThresHold.getLogic()==null){
+
+				if (oldThresHold.getLogic() == null) {
 					comboBoxlogica.removeAllItems();
 					comboBoxlogica.setEnabled(false);
-				}
-				else{
+				} else {
 					comboBoxlogica.removeAllItems();
 					comboBoxlogica.setEnabled(true);
 					comboBoxlogica.setSelectedItem(oldThresHold.getLogic());
 					comboBoxlogica.addItem("E");
 					comboBoxlogica.addItem("OU");
 				}
-				
-				if(rule.getCodeSmell().equals("is_God_Class") ){
+
+				if (rule.getCodeSmell().equals("is_God_Class")) {
 					comboBoxMetrica.removeAllItems();
 					comboBoxMetrica.addItem("LOC_Class");
 					comboBoxMetrica.addItem("WMC_Class");
@@ -183,61 +190,72 @@ public class ModificarRegras extends JFrame {
 
 			}
 		});
-		
+
 		btnConfirmar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try {
-					lblNewLabel_Warning.setVisible(false);
-					Threshold newt = null;
-					String oldRule = rule.getId();
-					if( comboBoxlogica.getSelectedItem()==null ) {
-						newt= createThreshold(comboBoxMetrica.getSelectedItem().toString(),comboBoxSinal.getSelectedItem().toString(),Integer.parseInt(textFieldLimite.getText()),"");
-					} else {
-						newt= createThreshold(comboBoxMetrica.getSelectedItem().toString(),comboBoxSinal.getSelectedItem().toString(),Integer.parseInt(textFieldLimite.getText()),comboBoxlogica.getSelectedItem().toString());
-					}
-					rule.getThresholds().set(selectedItemIndex, newt);
-					rule.setId(textFieldnomeregra.getText());
-					rs.replaceRule(oldRule, rule);
-					
-					listLimites.clearSelection();
-					listRegras.clearSelection();
-					comboBoxlogica.removeAllItems();
-					comboBoxMetrica.removeAllItems();
-					comboBoxSinal.removeAllItems();
-					textFieldLimite.setText("");
-					btnConfirmar.setEnabled(false);
-					listLimites.setModel(new DefaultListModel<String>());
-					listRegras.setModel(createRegrasList(rs));
-				} catch (Exception e1) {
+				if (rs.getHashMap().containsKey(textFieldnomeregra.getText())) {
+					lblNewLabel_Warning.setText("A regra com esse nome já existe!");
 					lblNewLabel_Warning.setVisible(true);
+				} else {
+					try {
+						lblNewLabel_Warning.setVisible(false);
+						Threshold newt = null;
+						String oldRule = rule.getId();
+						if (comboBoxlogica.getSelectedItem() == null) {
+							newt = createThreshold(comboBoxMetrica.getSelectedItem().toString(),
+									comboBoxSinal.getSelectedItem().toString(),
+									Integer.parseInt(textFieldLimite.getText()), "");
+						} else {
+							newt = createThreshold(comboBoxMetrica.getSelectedItem().toString(),
+									comboBoxSinal.getSelectedItem().toString(),
+									Integer.parseInt(textFieldLimite.getText()),
+									comboBoxlogica.getSelectedItem().toString());
+						}
+						rule.getThresholds().set(selectedItemIndex, newt);
+						rule.setId(textFieldnomeregra.getText());
+						rs.replaceRule(oldRule, rule);
+
+						listLimites.clearSelection();
+						listRegras.clearSelection();
+						comboBoxlogica.removeAllItems();
+						comboBoxMetrica.removeAllItems();
+						comboBoxSinal.removeAllItems();
+						textFieldLimite.setText("");
+						btnConfirmar.setEnabled(false);
+						listLimites.setModel(new DefaultListModel<String>());
+						listRegras.setModel(createRegrasList(rs));
+						lbl_confirmar.setVisible(true);
+					} catch (Exception e1) {
+						lblNewLabel_Warning.setText("Por favor insira um valor válido!");
+						lblNewLabel_Warning.setVisible(true);
+					}
 				}
 			}
 
 		});
-		
-		listRegras.setBounds(223,50, 111,193);  
+
+		listRegras.setBounds(223, 50, 111, 193);
 		getContentPane().add(listRegras);
-		
-		
+
 	}
-	
-	private Threshold createThreshold(String name,  String math, int value, String logic) {
-		if(logic.equals("")) {
-			return new Threshold(name,math,value);
+
+	private Threshold createThreshold(String name, String math, int value, String logic) {
+		if (logic.equals("")) {
+			return new Threshold(name, math, value);
 		} else {
 			return new Threshold(name, math, value, logic);
 		}
 	}
-	
+
 	private DefaultListModel<String> createRegrasList(RuleSet rs) {
-		DefaultListModel<String> l1 = new DefaultListModel<>();  
+		DefaultListModel<String> l1 = new DefaultListModel<>();
 
 		Iterator it = rs.getHashMap().entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry)it.next();
+			Map.Entry pair = (Map.Entry) it.next();
 			System.out.println(pair.getKey() + " = " + pair.getValue());
-			
+
 			l1.addElement(pair.getKey().toString());
 		}
 		return l1;
