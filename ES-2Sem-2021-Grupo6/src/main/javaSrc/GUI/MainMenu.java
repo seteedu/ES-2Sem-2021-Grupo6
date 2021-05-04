@@ -30,11 +30,12 @@ import java.awt.event.WindowListener;
 
 public class MainMenu extends JFrame {
 	MainMenu mainmenu = this;
+	public static String FILE_PATH = "./regras.txt";
 	
 	public MainMenu() {
 		
 		RuleSet rs = new RuleSet();
-		rs.initializeMap("C:\\Users\\35196\\Desktop\\teste.txt");
+		rs.initializeMap(FILE_PATH);
 		
 		setSize(900,500);
 		setTitle("Projeto ES");
@@ -42,13 +43,12 @@ public class MainMenu extends JFrame {
 		getContentPane().setLayout(null);
 		
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		WindowListener exitListener = new WindowAdapter() {
 
 		    @Override
 		    public void windowClosing(WindowEvent e) {
-		    	rs.writeFile("C:\\Users\\35196\\Desktop\\teste.txt");
+		    	rs.writeFile(FILE_PATH);
 		    	System.exit(0);
 		    }
 		};
@@ -77,7 +77,7 @@ public class MainMenu extends JFrame {
 				
 					try {
 						
-						ExtrairMetricasMenu menu = new ExtrairMetricasMenu(mainmenu);
+						ExtrairMetricasMenu menu = new ExtrairMetricasMenu(mainmenu, rs);
 						menu.setVisible(true);
 						dispose();
 
@@ -94,7 +94,7 @@ public class MainMenu extends JFrame {
 		btnVerExcel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				MetricMenu metric = new MetricMenu(new Excell_Summary(),mainmenu);
+				MetricMenu metric = new MetricMenu(new Excell_Summary(),mainmenu,rs);
 				metric.setVisible(true);
 				dispose();
 			}

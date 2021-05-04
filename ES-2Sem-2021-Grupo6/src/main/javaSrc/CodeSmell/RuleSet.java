@@ -99,6 +99,10 @@ public class RuleSet {
 		}
 	}
 	
+	public void replaceRule(String oldRule, Rule newRule) {
+		rules.remove(oldRule);
+		addRule(newRule);
+	}
 	
 	public void changeRule(String id, String codeSmell, ArrayList<Threshold> ts){
 		Rule r = new Rule(id,codeSmell, ts);		

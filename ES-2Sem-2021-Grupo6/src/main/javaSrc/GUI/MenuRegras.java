@@ -17,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import java.awt.Font;
@@ -50,7 +53,15 @@ public class MenuRegras extends JFrame {
 
 
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		WindowListener exitListener = new WindowAdapter() {
+
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	rs.writeFile(MainMenu.FILE_PATH);
+		    	System.exit(0);
+		    }
+		};
+		this.addWindowListener(exitListener);
 
 
 

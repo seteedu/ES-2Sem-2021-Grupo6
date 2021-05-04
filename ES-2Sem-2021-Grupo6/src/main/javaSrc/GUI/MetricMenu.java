@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import CodeSmell.RuleSet;
 import Main.Excell_Summary;
 import Main.FileHandler;
 
@@ -23,6 +24,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -36,14 +40,22 @@ public class MetricMenu extends JFrame {
 	 static int tableWidth = 0; // set the tableWidth
 	 static int tableHeight = 0; // set the tableHeight
 	 static JScrollPane scroll;
-	public MetricMenu(Excell_Summary es, MainMenu mainmenu) {
+	public MetricMenu(Excell_Summary es, MainMenu mainmenu,  RuleSet rs) {
 		
 		setResizable(false);
 		setSize(900,500);
 		getContentPane().setLayout(null);
 		
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		WindowListener exitListener = new WindowAdapter() {
+
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	rs.writeFile(MainMenu.FILE_PATH);
+		    	System.exit(0);
+		    }
+		};
+		this.addWindowListener(exitListener);
 		
 		JLabel lblNewLabel = new JLabel("Número de packages");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
