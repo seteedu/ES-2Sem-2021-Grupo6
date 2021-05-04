@@ -36,7 +36,7 @@ public class CodeSmell_Detector {
 	
 	
 	
-	public void detect(String file, Rule rule) throws IOException {
+	public void detect(String file, Rule god, Rule method) throws IOException {
 		File f = new File(file);
 		try {
 			FileInputStream is = new FileInputStream(file);
@@ -48,13 +48,10 @@ public class CodeSmell_Detector {
 			while( it <= last) {
 				System.out.println(it);
 				XSSFRow nextRow = firstSheet.getRow(it);
-				boolean b = expression(rule, nextRow);
-				if (rule.getCodeSmell().equals("is_God_Class")) {
-					classSmells.put(nextRow.getCell(2).getStringCellValue(), b);
-				}
-				else {
-					methodSmells.put(nextRow.getCell(3).getStringCellValue(), b);
-				}
+				boolean godB = expression(god, nextRow);
+				boolean methodB = expression(method, nextRow);
+				classSmells.put(nextRow.getCell(2).getStringCellValue(), godB);
+				methodSmells.put(nextRow.getCell(3).getStringCellValue(), methodB);
 				it++;
 			}
 			FileOutputStream os = new FileOutputStream(file);
@@ -111,21 +108,21 @@ public class CodeSmell_Detector {
 	}
 
 	
-	public static void main(String[] args) {
-		Threshold t1 = new Threshold("LOC_Class",  ">",2, "E");
-		Threshold t2 = new Threshold("NOM_Class", "<", 2);
-		ArrayList<Threshold> ts = new ArrayList<>();	
-		ts.add(t1);
-		ts.add(t2);
-		Rule a1 = new Rule ("um","is_God_Class",ts);
-		CodeSmell_Detector n = new CodeSmell_Detector();
-		try {
-			n.detect("C:\\Users\\david\\Downloads\\Code_Smells.xlsx", a1 );
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		Threshold t1 = new Threshold("LOC_Class",  ">",2, "E");
+//		Threshold t2 = new Threshold("NOM_Class", "<", 2);
+//		ArrayList<Threshold> ts = new ArrayList<>();	
+//		ts.add(t1);
+//		ts.add(t2);
+//		Rule a1 = new Rule ("um","is_God_Class",ts);
+//		CodeSmell_Detector n = new CodeSmell_Detector();
+//		try {
+//			n.detect("C:\\Users\\david\\Downloads\\Code_Smells.xlsx", a1 );
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 	
 	
