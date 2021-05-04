@@ -14,12 +14,13 @@ public class RuleSet {
 	private HashMap<String, Rule> rules = new HashMap<>();
 
 	//showing rules in GUI list
+	@SuppressWarnings("rawtypes")
 	public ArrayList<String> showRules () {
 		ArrayList<String> a = new ArrayList<>();
 		for (HashMap.Entry mapElement : rules.entrySet()) {
 			//String key = (String)mapElement.getKey();
 			String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
-			System.out.println(s);
+			System.out.println("MAPA: " + s);
 			a.add(s);
 		}
 		return a;
@@ -28,6 +29,7 @@ public class RuleSet {
 	//adding new rule to hashMap
 	public void addRule (Rule rule) {
 		rules.put(rule.getId(), rule);
+		showRules();
 	}
 
 	//creating HashMap as the application starts
@@ -40,17 +42,17 @@ public class RuleSet {
 					String r = s.nextLine();
 					String[] r1 = r.split(", ");
 
-					Rule rule = new Rule(r1[0],r1[1]);
-
+					ArrayList<Threshold> ts = new ArrayList<>();
 					for(int i = 1; i<=r1.length; i+=4){
 						if(i==r1.length){
 							Threshold t = new Threshold(r1[i-3],r1[i-2],Integer.parseInt(r1[i-1]));
-							rule.add_threshold(t);
+							ts.add(t);
 						}else if(i!=1){
 							Threshold t = new Threshold(r1[i-3],r1[i-2],Integer.parseInt(r1[i-1]),r1[i]);
-							rule.add_threshold(t);
+							ts.add(t);
 						}
 					}
+					Rule rule = new Rule(r1[0],r1[1], ts);
 					
 					rules.put(rule.getId(),rule);
 					
@@ -61,16 +63,15 @@ public class RuleSet {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void writeFile(String fs) {
 		File f = new File(fs);
 		if(f.exists()) {
 			try {
 				FileWriter myWriter = new FileWriter(f);
 				for (HashMap.Entry mapElement : rules.entrySet()) {
-					//String key = (String)mapElement.getKey();
 					String s = ((Rule) mapElement.getValue()).toFile() + "\n";
 					myWriter.write(s);
 				}
@@ -90,9 +91,7 @@ public class RuleSet {
 						myWriter.write(s);
 					}
 					myWriter.close();
-				} else {
-					System.out.println("File already exists.");
-				}
+				} 
 			} catch (IOException e) {
 				System.out.println("An error occurred.");
 				e.printStackTrace();
@@ -102,29 +101,24 @@ public class RuleSet {
 	
 	
 	public void changeRule(String id, String codeSmell, ArrayList<Threshold> ts){
-		Rule r = new Rule(id,codeSmell);
-		for(Threshold t : ts)
-			r.add_threshold(t);
-		
+		Rule r = new Rule(id,codeSmell, ts);		
 		rules.replace(id, r);
 	}
 	
 	public HashMap<String, Rule> getHashMap(){
 		return rules;
 	}
-
-	public static void main(String[] args) {
-		RuleSet r = new RuleSet();
-		r.initializeMap("C:\\Users\\joaom\\Desktop\\teste.txt");
-		Threshold t1 = new Threshold("ola",  "<",2, "and");
-		Threshold t2 = new Threshold("ola", "<", 2);
-		Rule a1 = new Rule ("Regra1", "God_class");
-		a1.add_threshold(t1);
-		a1.add_threshold(t2);
-		r.addRule(a1);
-		//r.showRules();
-		//r.writeFile("C:\\Users\\joaom\\Desktop\\teste.txt");
-	}
-	
+//	public static void main(String[] args) {
+//		RuleSet r = new RuleSet();
+//		r.initializeMap("C:\\Users\\35196\\Desktopteste.txt");
+//		Threshold t1 = new Threshold("ola",  "<",2, "and");
+//		Threshold t2 = new Threshold("ola", "<", 2);
+//		Rule a1 = new Rule ("um", "God_class");
+//		a1.add_threshold(t1);
+//		a1.add_threshold(t2);
+//		r.addRule(a1);
+//		r.showRules();
+//		r.writeFile("C:\\Users\\35196\\Desktopteste.txt");
+//	}
 }
 

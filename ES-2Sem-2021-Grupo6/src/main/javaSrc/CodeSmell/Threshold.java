@@ -33,10 +33,30 @@ public class Threshold{
 
 
 	public String toFile() {
-		if (logic == null)
+		if (logic == null) {
+			System.out.println("THRESHOLD: entrei no to file null");
 			return name + ", " + math + ", " + value;
+		}
 		else 
 			return name + ", " + math + ", " + value + ", " + logic;
 	}
+	
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getMath() {
+		return math;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+	
+	public String getLogic() {
+		return logic;
+	}
+	
 	
 }
