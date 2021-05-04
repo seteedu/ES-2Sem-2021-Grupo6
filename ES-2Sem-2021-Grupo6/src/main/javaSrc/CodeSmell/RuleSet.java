@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class RuleSet {
@@ -24,6 +25,20 @@ public class RuleSet {
 			a.add(s);
 		}
 		return a;
+	}
+	
+	public ArrayList<String> showRulesFiltered(String codesmell) {
+		ArrayList<String> str = new ArrayList<>();
+		Iterator it = rules.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			if( (rules.get(pair.getKey()).getCodeSmell()).equals(codesmell)) {
+			String s = pair.getKey().toString();
+			str.add(s);
+			}
+		}
+		return str;
+		
 	}
 
 	//adding new rule to hashMap

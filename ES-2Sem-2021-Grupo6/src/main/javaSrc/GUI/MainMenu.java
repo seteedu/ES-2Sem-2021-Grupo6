@@ -70,7 +70,7 @@ public class MainMenu extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Extrair métricas");
-		btnNewButton.setBounds(252, 106, 152, 50);
+		btnNewButton.setBounds(252, 11, 152, 50);
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -89,7 +89,7 @@ public class MainMenu extends JFrame {
 		});
 		
 		JButton btnVerExcel = new JButton("Ver excel");
-		btnVerExcel.setBounds(252, 167, 152, 50);
+		btnVerExcel.setBounds(252, 72, 152, 50);
 		panel.add(btnVerExcel);
 		btnVerExcel.addActionListener(new ActionListener() {
 			@Override
@@ -109,12 +109,24 @@ public class MainMenu extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_2.setBounds(252, 228, 152, 50);
+		btnNewButton_2.setBounds(252, 133, 152, 50);
 		panel.add(btnNewButton_2);
 		
 		JButton btnModificarRegras = new JButton("Modificar Regras");
-		btnModificarRegras.setBounds(252, 288, 152, 50);
+		btnModificarRegras.setBounds(252, 193, 152, 50);
 		panel.add(btnModificarRegras);
+		
+		JButton btnCodeSmells = new JButton("Code Smells");
+		btnCodeSmells.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				MenuCodeSmells menuCodeSmells = new MenuCodeSmells(mainmenu, rs);
+				menuCodeSmells.setVisible(true);
+				dispose();
+			}
+		});
+		btnCodeSmells.setBounds(252, 254, 152, 50);
+		panel.add(btnCodeSmells);
 		
 		btnModificarRegras.addMouseListener(new MouseAdapter() {
 			@Override

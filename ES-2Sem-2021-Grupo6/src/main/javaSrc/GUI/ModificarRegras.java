@@ -26,6 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
 
 public class ModificarRegras extends JFrame {
 	private Rule rule;
@@ -123,14 +124,22 @@ public class ModificarRegras extends JFrame {
 		lbl_confirmar.setBounds(680, 420, 159, 14);
 		getContentPane().add(lbl_confirmar);
 		lbl_confirmar.setVisible(false);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(230, 51, 107, 193);
+		getContentPane().add(scrollPane);
+		
+		JScrollPane scrollPane2 = new JScrollPane();
+		scrollPane2.setBounds(537, 50, 231, 193);
+		getContentPane().add(scrollPane2);
 
 		// ACTION LISTERNERS
 
 		JList<String> listRegras = new JList<>(createRegrasList(rs));
-
+		
 		JList<String> listLimites = new JList<>();
 		listLimites.setBounds(537, 50, 231, 193);
-		getContentPane().add(listLimites);
+		scrollPane2.setViewportView(listLimites);
 
 		DefaultListModel<String> l2 = new DefaultListModel<>();
 
@@ -235,8 +244,9 @@ public class ModificarRegras extends JFrame {
 
 		});
 
-		listRegras.setBounds(223, 50, 111, 193);
-		getContentPane().add(listRegras);
+		listRegras.setBounds(224, 50, 111, 193);
+		scrollPane.setViewportView(listRegras);
+		
 
 	}
 

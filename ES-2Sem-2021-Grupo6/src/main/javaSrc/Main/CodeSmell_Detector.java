@@ -37,9 +37,11 @@ public class CodeSmell_Detector {
 	
 	
 	public void detect(String file, Rule god, Rule method) throws IOException {
+		classSmells.clear();
+		methodSmells.clear();
 		File f = new File(file);
 		try {
-			FileInputStream is = new FileInputStream(file);
+			FileInputStream is = new FileInputStream(f);
 			
 			XSSFWorkbook workbook = new XSSFWorkbook(is);
 			XSSFSheet firstSheet = (XSSFSheet) workbook.getSheetAt(0);
@@ -54,7 +56,7 @@ public class CodeSmell_Detector {
 				methodSmells.put(nextRow.getCell(3).getStringCellValue(), methodB);
 				it++;
 			}
-			FileOutputStream os = new FileOutputStream(file);
+			FileOutputStream os = new FileOutputStream(f);
 			workbook.write(os);
 			workbook.close();
 			is.close();
