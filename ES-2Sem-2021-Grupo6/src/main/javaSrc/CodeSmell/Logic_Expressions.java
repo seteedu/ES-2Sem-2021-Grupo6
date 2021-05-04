@@ -34,15 +34,15 @@ public class Logic_Expressions {
 			return false;
 	}
 	
-	public static void main (String[]args) {
-		Logic_Expressions n = new Logic_Expressions();
-		Threshold t1 = new Threshold("ola",  "<",2, "and");
-		Threshold t2 = new Threshold("ola", "<", 2);
-		Rule a1 = new Rule ("um","God_class");
-		a1.add_threshold(t1);
-		a1.add_threshold(t2);
-		System.out.println(a1.toFile());
-	}
+//	public static void main (String[]args) {
+//		Logic_Expressions n = new Logic_Expressions();
+//		Threshold t1 = new Threshold("ola",  "<",2, "and");
+//		Threshold t2 = new Threshold("ola", "<", 2);
+//		Rule a1 = new Rule ("um","God_class");
+//		a1.add_threshold(t1);
+//		a1.add_threshold(t2);
+//		System.out.println(a1.toFile());
+//	}
 	
 		
 	

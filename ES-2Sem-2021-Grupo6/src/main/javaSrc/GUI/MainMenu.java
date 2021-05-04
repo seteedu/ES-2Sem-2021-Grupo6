@@ -6,6 +6,7 @@ import javax.swing.WindowConstants;
 
 import org.apache.poi.EncryptedDocumentException;
 
+import CodeSmell.RuleSet;
 import Main.Excell_Summary;
 import Main.FileHandler;
 
@@ -23,11 +24,17 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class MainMenu extends JFrame {
 	MainMenu mainmenu = this;
 	
 	public MainMenu() {
+		
+		RuleSet rs = new RuleSet();
+		rs.initializeMap("C:\\Users\\35196\\Desktop\\teste.txt");
 		
 		setSize(900,500);
 		setTitle("Projeto ES");
@@ -36,6 +43,16 @@ public class MainMenu extends JFrame {
 		
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		WindowListener exitListener = new WindowAdapter() {
+
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	rs.writeFile("C:\\Users\\35196\\Desktop\\teste.txt");
+		    	System.exit(0);
+		    }
+		};
+		this.addWindowListener(exitListener);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 11, 439, 449);
@@ -87,7 +104,7 @@ public class MainMenu extends JFrame {
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuRegras regras = new MenuRegras(mainmenu);
+				MenuRegras regras = new MenuRegras(mainmenu, rs);
 				regras.setVisible(true);
 				dispose();
 			}
