@@ -19,6 +19,7 @@ import javax.swing.WindowConstants;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
+import CodeSmell.RuleSet;
 import Main.FileHandler;
 
 import java.awt.Insets;
@@ -27,6 +28,9 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -42,7 +46,7 @@ public class ExtrairMetricasMenu extends JFrame {
 	private String dc = "";
 	// private MainMenu mainmenu;
 
-	public ExtrairMetricasMenu(MainMenu mainmenu) {
+	public ExtrairMetricasMenu(MainMenu mainmenu,  RuleSet rs) {
 		setResizable(false);
 		setSize(900, 500);
 		getContentPane().setLayout(null);
@@ -53,7 +57,15 @@ public class ExtrairMetricasMenu extends JFrame {
 		setTitle("Projeto ES");
 
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		WindowListener exitListener = new WindowAdapter() {
+
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	rs.writeFile(MainMenu.FILE_PATH);
+		    	System.exit(0);
+		    }
+		};
+		this.addWindowListener(exitListener);
 
 		JButton btnNewButton = new JButton("Selecione um projeto Java");
 		btnNewButton.addMouseListener(new MouseAdapter() {
