@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.DefaultListModel;
+
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -18,8 +20,10 @@ import CodeSmell.Threshold;
 
 public class CodeSmell_Detector {
 	
-	private static final HashMap<String, Integer> m = new HashMap<>();
+	private HashMap<String, Boolean> classSmells = new HashMap<>();
+	private HashMap<String, Boolean> methodSmells = new HashMap<>();
 	
+	private static final HashMap<String, Integer> m = new HashMap<>();
 	static {
 		m.put("NOM_Class", 4);
 		m.put("LOC_Class", 5);
@@ -29,6 +33,8 @@ public class CodeSmell_Detector {
 		m.put("CYCLO_Method",9);
 		m.put("is_Long_Method", 10);
 	}
+	
+	
 	
 	public void detect(String file, Rule rule) throws IOException {
 		File f = new File(file);
@@ -44,12 +50,10 @@ public class CodeSmell_Detector {
 				XSSFRow nextRow = firstSheet.getRow(it);
 				boolean b = expression(rule, nextRow);
 				if (rule.getCodeSmell().equals("is_God_Class")) {
-					nextRow.createCell(7);
-					nextRow.getCell(7).setCellValue(b);
+					classSmells.put(nextRow.getCell(2).getStringCellValue(), b);
 				}
 				else {
-					nextRow.createCell(10);
-					nextRow.getCell(10).setCellValue(b);
+					methodSmells.put(nextRow.getCell(3).getStringCellValue(), b);
 				}
 				it++;
 			}
@@ -57,6 +61,10 @@ public class CodeSmell_Detector {
 			workbook.write(os);
 			workbook.close();
 			is.close();
+			for (HashMap.Entry mapElement : classSmells.entrySet()) {
+	            String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
+	            System.out.println("MAPA: " + s);
+	        }
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -83,23 +91,42 @@ public class CodeSmell_Detector {
 		return b;
 		
 	}
+	
+	public DefaultListModel<String> showClassSmells () {
+		DefaultListModel<String> a = new DefaultListModel<>();
+		for (HashMap.Entry mapElement : classSmells.entrySet()) {
+			String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
+			a.addElement(s);
+		}
+		return a;
+	}
+	
+	public DefaultListModel<String> showMethodSmells () {
+		DefaultListModel<String> a = new DefaultListModel<>();
+		for (HashMap.Entry mapElement : methodSmells.entrySet()) {
+			String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
+			a.addElement(s);
+		}
+		return a;
+	}
 
 	
-//	public static void main(String[] args) {
-//		Threshold t1 = new Threshold("LOC_Class",  ">",2, "E");
-//		Threshold t2 = new Threshold("NOM_Class", "<", 2);
-//		Rule a1 = new Rule ("um","is_God_Class");
-//		a1.add_threshold(t1);
-//		a1.add_threshold(t2);
-//		CodeSmell_Detector n = new CodeSmell_Detector();
-//		try {
-//			n.detect("C:\\Users\\35196\\OneDrive - ISCTE-IUL\\univ\\3 ano\\2ºsemestre\\Engenharia de Software\\Code_Smells.xlsx", a1 );
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	
+	public static void main(String[] args) {
+		Threshold t1 = new Threshold("LOC_Class",  ">",2, "E");
+		Threshold t2 = new Threshold("NOM_Class", "<", 2);
+		ArrayList<Threshold> ts = new ArrayList<>();	
+		ts.add(t1);
+		ts.add(t2);
+		Rule a1 = new Rule ("um","is_God_Class",ts);
+		CodeSmell_Detector n = new CodeSmell_Detector();
+		try {
+			n.detect("C:\\Users\\david\\Downloads\\Code_Smells.xlsx", a1 );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 	
