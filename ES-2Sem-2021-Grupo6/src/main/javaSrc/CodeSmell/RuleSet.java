@@ -105,7 +105,9 @@ public class RuleSet {
 		rules.replace(id, r);
 	}
 	
-
+	public HashMap<String, Rule> getHashMap(){
+		return rules;
+	}
 //	public static void main(String[] args) {
 //		RuleSet r = new RuleSet();
 //		r.initializeMap("C:\\Users\\35196\\Desktopteste.txt");

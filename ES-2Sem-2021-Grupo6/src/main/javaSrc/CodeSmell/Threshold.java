@@ -27,6 +27,11 @@ public class Threshold{
 			return  name + " " + math + " " + value + " " + logic;
 	}
 	
+	public String getLogic() {
+		return logic;
+	}
+
+
 	public String toFile() {
 		if (logic == null) {
 			System.out.println("THRESHOLD: entrei no to file null");
