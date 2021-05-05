@@ -8,8 +8,6 @@ import jxl.read.biff.BiffException;
 
 import java.awt.*;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -18,20 +16,24 @@ import java.util.logging.Logger;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class excelTojTable extends JFrame {
 	static JTable table;
 	static JScrollPane scroll;
 	// header is Vector contains table Column
+	@SuppressWarnings("rawtypes")
 	static Vector headers = new Vector();
 	// Model is used to construct JTable
 	static DefaultTableModel model = null;
 	// data is Vector contains Data from Excel File
+	@SuppressWarnings("rawtypes")
 	static Vector data = new Vector();
 	static JButton jbClick;
 	static JFileChooser jChooser;
 	static int tableWidth = 0; // set the tableWidth
 	static int tableHeight = 0; // set the tableHeight
  //adsasd
+	@SuppressWarnings("unchecked")
 	public excelTojTable(File file) {
 		super("Import Excel To JTable");
 		if (!file.getName().endsWith("xls")) {
@@ -94,8 +96,9 @@ public class excelTojTable extends JFrame {
 	/**
 	 * Fill JTable with Excel file data.
 	 *
-	 * @param file file :contains xls file to display in jTable
+	 * @param file file :contains xlsx file to display in jTable
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	void fillData(File file) {
 
 		Workbook workbook = null;

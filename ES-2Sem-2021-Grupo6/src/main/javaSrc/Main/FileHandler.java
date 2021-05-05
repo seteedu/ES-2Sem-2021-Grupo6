@@ -15,6 +15,7 @@ public class FileHandler {
 
 	public FileHandler(String path) {
 		try {
+			@SuppressWarnings("unused")
 			App app = new App(path, handler(path));
 		} catch (EncryptedDocumentException | InvalidFormatException | IOException e) {
 			// TODO Auto-generated catch block

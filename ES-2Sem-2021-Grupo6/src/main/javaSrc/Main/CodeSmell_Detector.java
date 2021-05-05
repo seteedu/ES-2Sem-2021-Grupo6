@@ -14,14 +14,16 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.github.javaparser.utils.Pair;
+
 import CodeSmell.Logic_Expressions;
 import CodeSmell.Rule;
 import CodeSmell.Threshold;
 
 public class CodeSmell_Detector {
 	
-	private HashMap<String, Boolean> classSmells = new HashMap<>();
-	private HashMap<String, Boolean> methodSmells = new HashMap<>();
+	private HashMap<String, Pair<Boolean, Boolean>> classSmells = new HashMap<>();
+	private HashMap<String, Pair<Boolean, Boolean>> methodSmells = new HashMap<>();
 	
 	private static final HashMap<String, Integer> m = new HashMap<>();
 	static {
@@ -36,6 +38,7 @@ public class CodeSmell_Detector {
 	
 	
 	
+	@SuppressWarnings("rawtypes")
 	public void detect(String file, Rule god, Rule method) throws IOException {
 		classSmells.clear();
 		methodSmells.clear();
@@ -52,8 +55,8 @@ public class CodeSmell_Detector {
 				XSSFRow nextRow = firstSheet.getRow(it);
 				boolean godB = expression(god, nextRow);
 				boolean methodB = expression(method, nextRow);
-				classSmells.put(nextRow.getCell(2).getStringCellValue(), godB);
-				methodSmells.put(nextRow.getCell(3).getStringCellValue(), methodB);
+				classSmells.put(nextRow.getCell(2).getStringCellValue(), new Pair<Boolean, Boolean>(godB, nextRow.getCell(7).getBooleanCellValue()));
+				methodSmells.put(nextRow.getCell(3).getStringCellValue(), new Pair<Boolean, Boolean>(methodB, nextRow.getCell(10).getBooleanCellValue()));
 				it++;
 			}
 			FileOutputStream os = new FileOutputStream(f);
@@ -61,7 +64,8 @@ public class CodeSmell_Detector {
 			workbook.close();
 			is.close();
 			for (HashMap.Entry mapElement : classSmells.entrySet()) {
-	            String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
+	            @SuppressWarnings("unchecked")
+				String s = mapElement.getKey() + ": " + ((Pair<Boolean,Boolean>)mapElement.getValue()).a.toString();
 	            System.out.println("MAPA: " + s);
 	        }
 		} catch (FileNotFoundException e) {
@@ -91,45 +95,35 @@ public class CodeSmell_Detector {
 		
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public DefaultListModel<String> showClassSmells () {
 		DefaultListModel<String> a = new DefaultListModel<>();
 		for (HashMap.Entry mapElement : classSmells.entrySet()) {
-			String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
+			@SuppressWarnings("unchecked")
+			String s = mapElement.getKey() + ": " + ((Pair<Boolean,Boolean>)mapElement.getValue()).a.toString();
 			a.addElement(s);
 		}
 		return a;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public DefaultListModel<String> showMethodSmells () {
 		DefaultListModel<String> a = new DefaultListModel<>();
 		for (HashMap.Entry mapElement : methodSmells.entrySet()) {
-			String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
+			@SuppressWarnings("unchecked")
+			String s = mapElement.getKey() + ": " + ((Pair<Boolean,Boolean>)mapElement.getValue()).a.toString();
 			a.addElement(s);
 		}
 		return a;
 	}
+	
+	public HashMap<String, Pair<Boolean, Boolean>> classPairs(){
+		return classSmells;
+	}
+	
+	public HashMap<String, Pair<Boolean, Boolean>> methodPairs(){
+		return methodSmells;
+	}
 
-	
-//	public static void main(String[] args) {
-//		Threshold t1 = new Threshold("LOC_Class",  ">",2, "E");
-//		Threshold t2 = new Threshold("NOM_Class", "<", 2);
-//		ArrayList<Threshold> ts = new ArrayList<>();	
-//		ts.add(t1);
-//		ts.add(t2);
-//		Rule a1 = new Rule ("um","is_God_Class",ts);
-//		CodeSmell_Detector n = new CodeSmell_Detector();
-//		try {
-//			n.detect("C:\\Users\\david\\Downloads\\Code_Smells.xlsx", a1 );
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-	
-	
-	
-	
-	
-	
 	
 }

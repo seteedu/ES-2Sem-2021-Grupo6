@@ -33,7 +33,7 @@ public class App
     {	
      	File currDir = new File(file);
     	String path = currDir.getAbsolutePath();
-    	fileLocation = path.substring(0, path.length() - 1) + currDir.getName() + ".xls";
+    	fileLocation = path.substring(0, path.length() - 1) + currDir.getName() + ".xlsx";
 
     	
     	workbook = new XSSFWorkbook();

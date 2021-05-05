@@ -25,13 +25,12 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class MenuCodeSmells extends JFrame {
 	private JTextField textField;
 	private String ficheiro;
 	
-	
-	
-
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public MenuCodeSmells(MainMenu mainmenu, RuleSet rs) {
 		
 		CodeSmell_Detector CSD = new CodeSmell_Detector();
@@ -107,13 +106,11 @@ public class MenuCodeSmells extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					Rule rule = rs.getHashMap().get(comboBox.getSelectedItem()); //converter string para rule deve ser feito na função detect() fiquem espertos
+					Rule rule = rs.getHashMap().get(comboBox.getSelectedItem()); 
 					Rule rule2 = rs.getHashMap().get(comboBox_1.getSelectedItem());
 					CSD.detect(ficheiro, rule, rule2);
 					listClass.setModel(CSD.showClassSmells());
 					listMethods.setModel(CSD.showMethodSmells());
-					
-					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

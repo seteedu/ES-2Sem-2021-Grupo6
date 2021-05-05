@@ -6,9 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Scanner;
+
+import javax.swing.DefaultListModel;
 
 public class RuleSet {
 
@@ -16,35 +16,33 @@ public class RuleSet {
 
 	//showing rules in GUI list
 	@SuppressWarnings("rawtypes")
-	public ArrayList<String> showRules () {
-		ArrayList<String> a = new ArrayList<>();
+	public DefaultListModel<String> showRules () {
+		DefaultListModel<String> a = new DefaultListModel<>();
 		for (HashMap.Entry mapElement : rules.entrySet()) {
-			//String key = (String)mapElement.getKey();
-			String s = mapElement.getKey() + ": " + mapElement.getValue().toString();
-			System.out.println("MAPA: " + s);
-			a.add(s);
+			String s = mapElement.getKey().toString();
+			System.out.println("MAPA: " + mapElement.getKey());
+			a.addElement(s);
 		}
 		return a;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public ArrayList<String> showRulesFiltered(String codesmell) {
 		ArrayList<String> str = new ArrayList<>();
-		Iterator it = rules.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			if( (rules.get(pair.getKey()).getCodeSmell()).equals(codesmell)) {
-			String s = pair.getKey().toString();
-			str.add(s);
+		for(HashMap.Entry mapElement : rules.entrySet()) {
+			if ( mapElement.getValue().equals(codesmell)) {
+				String s = mapElement.getKey().toString();
+				str.add(s);
 			}
 		}
 		return str;
-		
 	}
+	
+	
 
 	//adding new rule to hashMap
 	public void addRule (Rule rule) {
 		rules.put(rule.getId(), rule);
-		showRules();
 	}
 
 	//creating HashMap as the application starts
@@ -78,6 +76,35 @@ public class RuleSet {
 				e.printStackTrace();
 			}
 		}
+		else {
+			try {
+				if (f.createNewFile()) {
+					System.out.println("File created: " + f.getName());
+			    	String path = f.getAbsolutePath();
+			    	@SuppressWarnings("unused")
+					String fileLocation = path.substring(0, path.length() - 1) + f.getName() + ".txt";
+					FileWriter myWriter = new FileWriter(f);
+					String defClassRule = "default1, is_God_Class, LOC_Class, <, 100";
+					String defMethodRule = "default2, is_Long_Method, LOC_Method, <, 20";
+					myWriter.write(defClassRule + "\n");
+					myWriter.write(defMethodRule + "\n");
+					Threshold cr = new Threshold("LOC_Class", "<", 100);
+					ArrayList<Threshold> crl = new ArrayList<Threshold>();
+					crl.add(cr);
+					Rule defClassRule1 = new Rule("default1", "is_God_Class",crl);
+					Threshold mr = new Threshold("LOC_Method", "<", 20);
+					ArrayList<Threshold> mrl = new ArrayList<Threshold>();
+					mrl.add(mr);
+					Rule defMethodRule1 = new Rule("default2", "is_Long_Method", mrl);
+					rules.put(defClassRule1.getId(), defClassRule1);
+					rules.put(defMethodRule1.getId(), defMethodRule1);
+					myWriter.close();
+				} 
+			} catch (IOException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -95,24 +122,9 @@ public class RuleSet {
 				e.printStackTrace();
 			}
 		}
-		else {
-			try {
-				if (f.createNewFile()) {
-					System.out.println("File created: " + f.getName());
-					FileWriter myWriter = new FileWriter(f);
-					for (HashMap.Entry mapElement : rules.entrySet()) {
-						//String key = (String)mapElement.getKey();
-						String s = ((Rule) mapElement.getValue()).toFile() + "\n";
-						myWriter.write(s);
-					}
-					myWriter.close();
-				} 
-			} catch (IOException e) {
-				System.out.println("An error occurred.");
-				e.printStackTrace();
-			}
-		}
 	}
+	
+	
 	
 	public void replaceRule(String oldRule, Rule newRule) {
 		rules.remove(oldRule);
@@ -127,17 +139,5 @@ public class RuleSet {
 	public HashMap<String, Rule> getHashMap(){
 		return rules;
 	}
-//	public static void main(String[] args) {
-//		RuleSet r = new RuleSet();
-//		r.initializeMap("C:\\Users\\35196\\Desktopteste.txt");
-//		Threshold t1 = new Threshold("ola",  "<",2, "and");
-//		Threshold t2 = new Threshold("ola", "<", 2);
-//		Rule a1 = new Rule ("um", "God_class");
-//		a1.add_threshold(t1);
-//		a1.add_threshold(t2);
-//		r.addRule(a1);
-//		r.showRules();
-//		r.writeFile("C:\\Users\\35196\\Desktopteste.txt");
-//	}
 }
 

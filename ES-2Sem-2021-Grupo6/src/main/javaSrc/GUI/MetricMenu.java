@@ -12,12 +12,10 @@ import javax.swing.JFileChooser;
 
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import CodeSmell.RuleSet;
 import Main.Excell_Summary;
-import Main.FileHandler;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -30,9 +28,8 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JTable;
 
-
+@SuppressWarnings("serial")
 public class MetricMenu extends JFrame {
 	 static JFileChooser jChooser;
 
