@@ -2,24 +2,17 @@ package GUI;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 import javax.swing.JList;
 import java.awt.Color;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.swing.border.BevelBorder;
 
 import CodeSmell.Rule;
 import CodeSmell.RuleSet;
 import CodeSmell.Threshold;
 
 import javax.swing.JLabel;
-import javax.swing.ListModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
@@ -28,12 +21,14 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
+@SuppressWarnings("serial")
 public class ModificarRegras extends JFrame {
 	private Rule rule;
 	private JTextField textFieldLimite;
 	private JTextField textFieldnomeregra;
 	private int selectedItemIndex;
 
+	@SuppressWarnings("rawtypes")
 	public ModificarRegras(MainMenu mainmenu, RuleSet rs) {
 		setResizable(false);
 		setSize(900, 500);
@@ -135,7 +130,7 @@ public class ModificarRegras extends JFrame {
 
 		// ACTION LISTERNERS
 
-		JList<String> listRegras = new JList<>(createRegrasList(rs));
+		JList<String> listRegras = new JList<>(rs.showRules());
 		
 		JList<String> listLimites = new JList<>();
 		listLimites.setBounds(537, 50, 231, 193);
@@ -162,6 +157,7 @@ public class ModificarRegras extends JFrame {
 		});
 
 		listLimites.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedItemIndex = listLimites.getSelectedIndex();
@@ -233,7 +229,7 @@ public class ModificarRegras extends JFrame {
 						textFieldLimite.setText("");
 						btnConfirmar.setEnabled(false);
 						listLimites.setModel(new DefaultListModel<String>());
-						listRegras.setModel(createRegrasList(rs));
+						listRegras.setModel(rs.showRules());
 						lbl_confirmar.setVisible(true);
 					} catch (Exception e1) {
 						lblNewLabel_Warning.setText("Por favor insira um valor válido!");
@@ -257,17 +253,5 @@ public class ModificarRegras extends JFrame {
 			return new Threshold(name, math, value, logic);
 		}
 	}
-
-	private DefaultListModel<String> createRegrasList(RuleSet rs) {
-		DefaultListModel<String> l1 = new DefaultListModel<>();
-
-		Iterator it = rs.getHashMap().entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
-
-			l1.addElement(pair.getKey().toString());
-		}
-		return l1;
-	}
+	
 }

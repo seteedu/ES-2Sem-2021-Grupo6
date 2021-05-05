@@ -1,28 +1,19 @@
 package GUI;
 
 import javax.swing.JFrame;
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import CodeSmell.RuleSet;
 import Main.FileHandler;
 
-import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -32,15 +23,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.JTextField;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JInternalFrame;
-import javax.swing.JSplitPane;
 
+@SuppressWarnings("serial")
 public class ExtrairMetricasMenu extends JFrame {
 	private JTextField textField;
 	private String dc = "";
@@ -104,6 +91,7 @@ public class ExtrairMetricasMenu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!dc.equals("")) {
 					try {
+						@SuppressWarnings("unused")
 						FileHandler fh = new FileHandler(dc);
 						JOptionPane.showMessageDialog(ExtrairMetricasMenu.this, "Métricas extraidas com sucesso");
 					} catch (EncryptedDocumentException e) {

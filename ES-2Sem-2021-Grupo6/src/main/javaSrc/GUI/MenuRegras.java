@@ -2,7 +2,6 @@ package GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import CodeSmell.Rule;
 import CodeSmell.RuleSet;
@@ -23,7 +22,6 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import java.awt.Font;
-import java.awt.TextField;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.SwingConstants;

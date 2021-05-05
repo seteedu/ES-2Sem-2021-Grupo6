@@ -2,32 +2,26 @@ package GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 import org.apache.poi.EncryptedDocumentException;
 
 import CodeSmell.RuleSet;
 import Main.Excell_Summary;
-import Main.FileHandler;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+@SuppressWarnings("serial")
 public class MainMenu extends JFrame {
 	MainMenu mainmenu = this;
 	public static String FILE_PATH = "./regras.txt";
