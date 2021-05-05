@@ -24,14 +24,17 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class MenuCodeSmells extends JFrame {
 	private JTextField textField;
 	private String ficheiro;
+	private MenuCodeSmells mcs;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public MenuCodeSmells(MainMenu mainmenu, RuleSet rs) {
+		this.mcs = this;
 		
 		CodeSmell_Detector CSD = new CodeSmell_Detector();
 		
@@ -52,7 +55,7 @@ public class MenuCodeSmells extends JFrame {
 		this.addWindowListener(exitListener);
 		
 		
-		JButton btnNewButton = new JButton("VER EXCEL");
+		JButton btnNewButton = new JButton("Escolher Excel");
 		btnNewButton.setBounds(34, 36, 192, 48);
 		getContentPane().add(btnNewButton);
 		
@@ -102,21 +105,6 @@ public class MenuCodeSmells extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Extrair CodeSmells");
 		
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Rule rule = rs.getHashMap().get(comboBox.getSelectedItem()); 
-					Rule rule2 = rs.getHashMap().get(comboBox_1.getSelectedItem());
-					CSD.detect(ficheiro, rule, rule2);
-					listClass.setModel(CSD.showClassSmells());
-					listMethods.setModel(CSD.showMethodSmells());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
 		btnNewButton_1.setBounds(34, 287, 157, 42);
 		getContentPane().add(btnNewButton_1);
 		
@@ -134,6 +122,18 @@ public class MenuCodeSmells extends JFrame {
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		JButton btnQualidade = new JButton("Qualidade");
+		btnQualidade.setEnabled(false);
+		btnQualidade.setBounds(665, 422, 139, 23);
+		getContentPane().add(btnQualidade);
+		
+		JLabel lblAviso = new JLabel("Por favor selecione um formato válido");
+		lblAviso.setForeground(Color.RED);
+		lblAviso.setBounds(34, 351, 245, 13);
+		getContentPane().add(lblAviso);
+		lblAviso.setVisible(false);
+		
+		
 		//ACTION LISTENERS
 		
 		btnNewButton.addActionListener(new ActionListener() {
@@ -143,12 +143,43 @@ public class MenuCodeSmells extends JFrame {
 					JFileChooser fileChooser = new JFileChooser();
 					fileChooser.showOpenDialog(null);
 					File file = fileChooser.getSelectedFile();
-					textField.setText(file.getPath());	
+					textField.setText(file.getAbsolutePath());	
 					ficheiro = file.getAbsolutePath();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
+			}
+		});
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if( textField.getText().equals("")|| !textField.getText().endsWith(".xlsx")) {
+						lblAviso.setVisible(false);
+					}else {
+						lblAviso.setVisible(true);
+						Rule rule = rs.getHashMap().get(comboBox.getSelectedItem()); 
+						Rule rule2 = rs.getHashMap().get(comboBox_1.getSelectedItem());
+						CSD.detect(ficheiro, rule, rule2);
+						listClass.setModel(CSD.showClassSmells());
+						listMethods.setModel(CSD.showMethodSmells());
+						btnQualidade.setEnabled(true);
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		btnQualidade.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MenuAvaliacao menuA = new MenuAvaliacao(rs, CSD, mcs);
+				menuA.setVisible(true);
+				dispose();
 			}
 		});
 		
