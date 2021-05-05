@@ -44,10 +44,10 @@ public class Quality_Graph {
 				FNCount ++;
 		}
 		
-		dataset.addValue(VPCount, null, "VP");
-		dataset.addValue(VNCount, null, "VN");
-		dataset.addValue(FPCount, null, "FP");
-		dataset.addValue(FNCount, null, "FN");
+		dataset.addValue(VPCount, "", "VP");
+		dataset.addValue(VNCount, "", "VN");
+		dataset.addValue(FPCount, "", "FP");
+		dataset.addValue(FNCount, "", "FN");
 	}
 	
 	
