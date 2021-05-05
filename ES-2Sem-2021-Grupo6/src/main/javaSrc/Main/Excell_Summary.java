@@ -29,9 +29,8 @@ public class Excell_Summary {
 	        int count = 1;
 	        int it = 1;
 	        int last = firstSheet.getLastRowNum();
-	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
+	        while (it != last) {
 	            XSSFRow nextRow = firstSheet.getRow(it);
-	            System.out.println("LIHNA -> " + nextRow.getCell(1));
 	            if( nextRow.getCell(1) != null) {
 		            String cell = nextRow.getCell(1).getStringCellValue();
 		            if (!np.equals(cell)) {
@@ -49,7 +48,7 @@ public class Excell_Summary {
 	        int count_classes = 1;
 	        it = 1;
 	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
-	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
+	        while (it != last) {
 	            XSSFRow nextRow = firstSheet.getRow(it);
 	            if( nextRow.getCell(2) != null) {
 		            String cell = nextRow.getCell(2).getStringCellValue();
