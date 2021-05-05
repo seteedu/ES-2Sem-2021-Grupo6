@@ -9,7 +9,11 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
+/**
+ * 
+ * Used in "MetricMenu" window to give the metrics summary
+ *
+ */
 public class Excell_Summary {
 
 	
@@ -18,7 +22,11 @@ public class Excell_Summary {
 	private int num_methods;
 	private int num_lines;
 		
-	
+	/**Gets a summary of the metrics written in the excel file
+	 * 
+	 * @param file	excel file to be read
+	 * @throws IOException	throws an exception if it can't read the excel file
+	 */
 	public void getMetrics(File file) throws IOException {
 		try {
 			FileInputStream is = new FileInputStream(file);
@@ -29,8 +37,9 @@ public class Excell_Summary {
 	        int count = 1;
 	        int it = 1;
 	        int last = firstSheet.getLastRowNum();
-	        while (it != last) {
+	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
 	            XSSFRow nextRow = firstSheet.getRow(it);
+	            System.out.println("LIHNA -> " + nextRow.getCell(1));
 	            if( nextRow.getCell(1) != null) {
 		            String cell = nextRow.getCell(1).getStringCellValue();
 		            if (!np.equals(cell)) {
@@ -48,7 +57,7 @@ public class Excell_Summary {
 	        int count_classes = 1;
 	        it = 1;
 	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
-	        while (it != last) {
+	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
 	            XSSFRow nextRow = firstSheet.getRow(it);
 	            if( nextRow.getCell(2) != null) {
 		            String cell = nextRow.getCell(2).getStringCellValue();
@@ -79,19 +88,34 @@ public class Excell_Summary {
 		}
 	}
 	
-	
+	/**Get the number of packages written in the excel file
+	 * 
+	 * @return a number of packages
+	 */
 	public int getNumPackages() {
 		return num_packages;
 	}
 	
+	/**Get the number of classes written in the excel file
+	 * 
+	 * @return a number of classes
+	 */
 	public int getNumClasses() {
 		return num_classes;
 	}
-	
+
+	/**Get the number of methods written in the excel file
+	 * 
+	 * @return a number of methods
+	 */
 	public int getNumMethods() {
 		return num_methods;
 	}
-	
+
+	/**Get the number of lines in the project
+	 * 
+	 * @return a number of lines
+	 */
 	public int getNumLines() {
 		return num_lines;
 	}

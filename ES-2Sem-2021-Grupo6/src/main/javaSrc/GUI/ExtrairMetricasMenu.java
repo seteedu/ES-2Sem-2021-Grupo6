@@ -27,12 +27,20 @@ import java.io.File;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 
+/** Where the user will choose a java project to extract the metrics
+ * and create an excel file with those metrics
+ * 
+ */
 @SuppressWarnings("serial")
 public class ExtrairMetricasMenu extends JFrame {
 	private JTextField textField;
 	private String dc = "";
-	// private MainMenu mainmenu;
 
+	/**Constructor of the window to extract the metrics from java project
+	 * 
+	 * @param mainmenu	main window to get back 
+	 * @param rs	hashMap with rules 
+	 */
 	public ExtrairMetricasMenu(MainMenu mainmenu,  RuleSet rs) {
 		setResizable(false);
 		setSize(900, 500);
@@ -44,6 +52,10 @@ public class ExtrairMetricasMenu extends JFrame {
 		setTitle("Projeto ES");
 
 		setLocationRelativeTo(null);
+		
+		/** When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
 		WindowListener exitListener = new WindowAdapter() {
 
 		    @Override
@@ -53,7 +65,10 @@ public class ExtrairMetricasMenu extends JFrame {
 		    }
 		};
 		this.addWindowListener(exitListener);
-
+		
+		/**Button for the user to select a java project to prepare to extract its metrics
+		 * 
+		 */
 		JButton btnNewButton = new JButton("Selecione um projeto Java");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -84,9 +99,10 @@ public class ExtrairMetricasMenu extends JFrame {
 		lblNewLabel_1.setBounds(209, -3, 450, 267);
 		getContentPane().add(lblNewLabel_1);
 
+		/**Button to extract metrics and then shows a message if the action was well done
+		 */
 		JButton btnNewButton_1 = new JButton("Extrair métricas");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!dc.equals("")) {
@@ -102,14 +118,15 @@ public class ExtrairMetricasMenu extends JFrame {
 				} else {
 					JOptionPane.showMessageDialog(ExtrairMetricasMenu.this, "É necessário selecionar um diretório");
 				}
-
-				// if(metricas extraidas com sucesso ??)
 			}
 		});
 		btnNewButton_1.setBounds(11, 277, 188, 23);
 
 		getContentPane().add(btnNewButton_1);
-
+		
+		/**
+		 * Go back to the main window
+		 */
 		JButton btnNewButton_2 = new JButton("Voltar");
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override

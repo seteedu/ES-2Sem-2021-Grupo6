@@ -21,6 +21,10 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
+/**
+ * Where user can modify his rules
+ * 
+ */
 @SuppressWarnings("serial")
 public class ModificarRegras extends JFrame {
 	private Rule rule;
@@ -28,12 +32,21 @@ public class ModificarRegras extends JFrame {
 	private JTextField textFieldnomeregra;
 	private int selectedItemIndex;
 
+	/**Rules modifier menu constructor
+	 * 
+	 * @param mainmenu	main window to get back
+	 * @param rs	hashMap to give the rules to be changed
+	 */
 	@SuppressWarnings("rawtypes")
 	public ModificarRegras(MainMenu mainmenu, RuleSet rs) {
 		setResizable(false);
 		setSize(900, 500);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
+		
+		/** When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
 		WindowListener exitListener = new WindowAdapter() {
 
 			@Override
@@ -96,6 +109,9 @@ public class ModificarRegras extends JFrame {
 		btnConfirmar.setBounds(553, 416, 117, 23);
 		getContentPane().add(btnConfirmar);
 
+		/**
+		 * Button to get back to the main window
+		 */
 		JButton btnNewButton_Voltar = new JButton("Voltar");
 		btnNewButton_Voltar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -138,7 +154,10 @@ public class ModificarRegras extends JFrame {
 		scrollPane2.setViewportView(listLimites);
 
 		DefaultListModel<String> l2 = new DefaultListModel<>();
-
+		
+		/**
+		 * User selected a rule and it fills the next list with that rule's thresholds
+		 */
 		listRegras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -157,6 +176,9 @@ public class ModificarRegras extends JFrame {
 			}
 		});
 
+		/**
+		 * User selected the threshold to modify and it fills the rest of the empty spaces with the thresholds' specifications
+		 */
 		listLimites.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -197,6 +219,10 @@ public class ModificarRegras extends JFrame {
 			}
 		});
 
+		/**
+		 * Button to confirm the changes
+		 * it creates a new rule to replace the one was changed
+		 */
 		btnConfirmar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -238,6 +264,14 @@ public class ModificarRegras extends JFrame {
 
 	}
 
+	/**Creates new thresholds to create the new rule 
+	 * 
+	 * @param name	identifies the metrics 
+	 * @param math	"<" or ">" to instantiate a new Threshold
+	 * @param value	value to be compared
+	 * @param logic	"E" or "OU" logic operators
+	 * @return a new Threshold created to add to the new rule
+	 */
 	private Threshold createThreshold(String name, String math, int value, String logic) {
 		if (logic.equals("")) {
 			return new Threshold(name, math, value);

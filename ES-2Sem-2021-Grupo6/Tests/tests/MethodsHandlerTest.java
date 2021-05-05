@@ -4,10 +4,7 @@
  */
 package tests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,11 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import com.github.javaparser.utils.Pair;
 
-import Metrics.CYCLO_Method;
 import Metrics.MethodsHandler;
 
 /**
- * @author setee
+ * To test the "Logic_Expressions" class and its procedure to get the boolean of a logic expression
  *
  */
 class MethodsHandlerTest {
@@ -28,8 +24,10 @@ class MethodsHandlerTest {
 	private static ArrayList<Pair<String, Integer>> listA;
 	
 	
-	/**
-	 * @throws java.lang.Exception
+	/** Setup of the classes needed for the test
+	 * 	Instantiate the a MethodHandler and create an empty ArrayList of tuples 
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
 	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -39,9 +37,11 @@ class MethodsHandlerTest {
 	
 
 	
-	/**
-	 * @throws java.lang.Exception
+	/** Starts the procedure in a java file and creates an ArrayList with the values manually counted
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@BeforeEach
 	void setUp() throws Exception {
 		a.countMethods("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
@@ -54,7 +54,8 @@ class MethodsHandlerTest {
 	}
 
 	
-	/**
+	/**	Tests if the procedure is giving the right number of methods for each class
+	 * 
 	 * Test method for {@link Metrics.MethodsHandler#countMethods(java.lang.String)}.
 	 */
 	@Test
