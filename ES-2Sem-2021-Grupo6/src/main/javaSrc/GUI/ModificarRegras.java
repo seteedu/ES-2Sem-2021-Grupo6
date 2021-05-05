@@ -82,6 +82,7 @@ public class ModificarRegras extends JFrame {
 		getContentPane().add(lblNewLabel);
 
 		textFieldnomeregra = new JTextField();
+		textFieldnomeregra.setEditable(false);
 		textFieldnomeregra.setBounds(426, 292, 111, 20);
 		getContentPane().add(textFieldnomeregra);
 		textFieldnomeregra.setColumns(10);
@@ -199,14 +200,9 @@ public class ModificarRegras extends JFrame {
 		btnConfirmar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (rs.getHashMap().containsKey(textFieldnomeregra.getText())) {
-					lblNewLabel_Warning.setText("A regra com esse nome já existe!");
-					lblNewLabel_Warning.setVisible(true);
-				} else {
 					try {
 						lblNewLabel_Warning.setVisible(false);
 						Threshold newt = null;
-						String oldRule = rule.getId();
 						if (comboBoxlogica.getSelectedItem() == null) {
 							newt = createThreshold(comboBoxMetrica.getSelectedItem().toString(),
 									comboBoxSinal.getSelectedItem().toString(),
@@ -218,9 +214,6 @@ public class ModificarRegras extends JFrame {
 									comboBoxlogica.getSelectedItem().toString());
 						}
 						rule.getThresholds().set(selectedItemIndex, newt);
-						rule.setId(textFieldnomeregra.getText());
-						rs.replaceRule(oldRule, rule);
-
 						listLimites.clearSelection();
 						listRegras.clearSelection();
 						comboBoxlogica.removeAllItems();
@@ -236,7 +229,6 @@ public class ModificarRegras extends JFrame {
 						lblNewLabel_Warning.setVisible(true);
 					}
 				}
-			}
 
 		});
 

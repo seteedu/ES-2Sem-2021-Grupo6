@@ -2,11 +2,14 @@ package Main;
 
 import java.util.HashMap;
 
+import javax.swing.JPanel;
+
+import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.github.javaparser.utils.Pair;
 
-public class Quality_Graph {
+public class Quality_Graph extends ApplicationFrame{
 	
 	private int VPCount = 0;
 	private int VNCount = 0;
@@ -18,6 +21,7 @@ public class Quality_Graph {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Quality_Graph(HashMap<String, Pair<Boolean, Boolean>> classSmells, HashMap<String, Pair<Boolean, Boolean>> methodSmells ) {
+		super( "Grafico" ); 
 		for(HashMap.Entry mapElement: classSmells.entrySet()) {
 			Boolean app = ((Pair<Boolean, Boolean>)mapElement.getValue()).a;
 			Boolean man = ((Pair<Boolean, Boolean>)mapElement.getValue()).b;
@@ -44,10 +48,10 @@ public class Quality_Graph {
 				FNCount ++;
 		}
 		
-		dataset.addValue(VPCount, null, "VP");
-		dataset.addValue(VNCount, null, "VN");
-		dataset.addValue(FPCount, null, "FP");
-		dataset.addValue(FNCount, null, "FN");
+		dataset.addValue(VPCount, "", "VP");
+		dataset.addValue(VNCount, "", "VN");
+		dataset.addValue(FPCount, "", "FP");
+		dataset.addValue(FNCount, "", "FN");
 	}
 	
 	

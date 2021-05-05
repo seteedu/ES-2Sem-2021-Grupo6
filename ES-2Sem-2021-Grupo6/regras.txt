@@ -1,0 +1,2 @@
+ola, is_God_Class, WMC_Class, >, 4
+lol, is_Long_Method, CYCLO_Method, <, 9

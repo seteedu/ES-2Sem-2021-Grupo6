@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
@@ -28,15 +30,18 @@ public class RuleSet {
 	
 	@SuppressWarnings("rawtypes")
 	public ArrayList<String> showRulesFiltered(String codesmell) {
-		ArrayList<String> str = new ArrayList<>();
-		for(HashMap.Entry mapElement : rules.entrySet()) {
-			if ( mapElement.getValue().equals(codesmell)) {
-				String s = mapElement.getKey().toString();
-				str.add(s);
-			}
-		}
-		return str;
-	}
+        ArrayList<String> str = new ArrayList<>();
+        Iterator it = rules.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if( (rules.get(pair.getKey()).getCodeSmell()).equals(codesmell)) {
+            String s = pair.getKey().toString();
+            str.add(s);
+            }
+        }
+        return str;
+
+    }
 	
 	
 
