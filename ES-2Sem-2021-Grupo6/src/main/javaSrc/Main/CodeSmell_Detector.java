@@ -37,7 +37,14 @@ public class CodeSmell_Detector {
 	}
 
 
-
+	
+	/**Starts the detection of code smells in the excel file
+	 * 
+	 * @param file	excel file to read
+	 * @param god	rule for code smell "is_God_Class" 
+	 * @param method	rule for code smell "is_Long_Method"
+	 * @throws IOException	throws an exception if it can't read from the excel file
+	 */
 	@SuppressWarnings("rawtypes")
 	public void detect(String file, Rule god, Rule method) throws IOException {
 		classSmells.clear();
@@ -73,7 +80,12 @@ public class CodeSmell_Detector {
 		}
 	}
 
-
+	/**Returns a boolean from the comparison of the rule and the value gotten form the excel file 
+	 * 
+	 * @param rule	rule to detect code smell	
+	 * @param row	row of the excel file to get the value to compare
+	 * @return	boolean of code smell detection
+	 */
 	public boolean expression (Rule rule, XSSFRow row) {
 		boolean b = true;
 		Logic_Expressions le = new Logic_Expressions();
@@ -94,7 +106,11 @@ public class CodeSmell_Detector {
 		return b;
 
 	}
-
+	
+	/**Prepares a list of the classes and code smell detections 
+	 * 
+	 * @return	DefaultListModel specific type of list to be shown in JList
+	 */
 	@SuppressWarnings("rawtypes")
 	public DefaultListModel<String> showClassSmells () {
 		DefaultListModel<String> a = new DefaultListModel<>();
@@ -106,6 +122,11 @@ public class CodeSmell_Detector {
 		return a;
 	}
 
+
+	/**Prepares a list of the methods and code smell detections 
+	 * 
+	 * @return	DefaultListModel specific type of list to be shown in JList
+	 */
 	@SuppressWarnings("rawtypes")
 	public DefaultListModel<String> showMethodSmells () {
 		DefaultListModel<String> a = new DefaultListModel<>();
@@ -117,10 +138,21 @@ public class CodeSmell_Detector {
 		return a;
 	}
 
+	/**HashMap with the classes names as keys and a tuple with the boolean gotten 
+	 * from code smell detection and the boolean written by the user 
+	 * 
+	 * @return HashMap with classes and a tuple
+	 */
 	public HashMap<String, Pair<Boolean, Boolean>> classPairs(){
 		return classSmells;
 	}
 
+
+	/**HashMap with the methods names as keys and a tuple with the boolean gotten 
+	 * from code smell detection and the boolean written by the user 
+	 * 
+	 * @return HashMap with methods and a tuple
+	 */
 	public HashMap<String, Pair<Boolean, Boolean>> methodPairs(){
 		return methodSmells;
 	}

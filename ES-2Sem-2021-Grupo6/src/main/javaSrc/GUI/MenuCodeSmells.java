@@ -26,12 +26,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 
+/**
+ * 
+ * Code smell detector window where user chooses which rules to use 
+ *
+ */
 @SuppressWarnings("serial")
 public class MenuCodeSmells extends JFrame {
 	private JTextField textField;
 	private String ficheiro;
 	private MenuCodeSmells mcs;
 	
+	/**Code smell detector window constructor
+	 * 
+	 * @param mainmenu	main window to get back
+	 * @param rs		hashMap with the rules for the user to select 
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public MenuCodeSmells(MainMenu mainmenu, RuleSet rs) {
 		this.mcs = this;
@@ -44,6 +54,9 @@ public class MenuCodeSmells extends JFrame {
 
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
+		/** When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
 		WindowListener exitListener = new WindowAdapter() {
 
 			@Override
@@ -135,7 +148,9 @@ public class MenuCodeSmells extends JFrame {
 		
 		
 		//ACTION LISTENERS
-		
+		/**
+		 * Button for the user to select the excel file
+		 */
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -152,6 +167,10 @@ public class MenuCodeSmells extends JFrame {
 			}
 		});
 		
+		/**
+		 * Button to start the detection of code smells 
+		 * User has to select an excel file before
+		 */
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -174,6 +193,9 @@ public class MenuCodeSmells extends JFrame {
 			}
 		});
 		
+		/**
+		 * Button to open the graph window 
+		 */
 		btnQualidade.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -183,6 +205,9 @@ public class MenuCodeSmells extends JFrame {
 			}
 		});
 		
+		/**
+		 * Button to get back to the main window
+		 */
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

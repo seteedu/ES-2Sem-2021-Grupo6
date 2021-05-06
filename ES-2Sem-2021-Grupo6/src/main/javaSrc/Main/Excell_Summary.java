@@ -9,7 +9,11 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
+/**
+ * 
+ * Used in "MetricMenu" window to give the metrics summary
+ *
+ */
 public class Excell_Summary {
 
 	
@@ -18,7 +22,11 @@ public class Excell_Summary {
 	private int num_methods;
 	private int num_lines;
 		
-	
+	/**Gets a summary of the metrics written in the excel file
+	 * 
+	 * @param file	excel file to be read
+	 * @throws IOException	throws an exception if it can't read the excel file
+	 */
 	public void getMetrics(File file) throws IOException {
 		try {
 			FileInputStream is = new FileInputStream(file);
@@ -80,19 +88,34 @@ public class Excell_Summary {
 		}
 	}
 	
-	
+	/**Get the number of packages written in the excel file
+	 * 
+	 * @return a number of packages
+	 */
 	public int getNumPackages() {
 		return num_packages;
 	}
 	
+	/**Get the number of classes written in the excel file
+	 * 
+	 * @return a number of classes
+	 */
 	public int getNumClasses() {
 		return num_classes;
 	}
-	
+
+	/**Get the number of methods written in the excel file
+	 * 
+	 * @return a number of methods
+	 */
 	public int getNumMethods() {
 		return num_methods;
 	}
-	
+
+	/**Get the number of lines in the project
+	 * 
+	 * @return a number of lines
+	 */
 	public int getNumLines() {
 		return num_lines;
 	}

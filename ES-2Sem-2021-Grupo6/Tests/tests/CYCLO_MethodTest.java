@@ -1,17 +1,9 @@
-
-/**
- * 
- */
 package tests;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,15 +12,18 @@ import org.junit.jupiter.api.Test;
 import Metrics.CYCLO_Method;
 
 /**
- * @author setee
+ * To test the "CYCLO_Method" class and its procedure to get the number of cycles/complexity of the method
  *
  */
 class CYCLO_MethodTest {
 
 	private static CYCLO_Method b;
 	private static ArrayList<Integer> nCyclesB;
-	/**
-	 * @throws java.lang.Exception
+	
+	/** Setup of the classes needed for the test
+	 * 	Instantiate the a CYCLO_Method and creates an empty ArrayList of integers
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
 	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -37,8 +32,9 @@ class CYCLO_MethodTest {
 	}
 
 
-	/**
-	 * @throws java.lang.Exception
+	/** Starts the procedure in a java file and fills the ArrayList with the values manually counted
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
@@ -47,12 +43,11 @@ class CYCLO_MethodTest {
 	}	
 
 	
-	/**
+	/** Tests if the procedure is giving the right number of cycles/complexity of each method in a file 
+	 * 
 	 * Test method for {@link Metrics.CYCLO_Method#getNCycles()}.
 	 * @throws FileNotFoundException 
 	 */
-
-	
 	@Test
 	void testGetNCycles() throws FileNotFoundException {
 		Assertions.assertIterableEquals(nCyclesB, b.getNCycles());

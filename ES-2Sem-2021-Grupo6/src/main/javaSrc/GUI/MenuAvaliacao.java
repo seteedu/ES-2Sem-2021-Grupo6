@@ -14,15 +14,26 @@ import Main.Quality_Graph;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 
+/**
+ * 
+ * Where is shown the Bar chart for the user to see the quality of the code smells detection
+ *
+ */
+@SuppressWarnings("serial")
 public class MenuAvaliacao extends JFrame {
 	
+	/**Graph window constructor  
+	 * 
+	 * @param rs	HashMap with rules for when the window is closed the rules will be written in the text file
+	 * @param CD	CodeSmell_Detector to give the hashMaps with all classes and methods and each code smell 
+	 * @param mcs	Code smells detector window to get back 
+	 */
 	public MenuAvaliacao(RuleSet rs, CodeSmell_Detector CD, MenuCodeSmells mcs) {
 		setResizable(false);
 		setSize(900, 500);
@@ -30,6 +41,10 @@ public class MenuAvaliacao extends JFrame {
 		
 
 		setLocationRelativeTo(null);
+		/**
+		 * When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
 		WindowListener exitListener = new WindowAdapter() {
 
 			@Override
@@ -89,16 +104,18 @@ public class MenuAvaliacao extends JFrame {
 		
 		 ChartPanel chartPanel = new ChartPanel( chart );        
 		 chartPanel.setBounds(262, 22, 544, 337);
-	      chartPanel.setPreferredSize(new java.awt.Dimension( 300 , 150 ) );        
-	      getContentPane().add( chartPanel );
+	     chartPanel.setPreferredSize(new java.awt.Dimension( 300 , 150 ) );        
+	     getContentPane().add( chartPanel );
 	      
-	      lblFNValor.setText(String.valueOf(graph.getFN()));
-	      lblFPValor.setText(String.valueOf(graph.getFP()));
-	      lblVNValor.setText(String.valueOf(graph.getVN()));
-	      lblVPValor.setText(String.valueOf(graph.getVP()));
+	     lblFNValor.setText(String.valueOf(graph.getFN()));
+	     lblFPValor.setText(String.valueOf(graph.getFP()));
+	     lblVNValor.setText(String.valueOf(graph.getVN()));
+	     lblVPValor.setText(String.valueOf(graph.getVP()));
 		
 		//Listeners
-		
+		/**
+		 * Button to get back to the code smell detector window
+		 */
 		btnVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

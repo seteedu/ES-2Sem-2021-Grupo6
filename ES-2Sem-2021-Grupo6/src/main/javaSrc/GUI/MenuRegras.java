@@ -25,7 +25,11 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.SwingConstants;
-
+/**
+ * 
+ * Window where the user creates the rules
+ *
+ */
 @SuppressWarnings("serial")
 public class MenuRegras extends JFrame {
 	private JTextField textField;
@@ -40,6 +44,11 @@ public class MenuRegras extends JFrame {
 	private JComboBox<?> comboBox = new JComboBox<Object>(codeSmell);
 	private ArrayList<Threshold> arraylist = new ArrayList<>();
 
+	/**	Transforms a string into an Object so that it can be added to a ComboBox
+	 * 
+	 * @param item	String to be converted
+	 * @return	an Object to use in a ComboBox
+	 */
 	private Object makeObj(final String item) {
 		return new Object() {
 			public String toString() {
@@ -48,12 +57,22 @@ public class MenuRegras extends JFrame {
 		};
 	}
 
+	/**Rules creator window constructor 
+	 * 
+	 * @param mainmenu	main window to get back
+	 * @param rs		hashMap to add the rules
+	 */
 	public MenuRegras(MainMenu mainmenu, RuleSet rs) {
 		setResizable(false);
 		setSize(900, 500);
 		getContentPane().setLayout(null);
 
 		setLocationRelativeTo(null);
+		
+		/*
+		 * When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
 		WindowListener exitListener = new WindowAdapter() {
 
 			@Override
@@ -106,7 +125,11 @@ public class MenuRegras extends JFrame {
 		JButton btnNewButton_1 = new JButton("+");
 		btnNewButton_1.setBounds(617, 233, 46, 23);
 		panel_1.add(btnNewButton_1);
-
+		
+		/**
+		 * Creates the new rule based on what the user's selected options
+		 * and adds it to the hashMap
+		 */
 		ActionListener confirmActionListener = new ActionListener() {// add actionlistner to listen for change
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -145,6 +168,9 @@ public class MenuRegras extends JFrame {
 
 		btnConfirmar.addActionListener(confirmActionListener);
 
+		/**
+		 * Button to get back to the main window
+		 */
 		JButton btnNewButton_2 = new JButton("Voltar");
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
@@ -173,7 +199,10 @@ public class MenuRegras extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("E/OU:");
 		lblNewLabel_5.setBounds(500, 27, 45, 13);
 		panel.add(lblNewLabel_5);
-
+		
+		/**
+		 * 
+		 */
 		ActionListener cbActionListener = new ActionListener() {// add actionlistner to listen for change
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -209,6 +238,9 @@ public class MenuRegras extends JFrame {
 		lblNewLabel_4.setBounds(634, 273, 45, 31);
 		panel_1.add(lblNewLabel_4);
 
+		/**
+		 * Button to clear the rule being created
+		 */
 		JButton btnLimpar = new JButton("Limpar Regra");
 		btnLimpar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -226,6 +258,9 @@ public class MenuRegras extends JFrame {
 		btnLimpar.setBounds(378, 363, 117, 21);
 		panel_1.add(btnLimpar);
 
+		/**
+		 * Button to add thresholds
+		 */
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -264,7 +299,7 @@ public class MenuRegras extends JFrame {
 					}
 				} catch (Exception e) {
 					// FAZER CATCH DO ERRO
-					lblARegraNo.setText("O limites têm de ser numeros!");
+					lblARegraNo.setText("Os limites têm de ser numeros!");
 					lblARegraNo.setVisible(true);
 				}
 
@@ -273,7 +308,10 @@ public class MenuRegras extends JFrame {
 	}
 
 	// -------------------------------------------------------------
-
+	/**Fills the ComboBox lists for the user to use
+	 * 
+	 * @param panel	JPanel of this window
+	 */
 	private void addComponents(JPanel panel) {
 
 		JLabel lblNewLabel_2 = new JLabel("Métrica:");
@@ -310,6 +348,9 @@ public class MenuRegras extends JFrame {
 
 	}
 
+	/**
+	 * Writes on the window the thresholds that user sets while creating the new rule
+	 */
 	private void writeToString() {
 		String newS = textField_2.getText() + " " + comboBox_Metrica.getSelectedItem() + " "
 				+ comboBox_Sinal.getSelectedItem() + " " + textField_1.getText() + " "
@@ -318,6 +359,14 @@ public class MenuRegras extends JFrame {
 
 	}
 
+	/**Creates the new Thresholds everytime the user sets a new one 
+	 * then it's added to the new arrayList to create the new rule
+	 * 
+	 * @param name	identifies the metrics 
+	 * @param math	"<" or ">" to instantiate a new Threshold
+	 * @param value	value to be compared
+	 * @param logic	"E" or "OU" logic operators
+	 */
 	private void createThreshold(String name, String math, int value, String logic) {
 		if (logic.equals("")) {
 			Threshold t = new Threshold(name, math, value);

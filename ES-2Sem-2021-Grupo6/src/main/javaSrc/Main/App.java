@@ -17,9 +17,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import Metrics.Result;
 
 
-
-public class App 
-{
+/**Creates the excel file with template in the same folder as the user selected 
+ * It will be used to show the metrics extracted
+ */
+public class App {
 	private static Workbook workbook;
 	//first row titles
 	private static String[] titles = {"MethodID", "Package", "Class", "Method", "NOM_Class", "LOC_Class", "WMC_Class", "is_God_Class", "LOC_Method", "CYCLO_Method", "is_Long_Method"};
@@ -29,6 +30,12 @@ public class App
 	String fileLocation;
 	Sheet sheet;
 	
+	/**Constructor of the excel file
+	 * 
+	 * @param file	name of the folder selected by the user
+	 * @param results	ArrayList with results gotten by the program to write in the file
+	 * @throws IOException	Exception if it write on the new excel file
+	 */
     public App ( String file, ArrayList<Result> results) throws IOException
     {	
      	File currDir = new File(file);
@@ -75,7 +82,11 @@ public class App
 		}
     }
 	
-    //method to write each result in each row
+    /**Method to write each result 
+     * 
+     * @param res	Result gotten from the program 
+     * @param line	Row to write the result
+     */
 	public void writeResult(Result res, Row line) {
 		Cell coluna = line.createCell(0);
 		coluna.setCellValue(line.getRowNum());

@@ -28,7 +28,9 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
-
+/** Where it's shown the metrics summary
+ * 
+ */
 @SuppressWarnings("serial")
 public class MetricMenu extends JFrame {
 	 static JFileChooser jChooser;
@@ -37,13 +39,24 @@ public class MetricMenu extends JFrame {
 	 static int tableWidth = 0; // set the tableWidth
 	 static int tableHeight = 0; // set the tableHeight
 	 static JScrollPane scroll;
-	public MetricMenu(Excell_Summary es, MainMenu mainmenu,  RuleSet rs) {
+	
+	 /**Metrics summary window constructor
+	  * 	
+	  * @param es	Excell_Summary which will give the summary
+	  * @param mainmenu	Main window to get back
+	  * @param rs	hashMap with the rules to write in the text file in case user closes window
+	  */
+	 public MetricMenu(Excell_Summary es, MainMenu mainmenu,  RuleSet rs) {
 		
 		setResizable(false);
 		setSize(900,500);
 		getContentPane().setLayout(null);
 		
 		setLocationRelativeTo(null);
+		
+		/** When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
 		WindowListener exitListener = new WindowAdapter() {
 
 		    @Override
@@ -111,6 +124,9 @@ public class MetricMenu extends JFrame {
 		locSumTotalLabel.setBounds(629, 388, 192, 14);
 		getContentPane().add(locSumTotalLabel);
 		
+		/**
+		 * Button to show the metrics summary
+		 */
 		JButton btnNewButton = new JButton("VER EXCEL");
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -124,8 +140,6 @@ public class MetricMenu extends JFrame {
 					numClasses.setText(String.valueOf(es.getNumClasses()));
 					nomSumTotalLabel.setText(String.valueOf(es.getNumMethods()));
 					locSumTotalLabel.setText(String.valueOf(es.getNumLines()));
-					//excelTojTable excel = new excelTojTable(file);
-					//excel.setVisible(true);
 				} catch (IOException e) {
 					// ESCREVER NA GUI FICHEIRO NAO ENCONTRADO
 					e.printStackTrace();
@@ -140,6 +154,9 @@ public class MetricMenu extends JFrame {
 		btnNewButton.setBounds(28, 297, 316, 106);
 		panel.add(btnNewButton);
 		
+		/**
+		 * Button to get back to the main window
+		 */
 		JButton btnNewButton_1 = new JButton("Voltar");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override

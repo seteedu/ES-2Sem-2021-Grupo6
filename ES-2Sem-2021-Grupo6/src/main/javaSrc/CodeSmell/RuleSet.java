@@ -16,7 +16,10 @@ public class RuleSet {
 
 	private HashMap<String, Rule> rules = new HashMap<>();
 
-	//showing rules in GUI list
+	/**	Showing rules in GUI list
+	 * 			
+	 * @return specific type of list to use in a JList with all the rules 
+	 */
 	@SuppressWarnings("rawtypes")
 	public DefaultListModel<String> showRules () {
 		DefaultListModel<String> a = new DefaultListModel<>();
@@ -28,6 +31,11 @@ public class RuleSet {
 		return a;
 	}
 	
+	/** Showing specfic type of rules ("is_God_Class" or "is_Long_Method")
+	 * 
+	 * @param codesmell identifies the specificc type of code smell
+	 * @return	specific type of list to use in a JList with the rules that use the code smell specified
+	 */
 	@SuppressWarnings("rawtypes")
 	public ArrayList<String> showRulesFiltered(String codesmell) {
         ArrayList<String> str = new ArrayList<>();
@@ -40,17 +48,24 @@ public class RuleSet {
             }
         }
         return str;
-
     }
 	
 	
 
-	//adding new rule to hashMap
+	/**	Adding new rule to hashMap
+	 * 	
+	 * @param rule
+	 */
 	public void addRule (Rule rule) {
 		rules.put(rule.getId(), rule);
 	}
 
-	//creating HashMap as the application starts
+	/**	Creating HashMap as the application starts based on a text file with the rules written
+	 * 	if the file deosn't exist then creates one with two default rules
+	 * 	HashMap use the rule's id as keys and the rule object as value
+	 * 
+	 * @param fs	Path of the text file with the rules
+	 */
 	public void initializeMap(String fs) {
 		File f = new File(fs);
 		if (f.exists()) {
@@ -59,7 +74,6 @@ public class RuleSet {
 				while (s.hasNextLine()) {
 					String r = s.nextLine();
 					String[] r1 = r.split(", ");
-
 					ArrayList<Threshold> ts = new ArrayList<>();
 					for(int i = 1; i<=r1.length; i+=4){
 						if(i==r1.length){
@@ -71,9 +85,7 @@ public class RuleSet {
 						}
 					}
 					Rule rule = new Rule(r1[0],r1[1], ts);
-					
 					rules.put(rule.getId(),rule);
-					
 				}
 				s.close();
 			} catch (FileNotFoundException e) {
@@ -94,12 +106,12 @@ public class RuleSet {
 					myWriter.write(defClassRule + "\n");
 					myWriter.write(defMethodRule + "\n");
 					Threshold cr = new Threshold("LOC_Class", "<", 100);
-					ArrayList<Threshold> crl = new ArrayList<Threshold>();
-					crl.add(cr);
-					Rule defClassRule1 = new Rule("default1", "is_God_Class",crl);
 					Threshold mr = new Threshold("LOC_Method", "<", 20);
 					ArrayList<Threshold> mrl = new ArrayList<Threshold>();
+					ArrayList<Threshold> crl = new ArrayList<Threshold>();
+					crl.add(cr);
 					mrl.add(mr);
+					Rule defClassRule1 = new Rule("default1", "is_God_Class",crl);
 					Rule defMethodRule1 = new Rule("default2", "is_Long_Method", mrl);
 					rules.put(defClassRule1.getId(), defClassRule1);
 					rules.put(defMethodRule1.getId(), defMethodRule1);
@@ -111,7 +123,11 @@ public class RuleSet {
 			}
 		}
 	}
-
+	
+	/** Writes all the rules that the HashMap rules has in the text file at the end of the program 
+	 * 
+	 * @param fs	Path of the text file to write the rules
+	 */
 	@SuppressWarnings("rawtypes")
 	public void writeFile(String fs) {
 		File f = new File(fs);
@@ -130,17 +146,31 @@ public class RuleSet {
 	}
 	
 	
-	
+	/**	When the user changes the rule this has to be replaced in the HashMap in order to it stays updated
+	 * 
+	 * @param oldRule	Rule's id to identify the key to remove from the HashMap
+	 * @param newRule	New rule to replace the changed one
+	 */
 	public void replaceRule(String oldRule, Rule newRule) {
 		rules.remove(oldRule);
 		addRule(newRule);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param codeSmell
+	 * @param ts
+	 */
 	public void changeRule(String id, String codeSmell, ArrayList<Threshold> ts){
 		Rule r = new Rule(id,codeSmell, ts);		
 		rules.replace(id, r);
 	}
 	
+	/**	Returns the initialized HashMap with rules  
+	 * 
+	 * @return	HashMap with rules
+	 */
 	public HashMap<String, Rule> getHashMap(){
 		return rules;
 	}
