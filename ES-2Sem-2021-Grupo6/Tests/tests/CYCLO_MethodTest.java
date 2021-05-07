@@ -38,7 +38,7 @@ class CYCLO_MethodTest {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		b.countCyclo("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
+		b.countCyclo("");
 		Collections.addAll(nCyclesB, 1, 1, 1, 1, 1, 6);
 	}	
 

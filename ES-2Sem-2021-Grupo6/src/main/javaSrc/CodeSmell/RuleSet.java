@@ -25,7 +25,6 @@ public class RuleSet {
 		DefaultListModel<String> a = new DefaultListModel<>();
 		for (HashMap.Entry mapElement : rules.entrySet()) {
 			String s = mapElement.getKey().toString();
-			System.out.println("MAPA: " + mapElement.getKey());
 			a.addElement(s);
 		}
 		return a;
@@ -96,7 +95,6 @@ public class RuleSet {
 		else {
 			try {
 				if (f.createNewFile()) {
-					System.out.println("File created: " + f.getName());
 			    	String path = f.getAbsolutePath();
 			    	@SuppressWarnings("unused")
 					String fileLocation = path.substring(0, path.length() - 1) + f.getName() + ".txt";
@@ -118,7 +116,6 @@ public class RuleSet {
 					myWriter.close();
 				} 
 			} catch (IOException e) {
-				System.out.println("An error occurred.");
 				e.printStackTrace();
 			}
 		}

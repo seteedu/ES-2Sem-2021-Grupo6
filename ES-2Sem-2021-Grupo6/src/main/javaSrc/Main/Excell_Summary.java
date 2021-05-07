@@ -37,9 +37,8 @@ public class Excell_Summary {
 	        int count = 1;
 	        int it = 1;
 	        int last = firstSheet.getLastRowNum();
-	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
+	        while (it != last && firstSheet.getRow(it).getCell(1)!=null) {
 	            XSSFRow nextRow = firstSheet.getRow(it);
-	            System.out.println("LIHNA -> " + nextRow.getCell(1));
 	            if( nextRow.getCell(1) != null) {
 		            String cell = nextRow.getCell(1).getStringCellValue();
 		            if (!np.equals(cell)) {
@@ -49,7 +48,6 @@ public class Excell_Summary {
 	            }
 	            it++;
 	        }
-	        System.out.println(count);
 	        num_packages=count;
 	        
 	        double count_methods = firstSheet.getRow(1).getCell(4).getNumericCellValue();
@@ -57,7 +55,7 @@ public class Excell_Summary {
 	        int count_classes = 1;
 	        it = 1;
 	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
-	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
+	        while (it != last && firstSheet.getRow(it).getCell(2)!=null) {
 	            XSSFRow nextRow = firstSheet.getRow(it);
 	            if( nextRow.getCell(2) != null) {
 		            String cell = nextRow.getCell(2).getStringCellValue();
@@ -73,12 +71,9 @@ public class Excell_Summary {
 	            }
 	            it++;
 	        }
-	        System.out.println(count_classes);
 	        num_classes=count_classes;
-	        System.out.println(count_lines);
 	        num_lines=(int) count_lines;
 	        num_methods = (int) count_methods;
-	        System.out.println(num_methods);
 	        
 	        workbook.close();
 	        is.close();
