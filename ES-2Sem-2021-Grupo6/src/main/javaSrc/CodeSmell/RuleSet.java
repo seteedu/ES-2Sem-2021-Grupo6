@@ -74,16 +74,7 @@ public class RuleSet {
 					String r = s.nextLine();
 					String[] r1 = r.split(", ");
 					ArrayList<Threshold> ts = new ArrayList<>();
-					for(int i = 1; i<=r1.length; i+=4){
-						if(i==r1.length){
-							Threshold t = new Threshold(r1[i-3],r1[i-2],Integer.parseInt(r1[i-1]));
-							ts.add(t);
-						}else if(i!=1){
-							Threshold t = new Threshold(r1[i-3],r1[i-2],Integer.parseInt(r1[i-1]),r1[i]);
-							ts.add(t);
-						}
-					}
-					Rule rule = new Rule(r1[0],r1[1], ts);
+					Rule rule = rule(r1, ts);
 					rules.put(rule.getId(),rule);
 				}
 				s.close();
@@ -120,6 +111,27 @@ public class RuleSet {
 			}
 		}
 	}
+
+	/** Creates a rule based on an arrayList of thresholds gotten from the file
+	 * 
+	 * @param r1	Gives the rule's id
+	 * @param ts	ArrayList of thresholds to add to the rule
+	 * @return		Rule created from a line of the text file
+	 * @throws NumberFormatException
+	 */
+	private Rule rule(String[] r1, ArrayList<Threshold> ts) throws NumberFormatException {
+		for (int i = 1; i <= r1.length; i += 4) {
+			if (i == r1.length) {
+				Threshold t = new Threshold(r1[i - 3], r1[i - 2], Integer.parseInt(r1[i - 1]));
+				ts.add(t);
+			} else if (i != 1) {
+				Threshold t = new Threshold(r1[i - 3], r1[i - 2], Integer.parseInt(r1[i - 1]), r1[i]);
+				ts.add(t);
+			}
+		}
+		Rule rule = new Rule(r1[0], r1[1], ts);
+		return rule;
+	}
 	
 	/** Writes all the rules that the HashMap rules has in the text file at the end of the program 
 	 * 
@@ -153,16 +165,6 @@ public class RuleSet {
 		addRule(newRule);
 	}
 	
-	/**
-	 * 
-	 * @param id
-	 * @param codeSmell
-	 * @param ts
-	 */
-	public void changeRule(String id, String codeSmell, ArrayList<Threshold> ts){
-		Rule r = new Rule(id,codeSmell, ts);		
-		rules.replace(id, r);
-	}
 	
 	/**	Returns the initialized HashMap with rules  
 	 * 

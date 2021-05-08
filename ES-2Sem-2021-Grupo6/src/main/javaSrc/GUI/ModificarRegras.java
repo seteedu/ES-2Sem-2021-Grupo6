@@ -133,7 +133,7 @@ public class ModificarRegras extends JFrame {
 		JLabel lbl_confirmar = new JLabel("Regra alterada com sucesso!");
 		lbl_confirmar.setForeground(Color.GREEN);
 		lbl_confirmar.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_confirmar.setBounds(680, 420, 159, 14);
+		lbl_confirmar.setBounds(680, 420, 206, 14);
 		getContentPane().add(lbl_confirmar);
 		lbl_confirmar.setVisible(false);
 		

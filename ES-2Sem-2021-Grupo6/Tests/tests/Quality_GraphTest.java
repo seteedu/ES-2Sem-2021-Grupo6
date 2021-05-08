@@ -41,7 +41,7 @@ class Quality_GraphTest {
 		mrl.add(mr);
 		Rule defMethodRule1 = new Rule("default2", "is_Long_Method", mrl);
 
-		c.detect("Code_Smells.xlsx", defClassRule1, defMethodRule1);
+		c.detect("testing\\TestTeste.xlsx", defClassRule1, defMethodRule1);
 	}
 
 	/** Creates the object Quality_Graph with the instantiations above needed
@@ -61,7 +61,7 @@ class Quality_GraphTest {
 	 */
 	@Test
 	void testVN() throws Exception {
-		Assertions.assertEquals(4, graph.getVN());
+		Assertions.assertEquals(148, graph.getVN());
 	}
 
 	/**	Tests if the procedure is giving the right number of True Positives gotten from the comparison 
@@ -72,7 +72,7 @@ class Quality_GraphTest {
 	 */
 	@Test
 	void testVP() throws Exception {
-		Assertions.assertEquals(9, graph.getVP());
+		Assertions.assertEquals(32, graph.getVP());
 	}
 
 	/**	Tests if the procedure is giving the right number of False Negatives gotten from the comparison 
@@ -83,7 +83,7 @@ class Quality_GraphTest {
 	 */
 	@Test
 	void testFN() throws Exception {
-		Assertions.assertEquals(1, graph.getFN());
+		Assertions.assertEquals(10, graph.getFN());
 	}
 
 	/**	Tests if the procedure is giving the right number of False Positives gotten from the comparison 
@@ -94,7 +94,7 @@ class Quality_GraphTest {
 	 */
 	@Test
 	void testFP() throws Exception {
-		Assertions.assertEquals(14, graph.getFP());
+		Assertions.assertEquals(41, graph.getFP());
 	}
 	
 }

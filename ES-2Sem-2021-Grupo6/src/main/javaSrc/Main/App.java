@@ -21,13 +21,14 @@ import Metrics.Result;
  * It will be used to show the metrics extracted
  */
 public class App {
-	private static Workbook workbook;
+	private Workbook workbook;
 	//first row titles
-	private static String[] titles = {"MethodID", "Package", "Class", "Method", "NOM_Class", "LOC_Class", "WMC_Class", "is_God_Class", "LOC_Method", "CYCLO_Method", "is_Long_Method"};
+	private String[] titles = {"MethodID", "Package", "Class", "Method", "NOM_Class", "LOC_Class", "WMC_Class", "is_God_Class", "LOC_Method", "CYCLO_Method", "is_Long_Method"};
 	//columns sizes 
-	private static int[] sizes = {3000, 3000, 6000, 8000, 3000,3000,3000, 3000, 3000, 3000, 3000};
+	private int[] sizes = {3000, 3000, 6000, 8000, 3000,3000,3000, 3000, 3000, 3000, 3000};
 	FileOutputStream outputStream;
-	String fileLocation;
+	String fileLocation1;
+	String fileLocation2;
 	Sheet sheet;
 	
 	/**Constructor of the excel file
@@ -40,9 +41,8 @@ public class App {
     {	
      	File currDir = new File(file);
     	String path = currDir.getAbsolutePath();
-    	fileLocation = path.substring(0, path.length() - 1) + currDir.getName() + ".xlsx";
-
-    	
+    	fileLocation1 = path.substring(0, path.length() - 1) + currDir.getName() + ".xlsx";
+    
     	workbook = new XSSFWorkbook();
     	try {
     	
@@ -73,7 +73,7 @@ public class App {
     		row = sheet.createRow(i + 1);
     		writeResult(results.get(i), row);
     	}
-		outputStream = new FileOutputStream(fileLocation);
+		outputStream = new FileOutputStream(fileLocation1);
 		workbook.write(outputStream);
 		workbook.close();
 		} catch (FileNotFoundException e) {

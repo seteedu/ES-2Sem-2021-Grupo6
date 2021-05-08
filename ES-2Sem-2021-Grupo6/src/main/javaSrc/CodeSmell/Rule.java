@@ -20,11 +20,6 @@ public class Rule {
 		this.t_list = t_list;
 	}
 
-	
-	public void add_threshold(Threshold t){
-		t_list.add(t);
-	}
-
 	/**Overrides the toString method from Object to specify the way it will be showed in GUI
 	 * 
 	 *  @return string with the code smell identified and the thresholds defined 

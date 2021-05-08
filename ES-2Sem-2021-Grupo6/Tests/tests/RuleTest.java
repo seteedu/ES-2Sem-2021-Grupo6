@@ -20,6 +20,8 @@ class RuleTest {
 	private static Threshold cr;
 	private static ArrayList<Threshold> t_list;
 	private static ArrayList<Threshold> crl;
+	private static String s;
+	private static String toString;
 
 	/** Setup of the classes needed for the test
 	 * 	Instantiate a RuleSet to get the the rules from a text file and Threshold with the values manually counted
@@ -30,7 +32,12 @@ class RuleTest {
 	static void setUpBeforeClass() throws Exception {
 		cr = new Threshold("LOC_Class", "<", 100);
 		crl = new ArrayList<Threshold>();
-		t_list = new ArrayList<Threshold>();		
+		t_list = new ArrayList<Threshold>();
+		crl.add(cr);
+		t_list.add(cr);
+		defClassRule1 = new Rule("default1", "is_God_Class",crl);
+		s = "default1, is_God_Class, LOC_Class, <, 100";
+		toString = "is_God_Class:  LOC_Class < 100";
 	}
 
 	/** Starts the procedure and creates a Rule with the values manually counted
@@ -39,9 +46,6 @@ class RuleTest {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		crl.add(cr);
-		t_list.add(cr);
-		defClassRule1 = new Rule("default1", "is_God_Class",crl);
 	}
 
 	/**Tests if the procedure is giving the right name of the rule
@@ -70,5 +74,27 @@ class RuleTest {
 	void testRuleThresholdList() {
 		Assertions.assertIterableEquals(t_list, defClassRule1.getThresholds());
 	}
+	
+	/**Tests if the procedure is giving the format to write the Rule in a file
+	 * 
+	 * Test method for {@link CodeSmell.Rule#toFile()}.
+	 */
+	@Test
+	void testToFile() {
+		Assertions.assertEquals(s,defClassRule1.toFile());
+	}
+	
+	/**Tests if the procedure is giving the format to write the Rule in the GUI
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testToString() {
+		Assertions.assertEquals(toString,defClassRule1.toString());
+	}
+	
+		
+	
 
 }

@@ -15,6 +15,9 @@ class ThresholdTest {
 	
 	private static Threshold t1;
 	private static Threshold t2;
+	private static String s2;
+	private static String s1;
+	private static String toString;
 
 	/** Setup of the classes needed for the test
 	 * 	Instantiate a RuleSet to get the the thresholds from a text file and Threshold with the values manually counted 
@@ -24,7 +27,10 @@ class ThresholdTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		t1 = new Threshold("LOC_Class", "<", 100);
-		t2 = new Threshold("LOC_Class", ">", 20, "and");
+		t2 = new Threshold("LOC_Class", ">", 20, "E");
+		s1 = "LOC_Class, <, 100";
+		s2 = "LOC_Class, >, 20, E";
+		toString = "LOC_Class > 20 E";
 	}
 
 	/** Starts the procedure and creates a Threshold with the values manually counted
@@ -112,6 +118,38 @@ class ThresholdTest {
 	 */
 	@Test
 	void testThreshold2Logic() {
-		Assertions.assertEquals("and",t2.getLogic());
+		Assertions.assertEquals("E",t2.getLogic());
 	}
+	
+	
+	/**Tests if the procedure is giving the format to write the threshold in a file
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testToFileS1() {
+		Assertions.assertEquals(s1,t1.toFile());
+	}
+	
+	/**Tests if the procedure is giving the format to write the threshold in a file
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testToFileS2() {
+		Assertions.assertEquals(s2,t2.toFile());
+	}
+	
+	/**Tests if the procedure is giving the format to write the threshold on the GUI
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testToStringS1() {
+		Assertions.assertEquals(toString,t2.toString());
+	}
+	
 }

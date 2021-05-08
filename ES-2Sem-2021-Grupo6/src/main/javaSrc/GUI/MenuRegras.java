@@ -323,14 +323,14 @@ public class MenuRegras extends JFrame {
 		} else if (comboBox.getSelectedItem().equals("is_God_Class")) {
 			comboBox_Metrica = new JComboBox<Object>(metricasClasse);
 		}
+		comboBox_Metrica.setBounds(10, 50, 180, 20);
+		panel.add(comboBox_Metrica);
 
 		String[] ss = { "", "E", "OU" };
 		comboBox_logica = new JComboBox<Object>(ss);
 		comboBox_logica.setBounds(500, 50, 86, 21);
 		panel.add(comboBox_logica);
 
-		comboBox_Metrica.setBounds(10, 50, 180, 20);
-		panel.add(comboBox_Metrica);
 
 		String[] s = { "<", ">" };
 		comboBox_Sinal = new JComboBox<Object>(s);

@@ -20,9 +20,9 @@ import com.github.javaparser.utils.Pair;
  */
 public class MethodsHandler {
 
-	private static ArrayList<Pair<String,Integer>> list; //ArrayList of tuples to store the name of the method/constructor and the number of lines
+	private ArrayList<Pair<String,Integer>> list = new ArrayList<>(); //ArrayList of tuples to store the name of the method/constructor and the number of lines
 	
-	private static class Visitor extends VoidVisitorAdapter<Void> {
+	private class Visitor extends VoidVisitorAdapter<Void> {
 
 		/**Visits each "method" declaration in a class and instantiate the Visitor class to
 		 * start the counter of lines in a method
@@ -73,7 +73,7 @@ public class MethodsHandler {
 		return list.size();
 		
 		} catch (ParseProblemException e) {
-			System.out.println("PARSE EXCEPTION");
+			System.out.println("PARSE EXCEPTION METHODS");
 			return 0;
 		}
 	

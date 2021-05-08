@@ -38,9 +38,9 @@ class CYCLO_MethodTest {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		b.countCyclo("");
-		Collections.addAll(nCyclesB, 1, 1, 1, 1, 1, 6);
-	}	
+		b.countCyclo("testing\\Teste\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java");
+		Collections.addAll(nCyclesB, 1, 1, 2, 5, 4, 8, 3, 17, 3, 4, 10, 1, 128, 26, 11, 12, 15, 3, 4, 17, 3, 7, 4,2, 3, 2, 2 ,1, 1, 1, 1, 1);
+		}	
 
 	
 	/** Tests if the procedure is giving the right number of cycles/complexity of each method in a file 
