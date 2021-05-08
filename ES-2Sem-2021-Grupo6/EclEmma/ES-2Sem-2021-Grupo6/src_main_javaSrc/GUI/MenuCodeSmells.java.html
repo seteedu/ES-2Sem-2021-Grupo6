@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MenuCodeSmells.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">GUI</a> &gt; <span class="el_source">MenuCodeSmells.java</span></div><h1>MenuCodeSmells.java</h1><pre class="source lang-java linenums">package GUI;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+
+import CodeSmell.Rule;
+import CodeSmell.RuleSet;
+import Main.CodeSmell_Detector;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import java.awt.Color;
+
+/**
+ * 
+ * Code smell detector window where user chooses which rules to use 
+ *
+ */
+@SuppressWarnings(&quot;serial&quot;)
+public class MenuCodeSmells extends JFrame {
+	private JTextField textField;
+	private String ficheiro;
+	private MenuCodeSmells mcs;
+	
+	/**Code smell detector window constructor
+	 * 
+	 * @param mainmenu	main window to get back
+	 * @param rs		hashMap with the rules for the user to select 
+	 */
+	@SuppressWarnings({ &quot;rawtypes&quot;, &quot;unchecked&quot; })
+<span class="nc" id="L46">	public MenuCodeSmells(MainMenu mainmenu, RuleSet rs) {</span>
+<span class="nc" id="L47">		this.mcs = this;</span>
+		
+<span class="nc" id="L49">		CodeSmell_Detector CSD = new CodeSmell_Detector();</span>
+		
+		
+<span class="nc" id="L52">		setResizable(false);</span>
+<span class="nc" id="L53">		setSize(900, 500);</span>
+
+<span class="nc" id="L55">		setLocationRelativeTo(null);</span>
+<span class="nc" id="L56">		getContentPane().setLayout(null);</span>
+		/** When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
+<span class="nc" id="L60">		WindowListener exitListener = new WindowAdapter() {</span>
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+<span class="nc" id="L64">				rs.writeFile(MainMenu.FILE_PATH);</span>
+<span class="nc" id="L65">				System.exit(0);</span>
+<span class="nc" id="L66">			}</span>
+		};
+<span class="nc" id="L68">		this.addWindowListener(exitListener);</span>
+		
+		
+<span class="nc" id="L71">		JButton btnNewButton = new JButton(&quot;Escolher Excel&quot;);</span>
+<span class="nc" id="L72">		btnNewButton.setBounds(34, 36, 192, 48);</span>
+<span class="nc" id="L73">		getContentPane().add(btnNewButton);</span>
+		
+<span class="nc" id="L75">		JButton btnNewButton_2 = new JButton(&quot;Voltar&quot;);</span>
+<span class="nc" id="L76">		btnNewButton_2.setBounds(402, 422, 89, 23);</span>
+<span class="nc" id="L77">		getContentPane().add(btnNewButton_2);</span>
+		
+<span class="nc" id="L79">		JComboBox comboBox = new JComboBox();</span>
+<span class="nc" id="L80">		comboBox.setBounds(34, 153, 192, 20);</span>
+<span class="nc" id="L81">		getContentPane().add(comboBox);</span>
+<span class="nc" id="L82">		ArrayList&lt;String&gt; arraylist = rs.showRulesFiltered(&quot;is_God_Class&quot;);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">		for(String s: arraylist) {</span>
+<span class="nc" id="L84">			comboBox.addItem(s);</span>
+		}
+		
+<span class="nc" id="L87">		JComboBox comboBox_1 = new JComboBox();</span>
+<span class="nc" id="L88">		comboBox_1.setBounds(34, 230, 192, 20);</span>
+<span class="nc" id="L89">		getContentPane().add(comboBox_1);</span>
+<span class="nc" id="L90">		ArrayList&lt;String&gt; arraylist2 = rs.showRulesFiltered(&quot;is_Long_Method&quot;);</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">		for(String s: arraylist2) {</span>
+<span class="nc" id="L92">			comboBox_1.addItem(s);</span>
+		}
+		
+<span class="nc" id="L95">		JLabel lblNewLabel = new JLabel(&quot;Regra is_Long_Method&quot;);</span>
+<span class="nc" id="L96">		lblNewLabel.setBounds(34, 205, 139, 14);</span>
+<span class="nc" id="L97">		getContentPane().add(lblNewLabel);</span>
+		
+<span class="nc" id="L99">		JLabel lblNewLabel_1 = new JLabel(&quot;Regra is_God_Class&quot;);</span>
+<span class="nc" id="L100">		lblNewLabel_1.setBounds(34, 128, 139, 14);</span>
+<span class="nc" id="L101">		getContentPane().add(lblNewLabel_1);</span>
+		
+<span class="nc" id="L103">		JScrollPane scrollPane = new JScrollPane();</span>
+<span class="nc" id="L104">		scrollPane.setBounds(339, 50, 192, 341);</span>
+<span class="nc" id="L105">		getContentPane().add(scrollPane);</span>
+		
+<span class="nc" id="L107">		JList&lt;String&gt; listClass = new JList&lt;&gt;();</span>
+<span class="nc" id="L108">		listClass.setBounds(339, 50, 192, 341);</span>
+<span class="nc" id="L109">		scrollPane.setViewportView(listClass);</span>
+		
+<span class="nc" id="L111">		JScrollPane scrollPane2 = new JScrollPane();</span>
+<span class="nc" id="L112">		scrollPane2.setBounds(634, 50, 192, 341);</span>
+<span class="nc" id="L113">		getContentPane().add(scrollPane2);</span>
+		
+<span class="nc" id="L115">		JList&lt;String&gt; listMethods = new JList&lt;&gt;();</span>
+<span class="nc" id="L116">		listMethods.setBounds(634, 50, 192, 341);</span>
+<span class="nc" id="L117">		scrollPane2.setViewportView(listMethods);</span>
+		
+<span class="nc" id="L119">		JButton btnNewButton_1 = new JButton(&quot;Extrair CodeSmells&quot;);</span>
+		
+<span class="nc" id="L121">		btnNewButton_1.setBounds(34, 287, 157, 42);</span>
+<span class="nc" id="L122">		getContentPane().add(btnNewButton_1);</span>
+		
+<span class="nc" id="L124">		JLabel lblNewLabel_2 = new JLabel(&quot;Classes:&quot;);</span>
+<span class="nc" id="L125">		lblNewLabel_2.setBounds(339, 25, 89, 14);</span>
+<span class="nc" id="L126">		getContentPane().add(lblNewLabel_2);</span>
+		
+<span class="nc" id="L128">		JLabel lblNewLabel_3 = new JLabel(&quot;Métodos:&quot;);</span>
+<span class="nc" id="L129">		lblNewLabel_3.setBounds(634, 25, 89, 14);</span>
+<span class="nc" id="L130">		getContentPane().add(lblNewLabel_3);</span>
+		
+<span class="nc" id="L132">		textField = new JTextField();</span>
+<span class="nc" id="L133">		textField.setEditable(false);</span>
+<span class="nc" id="L134">		textField.setBounds(34, 95, 192, 20);</span>
+<span class="nc" id="L135">		getContentPane().add(textField);</span>
+<span class="nc" id="L136">		textField.setColumns(10);</span>
+		
+<span class="nc" id="L138">		JButton btnQualidade = new JButton(&quot;Qualidade&quot;);</span>
+<span class="nc" id="L139">		btnQualidade.setEnabled(false);</span>
+<span class="nc" id="L140">		btnQualidade.setBounds(665, 422, 139, 23);</span>
+<span class="nc" id="L141">		getContentPane().add(btnQualidade);</span>
+		
+<span class="nc" id="L143">		JLabel lblAviso = new JLabel(&quot;Por favor selecione um formato válido&quot;);</span>
+<span class="nc" id="L144">		lblAviso.setForeground(Color.RED);</span>
+<span class="nc" id="L145">		lblAviso.setBounds(34, 351, 245, 13);</span>
+<span class="nc" id="L146">		getContentPane().add(lblAviso);</span>
+<span class="nc" id="L147">		lblAviso.setVisible(false);</span>
+		
+		
+		//ACTION LISTENERS
+		/**
+		 * Button for the user to select the excel file
+		 */
+<span class="nc" id="L154">		btnNewButton.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+<span class="nc" id="L158">					JFileChooser fileChooser = new JFileChooser();</span>
+<span class="nc" id="L159">					fileChooser.showOpenDialog(null);</span>
+<span class="nc" id="L160">					File file = fileChooser.getSelectedFile();</span>
+<span class="nc" id="L161">					textField.setText(file.getAbsolutePath());	</span>
+<span class="nc" id="L162">					ficheiro = file.getAbsolutePath();</span>
+<span class="nc" id="L163">				} catch (Exception e) {</span>
+<span class="nc" id="L164">					e.printStackTrace();</span>
+				}
+				
+<span class="nc" id="L167">			}</span>
+		});
+		
+		/**
+		 * Button to start the detection of code smells 
+		 * User has to select an excel file before
+		 */
+<span class="nc" id="L174">		btnNewButton_1.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+<span class="nc bnc" id="L178" title="All 4 branches missed.">					if( textField.getText().equals(&quot;&quot;)|| !textField.getText().endsWith(&quot;.xlsx&quot;)) {</span>
+<span class="nc" id="L179">						lblAviso.setVisible(true);</span>
+<span class="nc" id="L180">					}else {</span>
+<span class="nc" id="L181">						lblAviso.setVisible(false);</span>
+<span class="nc" id="L182">						Rule rule = rs.getHashMap().get(comboBox.getSelectedItem()); </span>
+<span class="nc" id="L183">						Rule rule2 = rs.getHashMap().get(comboBox_1.getSelectedItem());</span>
+<span class="nc" id="L184">						CSD.detect(ficheiro, rule, rule2);</span>
+<span class="nc" id="L185">						listClass.setModel(CSD.showClassSmells());</span>
+<span class="nc" id="L186">						listMethods.setModel(CSD.showMethodSmells());</span>
+<span class="nc" id="L187">						btnQualidade.setEnabled(true);</span>
+					}
+<span class="nc" id="L189">				} catch (IOException e1) {</span>
+					// TODO Auto-generated catch block
+<span class="nc" id="L191">					e1.printStackTrace();</span>
+				}
+<span class="nc" id="L193">			}</span>
+		});
+		
+		/**
+		 * Button to open the graph window 
+		 */
+<span class="nc" id="L199">		btnQualidade.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L202">				MenuAvaliacao menuA = new MenuAvaliacao(rs, CSD, mcs);</span>
+<span class="nc" id="L203">				menuA.setVisible(true);</span>
+<span class="nc" id="L204">				dispose();</span>
+<span class="nc" id="L205">			}</span>
+		});
+		
+		/**
+		 * Button to get back to the main window
+		 */
+<span class="nc" id="L211">		btnNewButton_2.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L214">				mainmenu.setVisible(true);</span>
+<span class="nc" id="L215">				dispose();</span>
+<span class="nc" id="L216">			}</span>
+		});
+<span class="nc" id="L218">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

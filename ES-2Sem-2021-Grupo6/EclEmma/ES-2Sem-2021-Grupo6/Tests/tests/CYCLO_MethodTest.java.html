@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CYCLO_MethodTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">Tests</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">CYCLO_MethodTest.java</span></div><h1>CYCLO_MethodTest.java</h1><pre class="source lang-java linenums">package tests;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import Metrics.CYCLO_Method;
+
+/**
+ * To test the &quot;CYCLO_Method&quot; class and its procedure to get the number of cycles/complexity of the method
+ *
+ */
+<span class="fc" id="L18">class CYCLO_MethodTest {</span>
+
+	private static CYCLO_Method b;
+	private static ArrayList&lt;Integer&gt; nCyclesB;
+	
+	/** Setup of the classes needed for the test
+	 * 	Instantiate the a CYCLO_Method and creates an empty ArrayList of integers
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L30">		b = new CYCLO_Method();</span>
+<span class="fc" id="L31">		nCyclesB = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc" id="L32">	}</span>
+
+
+	/** Starts the procedure in a java file and fills the ArrayList with the values manually counted
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L41">		b.countCyclo(&quot;testing\\Teste\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java&quot;);</span>
+<span class="fc" id="L42">		Collections.addAll(nCyclesB, 1, 1, 2, 5, 4, 8, 3, 17, 3, 4, 10, 1, 128, 26, 11, 12, 15, 3, 4, 17, 3, 7, 4,2, 3, 2, 2 ,1, 1, 1, 1, 1);</span>
+<span class="fc" id="L43">		}	</span>
+
+	
+	/** Tests if the procedure is giving the right number of cycles/complexity of each method in a file 
+	 * 
+	 * Test method for {@link Metrics.CYCLO_Method#getNCycles()}.
+	 * @throws FileNotFoundException 
+	 */
+	@Test
+	void testGetNCycles() throws FileNotFoundException {
+<span class="fc" id="L53">		Assertions.assertIterableEquals(nCyclesB, b.getNCycles());</span>
+<span class="fc" id="L54">	}</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

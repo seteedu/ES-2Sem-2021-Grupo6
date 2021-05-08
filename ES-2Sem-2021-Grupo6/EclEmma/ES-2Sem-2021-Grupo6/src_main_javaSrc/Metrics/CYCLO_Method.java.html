@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CYCLO_Method.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">Metrics</a> &gt; <span class="el_source">CYCLO_Method.java</span></div><h1>CYCLO_Method.java</h1><pre class="source lang-java linenums">package Metrics;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import com.github.javaparser.ParseProblemException;
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.stmt.DoStmt;
+import com.github.javaparser.ast.stmt.ForEachStmt;
+import com.github.javaparser.ast.stmt.ForStmt;
+import com.github.javaparser.ast.stmt.IfStmt;
+import com.github.javaparser.ast.stmt.SwitchStmt;
+import com.github.javaparser.ast.stmt.WhileStmt;
+import com.github.javaparser.ast.visitor.VoidVisitor;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+
+/** 
+ * Used to parse any java file an then to count the number of cycles/complexity in a method
+ */
+<span class="fc" id="L24">public class CYCLO_Method {</span>
+
+<span class="fc" id="L26">	private int count = 1; //count of complexity always starts at one</span>
+	private ArrayList&lt;Integer&gt; nCycle;	//store the number of complexity in each method
+
+	/**
+	 * 
+	 *Visitor class to search for any of the following statements in a parsed file
+	 *Extends VoidVisitorAdapter in order to find each type of statement
+	 *Will be created one Visitor for each method or constructor declaration
+	 *
+	 */
+<span class="fc" id="L36">	private class Visitor extends VoidVisitorAdapter&lt;Void&gt; {</span>
+
+		/**Visits each &quot;if&quot; statement in a class 
+		 * for each &quot;if&quot; it iterates the counter of cycles/complexity
+		 * 
+		 * @param md	for the superclass visit this &quot;if&quot; statement
+		 * @param arg	to continue its procedure for the rest of method
+		 */
+		@Override
+		public void visit(IfStmt md, Void arg) {
+<span class="fc" id="L46">			super.visit(md, arg);</span>
+<span class="fc" id="L47">			count++;</span>
+<span class="fc" id="L48">		}</span>
+		
+		/**Visits each &quot;for&quot; statement in a class 
+		 * for each &quot;for&quot; it iterates the counter of cycles/complexity
+		 * 
+		 * @param md	for the superclass visit this &quot;for&quot; statement
+		 * @param arg	to continue its procedure for the rest of method
+		 */
+		@Override
+		public void visit(ForStmt md, Void arg) {
+<span class="fc" id="L58">			super.visit(md, arg);</span>
+<span class="fc" id="L59">			count++;</span>
+
+<span class="fc" id="L61">		}</span>
+		
+		/**Visits each &quot;switch&quot; statement in a class 
+		 * for each &quot;switch&quot; it iterates the counter of cycles/complexity
+		 * 
+		 * @param md	for the superclass visit this &quot;switch&quot; statement
+		 * @param arg	to continue its procedure for the rest of method
+		 */
+		@Override 
+		public void visit(SwitchStmt md, Void arg) {
+<span class="fc" id="L71">			super.visit(md, arg);</span>
+<span class="fc" id="L72">			count = count + md.getEntries().size();	</span>
+<span class="fc" id="L73">		}</span>
+		
+		/**Visits each &quot;while&quot; statement in a class 
+		 * for each &quot;while&quot; it iterates the counter of cycles/complexity
+		 * 
+		 * @param md	for the superclass visit this &quot;while&quot; statement
+		 * @param arg	to continue its procedure for the rest of method
+		 */
+		@Override
+		public void visit(WhileStmt md, Void arg) {
+<span class="fc" id="L83">			super.visit(md, arg);</span>
+<span class="fc" id="L84">			count++;</span>
+<span class="fc" id="L85">		}</span>
+		
+		/**Visits each &quot;for each&quot; statement in a class 
+		 * for each &quot;for each&quot; it iterates the counter of cycles/complexity
+		 * 
+		 * @param md	for the superclass visit this &quot;for each&quot; statement
+		 * @param arg	to continue its procedure for the rest of method
+		 */
+		@Override
+		public void visit(ForEachStmt md, Void arg) {
+<span class="nc" id="L95">			super.visit(md, arg);</span>
+<span class="nc" id="L96">			count++;</span>
+<span class="nc" id="L97">		}</span>
+		
+		/**Visits each &quot;do&quot; statement in a class 
+		 * for each &quot;do&quot; it iterates the counter of cycles/complexity
+		 * 
+		 * @param md	for the super class visit this &quot;do&quot; statement
+		 * @param arg	to continue its procedure for the rest of method 
+		 */
+		@Override
+		public void visit(DoStmt md, Void arg) {
+<span class="fc" id="L107">			super.visit(md, arg);</span>
+<span class="fc" id="L108">			count++;</span>
+<span class="fc" id="L109">		}</span>
+	}
+
+		/**
+		 * 
+		 * Searches for each method declarations existent in a class to start the search for the above statements
+		 *	Extends VoidVisitorAdapter in order to find each type of method
+		 */
+<span class="fc" id="L117">		private class VisitorMethod extends VoidVisitorAdapter&lt;Void&gt; {</span>
+
+			/**Visits each &quot;method&quot; declaration in a class and instantiate the Visitor class to
+			 * start the counter of cycles/complexity in that method
+			 * when the visitor reaches the end of the constructor it adds the counter to an arrayList with the results
+			 * 
+			 * @param md 	for the super class visit this &quot;method&quot; declaration
+			 * @param arg 	to continue its procedure for the rest of the class
+			 */
+			@Override
+			public void visit(MethodDeclaration md, Void arg) {
+<span class="fc" id="L128">				super.visit(md, arg);</span>
+<span class="fc" id="L129">				VoidVisitor&lt;Void&gt; cycloVisitor = new Visitor();</span>
+<span class="fc" id="L130">				cycloVisitor.visit(md, null);</span>
+<span class="fc" id="L131">				nCycle.add(count);	</span>
+<span class="fc" id="L132">				count = 1;</span>
+<span class="fc" id="L133">			}</span>
+			
+			/**Visits each &quot;constructor&quot; declaration in a class and instantiate the Visitor class to
+			 * start the counter of cycles/complexity in that method
+			 * when the visitor reaches the end of the constructor it adds the counter to an arrayList with the results
+			 * 
+			 * @param md 	for the super class visit this &quot;constructor&quot; declaration
+			 * @param arg 	to continue its procedure for the rest of the class
+			 */
+			@Override
+			public void visit(ConstructorDeclaration md, Void arg) {
+<span class="fc" id="L144">				super.visit(md, arg);</span>
+<span class="fc" id="L145">				VoidVisitor&lt;Void&gt; cycloVisitor = new Visitor();</span>
+<span class="fc" id="L146">				cycloVisitor.visit(md, null);</span>
+<span class="fc" id="L147">				nCycle.add(count);</span>
+<span class="fc" id="L148">				count = 1;</span>
+<span class="fc" id="L149">			}</span>
+		}
+
+	/** This method starts the VisitorMethod to do its search of methods in a class 
+	 * 
+	 *  
+	 * @param s		path of the file to be parsed 
+	 * @throws FileNotFoundException	if the file is not found
+	 */
+	public void countCyclo(String s) throws FileNotFoundException {
+<span class="fc" id="L159">		nCycle= new ArrayList&lt;&gt;();</span>
+		try {
+<span class="fc" id="L161">		CompilationUnit cu = StaticJavaParser.parse(new File(s));</span>
+<span class="fc" id="L162">		VoidVisitor&lt;Void&gt; methodVisitor = new VisitorMethod();</span>
+<span class="fc" id="L163">		methodVisitor.visit(cu, null);</span>
+<span class="pc" id="L164">		} catch (ParseProblemException e) {</span>
+<span class="nc" id="L165">			System.out.println(&quot;PARSE EXCEPTION CYCLES&quot;);</span>
+		}
+<span class="fc" id="L167">	}</span>
+	
+	/**Where are the results from each method
+	 * Used in &quot;Main&quot; to create the object &quot;Result&quot; for each method/constructor
+	 * 
+	 * @return	ArrayList with the list of counters
+	 */
+	public ArrayList&lt;Integer&gt; getNCycles(){
+<span class="fc" id="L175">		return nCycle;</span>
+	}	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

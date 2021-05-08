@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MethodsHandlerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">Tests</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">MethodsHandlerTest.java</span></div><h1>MethodsHandlerTest.java</h1><pre class="source lang-java linenums">
+/**
+ * 
+ */
+package tests;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.github.javaparser.utils.Pair;
+
+import Metrics.MethodsHandler;
+
+/**
+ * To test the &quot;Logic_Expressions&quot; class and its procedure to get the boolean of a logic expression
+ *
+ */
+<span class="fc" id="L22">class MethodsHandlerTest {</span>
+	private static MethodsHandler a;
+	private static ArrayList&lt;Pair&lt;String, Integer&gt;&gt; listA;
+	
+	
+	/** Setup of the classes needed for the test
+	 * 	Instantiate the a MethodHandler and create an empty ArrayList of tuples 
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L34">		a = new MethodsHandler();</span>
+<span class="fc" id="L35">		listA = new ArrayList&lt;Pair&lt;String, Integer&gt;&gt;();</span>
+<span class="fc" id="L36">	}</span>
+	
+
+	
+	/** Starts the procedure in a java file and creates an ArrayList with the values manually counted
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L46">		a.countMethods(&quot;testing\\Teste\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java&quot;);</span>
+<span class="fc" id="L47">		listA();</span>
+<span class="fc" id="L48">	}</span>
+
+
+	/**Adds Pairs to the list manually counted
+	 * 
+	 */
+	@SuppressWarnings({ &quot;unchecked&quot;, &quot;rawtypes&quot; })
+	private void listA() {
+<span class="fc" id="L56">		listA.add(new Pair(&quot;ParsingException&quot;, 6));</span>
+<span class="fc" id="L57">		listA.add(new Pair(&quot;ParsingException&quot;, 5));</span>
+<span class="fc" id="L58">		listA.add(new Pair(&quot;ParsingException&quot;, 4));</span>
+<span class="fc" id="L59">		listA.add(new Pair(&quot;ParsingException&quot;, 3));</span>
+<span class="fc" id="L60">		listA.add(new Pair(&quot;ParsingException&quot;, 3));</span>
+<span class="fc" id="L61">		listA.add(new Pair(&quot;getMessage&quot;, 20));</span>
+<span class="fc" id="L62">	}</span>
+
+	
+	/**	Tests if the procedure is giving the right number of methods for each class
+	 * 
+	 * Test method for {@link Metrics.MethodsHandler#countMethods(java.lang.String)}.
+	 */
+	@Test
+	void testCountMethods() {
+<span class="fc" id="L71">		Assertions.assertIterableEquals(listA, a.getPair());</span>
+<span class="fc" id="L72">	}</span>
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

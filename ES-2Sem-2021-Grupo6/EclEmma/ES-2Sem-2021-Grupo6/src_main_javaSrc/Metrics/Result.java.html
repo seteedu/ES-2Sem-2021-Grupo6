@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Result.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">Metrics</a> &gt; <span class="el_source">Result.java</span></div><h1>Result.java</h1><pre class="source lang-java linenums">package Metrics;
+
+/**
+ * 
+ * Class to group all the metrics from each method
+ *
+ */
+public class Result {
+	private String package1;
+	private String class1;
+	private String method1;
+	private int nom;
+	private int loc;
+	private int wmc;
+	private int locm;
+	private int cyclom;
+	
+	/** Constructor of the object to group all the results of the method
+	 * 
+	 * @param package1	name of the package it's in
+	 * @param class1	name of the class it's in
+	 * @param method1	name of the method
+	 * @param nom		number of methods in the class that it's in
+	 * @param loc		number of lines in the class that it's in
+	 * @param wmc		total of cycles/complexity in the class that it's in
+	 * @param locm		number of lines of this method
+	 * @param cyclom	number of cycles/complexity of this method
+	 */
+<span class="fc" id="L29">	public Result(String package1, String class1, String method1, int nom, int loc, int wmc, int locm, int cyclom){</span>
+<span class="fc" id="L30">		this.package1=package1;</span>
+<span class="fc" id="L31">		this.class1=class1;</span>
+<span class="fc" id="L32">		this.method1=method1;</span>
+<span class="fc" id="L33">		this.nom=nom;</span>
+<span class="fc" id="L34">		this.loc=loc;</span>
+<span class="fc" id="L35">		this.wmc=wmc;</span>
+<span class="fc" id="L36">		this.locm=locm;</span>
+<span class="fc" id="L37">		this.cyclom=cyclom;</span>
+<span class="fc" id="L38">	}</span>
+	
+	/**Gives the name of the package that's in
+	 * 	
+	 * @return name of the package
+	 */
+	public String getPackage1(){
+<span class="fc" id="L45">		return package1;</span>
+	}
+	
+	/**Gives the name of the class that's in
+	 * 	
+	 * @return name of the class
+	 */
+	public String getClass1(){
+<span class="fc" id="L53">		return class1;</span>
+	}
+	
+	/**Gives the name of the method
+	 * 	  	
+	 * @return name of the method
+	*/
+	public String getMethod1(){
+<span class="fc" id="L61">		return method1;</span>
+	}
+	
+	/**Gives the number of methods in the class that it's in
+	 * 	
+	 * @return number of methods of the class
+	 */
+	public int getNom() {
+<span class="fc" id="L69">		return nom;</span>
+	}
+	
+	/**Gives the number of lines in the class that it's in
+	 * 	
+	 * @return number of lines of the class
+	 */
+	public int getLoc() {
+<span class="fc" id="L77">		return loc;</span>
+	}
+	
+	/**Gives the total of cycles/complexity in the class that it's in
+	 * 	
+	 * @return total of cycles/complexity
+	 */
+	public int getWmc() {
+<span class="fc" id="L85">		return wmc;</span>
+	}
+	
+	/**Gives the number of lines of the method
+	 * 	
+	 * @return number of lines
+	 */
+	public int getLocm() {
+<span class="fc" id="L93">		return locm;</span>
+	}
+	
+	/**Gives the number of cycles/complexity of the method
+	 * 	
+	 * @return number of cycles/complexity
+	 */
+	public int getCyclom() {
+<span class="fc" id="L101">		return cyclom;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

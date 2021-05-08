@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ModificarRegras.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">GUI</a> &gt; <span class="el_source">ModificarRegras.java</span></div><h1>ModificarRegras.java</h1><pre class="source lang-java linenums">package GUI;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import CodeSmell.Rule;
+import CodeSmell.RuleSet;
+import CodeSmell.Threshold;
+
+import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+
+/**
+ * Where user can modify his rules
+ * 
+ */
+@SuppressWarnings(&quot;serial&quot;)
+public class ModificarRegras extends JFrame {
+	private Rule rule;
+	private JTextField textFieldLimite;
+	private JTextField textFieldnomeregra;
+	private int selectedItemIndex;
+
+	/**Rules modifier menu constructor
+	 * 
+	 * @param mainmenu	main window to get back
+	 * @param rs	hashMap to give the rules to be changed
+	 */
+	@SuppressWarnings(&quot;rawtypes&quot;)
+<span class="nc" id="L41">	public ModificarRegras(MainMenu mainmenu, RuleSet rs) {</span>
+<span class="nc" id="L42">		setResizable(false);</span>
+<span class="nc" id="L43">		setSize(900, 500);</span>
+<span class="nc" id="L44">		getContentPane().setLayout(null);</span>
+<span class="nc" id="L45">		setLocationRelativeTo(null);</span>
+		
+		/** When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
+<span class="nc" id="L50">		WindowListener exitListener = new WindowAdapter() {</span>
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+<span class="nc" id="L54">				rs.writeFile(MainMenu.FILE_PATH);</span>
+<span class="nc" id="L55">				System.exit(0);</span>
+<span class="nc" id="L56">			}</span>
+		};
+<span class="nc" id="L58">		this.addWindowListener(exitListener);</span>
+
+<span class="nc" id="L60">		JLabel lblRegras = new JLabel(&quot;Regras:&quot;);</span>
+<span class="nc" id="L61">		lblRegras.setBounds(259, 27, 45, 13);</span>
+<span class="nc" id="L62">		getContentPane().add(lblRegras);</span>
+
+<span class="nc" id="L64">		JLabel lblLimites = new JLabel(&quot;Limites:&quot;);</span>
+<span class="nc" id="L65">		lblLimites.setBounds(537, 27, 45, 13);</span>
+<span class="nc" id="L66">		getContentPane().add(lblLimites);</span>
+
+<span class="nc" id="L68">		JLabel lblMtetrica = new JLabel(&quot;Métrica:&quot;);</span>
+<span class="nc" id="L69">		lblMtetrica.setBounds(119, 322, 46, 14);</span>
+<span class="nc" id="L70">		getContentPane().add(lblMtetrica);</span>
+
+<span class="nc" id="L72">		JComboBox comboBoxMetrica = new JComboBox();</span>
+<span class="nc" id="L73">		comboBoxMetrica.setBounds(119, 355, 127, 21);</span>
+<span class="nc" id="L74">		getContentPane().add(comboBoxMetrica);</span>
+
+<span class="nc" id="L76">		JComboBox comboBoxSinal = new JComboBox();</span>
+<span class="nc" id="L77">		comboBoxSinal.setBounds(362, 355, 75, 21);</span>
+<span class="nc" id="L78">		getContentPane().add(comboBoxSinal);</span>
+
+<span class="nc" id="L80">		textFieldLimite = new JTextField();</span>
+<span class="nc" id="L81">		textFieldLimite.setColumns(10);</span>
+<span class="nc" id="L82">		textFieldLimite.setBounds(553, 356, 56, 20);</span>
+<span class="nc" id="L83">		getContentPane().add(textFieldLimite);</span>
+
+<span class="nc" id="L85">		JLabel lblNewLabel_Limite = new JLabel(&quot;Limite:&quot;);</span>
+<span class="nc" id="L86">		lblNewLabel_Limite.setBounds(553, 322, 46, 14);</span>
+<span class="nc" id="L87">		getContentPane().add(lblNewLabel_Limite);</span>
+
+<span class="nc" id="L89">		JComboBox comboBoxlogica = new JComboBox();</span>
+<span class="nc" id="L90">		comboBoxlogica.setBounds(725, 354, 56, 22);</span>
+<span class="nc" id="L91">		getContentPane().add(comboBoxlogica);</span>
+
+<span class="nc" id="L93">		JLabel lblNewLabel = new JLabel(&quot;E/OU:&quot;);</span>
+<span class="nc" id="L94">		lblNewLabel.setBounds(725, 322, 46, 14);</span>
+<span class="nc" id="L95">		getContentPane().add(lblNewLabel);</span>
+
+<span class="nc" id="L97">		textFieldnomeregra = new JTextField();</span>
+<span class="nc" id="L98">		textFieldnomeregra.setEditable(false);</span>
+<span class="nc" id="L99">		textFieldnomeregra.setBounds(426, 292, 111, 20);</span>
+<span class="nc" id="L100">		getContentPane().add(textFieldnomeregra);</span>
+<span class="nc" id="L101">		textFieldnomeregra.setColumns(10);</span>
+
+<span class="nc" id="L103">		JLabel lblNewLabel_1 = new JLabel(&quot;Nome da regra:&quot;);</span>
+<span class="nc" id="L104">		lblNewLabel_1.setBounds(334, 295, 87, 14);</span>
+<span class="nc" id="L105">		getContentPane().add(lblNewLabel_1);</span>
+
+<span class="nc" id="L107">		JButton btnConfirmar = new JButton(&quot;Confirmar&quot;);</span>
+<span class="nc" id="L108">		btnConfirmar.setEnabled(false);</span>
+<span class="nc" id="L109">		btnConfirmar.setBounds(553, 416, 117, 23);</span>
+<span class="nc" id="L110">		getContentPane().add(btnConfirmar);</span>
+
+		/**
+		 * Button to get back to the main window
+		 */
+<span class="nc" id="L115">		JButton btnNewButton_Voltar = new JButton(&quot;Voltar&quot;);</span>
+<span class="nc" id="L116">		btnNewButton_Voltar.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L119">				mainmenu.setVisible(true);</span>
+<span class="nc" id="L120">				dispose();</span>
+<span class="nc" id="L121">			}</span>
+		});
+<span class="nc" id="L123">		btnNewButton_Voltar.setBounds(334, 417, 89, 23);</span>
+<span class="nc" id="L124">		getContentPane().add(btnNewButton_Voltar);</span>
+
+<span class="nc" id="L126">		JLabel lblNewLabel_Warning = new JLabel(&quot;Por favor inisira um valor válido!&quot;);</span>
+<span class="nc" id="L127">		lblNewLabel_Warning.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L128">		lblNewLabel_Warning.setForeground(Color.RED);</span>
+<span class="nc" id="L129">		lblNewLabel_Warning.setBounds(478, 387, 261, 13);</span>
+<span class="nc" id="L130">		getContentPane().add(lblNewLabel_Warning);</span>
+<span class="nc" id="L131">		lblNewLabel_Warning.setVisible(false);</span>
+
+<span class="nc" id="L133">		JLabel lbl_confirmar = new JLabel(&quot;Regra alterada com sucesso!&quot;);</span>
+<span class="nc" id="L134">		lbl_confirmar.setForeground(Color.GREEN);</span>
+<span class="nc" id="L135">		lbl_confirmar.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L136">		lbl_confirmar.setBounds(680, 420, 206, 14);</span>
+<span class="nc" id="L137">		getContentPane().add(lbl_confirmar);</span>
+<span class="nc" id="L138">		lbl_confirmar.setVisible(false);</span>
+		
+<span class="nc" id="L140">		JScrollPane scrollPane = new JScrollPane();</span>
+<span class="nc" id="L141">		scrollPane.setBounds(230, 51, 107, 193);</span>
+<span class="nc" id="L142">		getContentPane().add(scrollPane);</span>
+		
+<span class="nc" id="L144">		JScrollPane scrollPane2 = new JScrollPane();</span>
+<span class="nc" id="L145">		scrollPane2.setBounds(537, 50, 231, 193);</span>
+<span class="nc" id="L146">		getContentPane().add(scrollPane2);</span>
+
+		// ACTION LISTERNERS
+
+<span class="nc" id="L150">		JList&lt;String&gt; listRegras = new JList&lt;&gt;(rs.showRules());</span>
+		
+<span class="nc" id="L152">		JList&lt;String&gt; listLimites = new JList&lt;&gt;();</span>
+<span class="nc" id="L153">		listLimites.setBounds(537, 50, 231, 193);</span>
+<span class="nc" id="L154">		scrollPane2.setViewportView(listLimites);</span>
+
+<span class="nc" id="L156">		DefaultListModel&lt;String&gt; l2 = new DefaultListModel&lt;&gt;();</span>
+		
+		/**
+		 * User selected a rule and it fills the next list with that rule's thresholds
+		 */
+<span class="nc" id="L161">		listRegras.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L164">				lbl_confirmar.setVisible(false);</span>
+<span class="nc" id="L165">				textFieldnomeregra.setText((String) listRegras.getSelectedValue());</span>
+<span class="nc" id="L166">				listLimites.clearSelection();</span>
+<span class="nc" id="L167">				btnConfirmar.setEnabled(false);</span>
+<span class="nc" id="L168">				l2.clear();</span>
+<span class="nc" id="L169">				String selectedItem = (String) listRegras.getSelectedValue();</span>
+<span class="nc" id="L170">				rule = rs.getHashMap().get(selectedItem);</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">				for (Threshold t : rule.getThresholds()) {</span>
+<span class="nc" id="L172">					l2.addElement(t.toString());</span>
+				}
+<span class="nc" id="L174">				listLimites.setModel(l2);</span>
+
+<span class="nc" id="L176">			}</span>
+		});
+
+		/**
+		 * User selected the threshold to modify and it fills the rest of the empty spaces with the thresholds' specifications
+		 */
+<span class="nc" id="L182">		listLimites.addMouseListener(new MouseAdapter() {</span>
+			@SuppressWarnings(&quot;unchecked&quot;)
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L186">				selectedItemIndex = listLimites.getSelectedIndex();</span>
+<span class="nc" id="L187">				Threshold oldThresHold = rule.getThresholds().get(selectedItemIndex);</span>
+
+<span class="nc bnc" id="L189" title="All 2 branches missed.">				if (oldThresHold.getLogic() == null) {</span>
+<span class="nc" id="L190">					comboBoxlogica.removeAllItems();</span>
+<span class="nc" id="L191">					comboBoxlogica.setEnabled(false);</span>
+<span class="nc" id="L192">				} else {</span>
+<span class="nc" id="L193">					comboBoxlogica.removeAllItems();</span>
+<span class="nc" id="L194">					comboBoxlogica.setEnabled(true);</span>
+<span class="nc" id="L195">					comboBoxlogica.setSelectedItem(oldThresHold.getLogic());</span>
+<span class="nc" id="L196">					comboBoxlogica.addItem(&quot;E&quot;);</span>
+<span class="nc" id="L197">					comboBoxlogica.addItem(&quot;OU&quot;);</span>
+				}
+
+<span class="nc bnc" id="L200" title="All 2 branches missed.">				if (rule.getCodeSmell().equals(&quot;is_God_Class&quot;)) {</span>
+<span class="nc" id="L201">					comboBoxMetrica.removeAllItems();</span>
+<span class="nc" id="L202">					comboBoxMetrica.addItem(&quot;LOC_Class&quot;);</span>
+<span class="nc" id="L203">					comboBoxMetrica.addItem(&quot;WMC_Class&quot;);</span>
+<span class="nc" id="L204">					comboBoxMetrica.addItem(&quot;NOM_Class&quot;);</span>
+<span class="nc" id="L205">					comboBoxMetrica.setSelectedItem(oldThresHold.getName());</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">				} else if (rule.getCodeSmell().equals(&quot;is_Long_Method&quot;)) {</span>
+<span class="nc" id="L207">					comboBoxMetrica.removeAllItems();</span>
+<span class="nc" id="L208">					comboBoxMetrica.addItem(&quot;LOC_Method&quot;);</span>
+<span class="nc" id="L209">					comboBoxMetrica.addItem(&quot;CYCLO_Method&quot;);</span>
+<span class="nc" id="L210">					comboBoxMetrica.setSelectedItem(oldThresHold.getName());</span>
+				}
+<span class="nc" id="L212">				comboBoxSinal.removeAllItems();</span>
+<span class="nc" id="L213">				comboBoxSinal.addItem(&quot;&lt;&quot;);</span>
+<span class="nc" id="L214">				comboBoxSinal.addItem(&quot;&gt;&quot;);</span>
+<span class="nc" id="L215">				comboBoxSinal.setSelectedItem(oldThresHold.getMath());</span>
+<span class="nc" id="L216">				textFieldLimite.setText(String.valueOf(oldThresHold.getValue()));</span>
+<span class="nc" id="L217">				btnConfirmar.setEnabled(true);</span>
+
+<span class="nc" id="L219">			}</span>
+		});
+
+		/**
+		 * Button to confirm the changes
+		 * it creates a new rule to replace the one was changed
+		 */
+<span class="nc" id="L226">		btnConfirmar.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+					try {
+<span class="nc" id="L230">						lblNewLabel_Warning.setVisible(false);</span>
+<span class="nc" id="L231">						Threshold newt = null;</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">						if (comboBoxlogica.getSelectedItem() == null) {</span>
+<span class="nc" id="L233">							newt = createThreshold(comboBoxMetrica.getSelectedItem().toString(),</span>
+<span class="nc" id="L234">									comboBoxSinal.getSelectedItem().toString(),</span>
+<span class="nc" id="L235">									Integer.parseInt(textFieldLimite.getText()), &quot;&quot;);</span>
+<span class="nc" id="L236">						} else {</span>
+<span class="nc" id="L237">							newt = createThreshold(comboBoxMetrica.getSelectedItem().toString(),</span>
+<span class="nc" id="L238">									comboBoxSinal.getSelectedItem().toString(),</span>
+<span class="nc" id="L239">									Integer.parseInt(textFieldLimite.getText()),</span>
+<span class="nc" id="L240">									comboBoxlogica.getSelectedItem().toString());</span>
+						}
+<span class="nc" id="L242">						rule.getThresholds().set(selectedItemIndex, newt);</span>
+<span class="nc" id="L243">						listLimites.clearSelection();</span>
+<span class="nc" id="L244">						listRegras.clearSelection();</span>
+<span class="nc" id="L245">						comboBoxlogica.removeAllItems();</span>
+<span class="nc" id="L246">						comboBoxMetrica.removeAllItems();</span>
+<span class="nc" id="L247">						comboBoxSinal.removeAllItems();</span>
+<span class="nc" id="L248">						textFieldLimite.setText(&quot;&quot;);</span>
+<span class="nc" id="L249">						btnConfirmar.setEnabled(false);</span>
+<span class="nc" id="L250">						listLimites.setModel(new DefaultListModel&lt;String&gt;());</span>
+<span class="nc" id="L251">						listRegras.setModel(rs.showRules());</span>
+<span class="nc" id="L252">						lbl_confirmar.setVisible(true);</span>
+<span class="nc" id="L253">					} catch (Exception e1) {</span>
+<span class="nc" id="L254">						lblNewLabel_Warning.setText(&quot;Por favor insira um valor válido!&quot;);</span>
+<span class="nc" id="L255">						lblNewLabel_Warning.setVisible(true);</span>
+					}
+<span class="nc" id="L257">				}</span>
+
+		});
+
+<span class="nc" id="L261">		listRegras.setBounds(224, 50, 111, 193);</span>
+<span class="nc" id="L262">		scrollPane.setViewportView(listRegras);</span>
+		
+
+<span class="nc" id="L265">	}</span>
+
+	/**Creates new thresholds to create the new rule 
+	 * 
+	 * @param name	identifies the metrics 
+	 * @param math	&quot;&lt;&quot; or &quot;&gt;&quot; to instantiate a new Threshold
+	 * @param value	value to be compared
+	 * @param logic	&quot;E&quot; or &quot;OU&quot; logic operators
+	 * @return a new Threshold created to add to the new rule
+	 */
+	private Threshold createThreshold(String name, String math, int value, String logic) {
+<span class="nc bnc" id="L276" title="All 2 branches missed.">		if (logic.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L277">			return new Threshold(name, math, value);</span>
+		} else {
+<span class="nc" id="L279">			return new Threshold(name, math, value, logic);</span>
+		}
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

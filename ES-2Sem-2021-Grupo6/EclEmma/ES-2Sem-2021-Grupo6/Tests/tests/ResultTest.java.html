@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ResultTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">Tests</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">ResultTest.java</span></div><h1>ResultTest.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package tests;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import Metrics.Result;
+
+
+/**
+ * To test the &quot;Result&quot; class and its procedure to create the Result that groups all the metrics of each method 
+ *
+ */
+<span class="fc" id="L17">class ResultTest {</span>
+	private static Result a;
+	
+	
+	/** Setup of the classes needed for the test
+	 * 	Instantiate a Main to get the result from a java file and create a Result with values manually counted 
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L28">		a = new Result (&quot;package&quot;, &quot;class&quot;, &quot;metodo&quot;, 1, 2, 3, 4, 5);</span>
+<span class="fc" id="L29">	}</span>
+		
+	/**Tests if the procedure is giving the right name of the package
+	 * 
+	 * Test method for {@link Metrics.Result#getPackage1()}.
+	 */
+	@Test
+	void testGetPackage1() {
+<span class="fc" id="L37">		Assertions.assertEquals(&quot;package&quot;, a.getPackage1());</span>
+<span class="fc" id="L38">	}</span>
+
+	
+	/**Tests if the procedure is giving the right name of the class
+	 * 
+	 * Test method for {@link Metrics.Result#getClass1()}.
+	 */
+	@Test
+	void testGetClass1() {
+<span class="fc" id="L47">		Assertions.assertEquals(&quot;class&quot;, a.getClass1());</span>
+<span class="fc" id="L48">	}</span>
+	
+
+	
+	/**Tests if the procedure is giving the right name of the method
+	 * 
+	 * Test method for {@link Metrics.Result#getMethod1()}.
+	 */
+	@Test
+	void testGetMethod1() {
+<span class="fc" id="L58">		Assertions.assertEquals(&quot;metodo&quot;, a.getMethod1());</span>
+<span class="fc" id="L59">	}</span>
+
+	
+	/**Tests if the procedure is giving the right number of methods in the class that it's in
+	 * 
+	 * Test method for {@link Metrics.Result#getNom()}.
+	 */
+	@Test
+	void testGetNom() {
+<span class="fc" id="L68">		Assertions.assertEquals(1, a.getNom());</span>
+<span class="fc" id="L69">	}</span>
+
+	
+	/**Tests if the procedure is giving the right number of lines of the class that it's in
+	 * 
+	 * Test method for {@link Metrics.Result#getLoc()}.
+	 */
+	@Test
+	void testGetLoc() {
+<span class="fc" id="L78">		Assertions.assertEquals(2, a.getLoc());</span>
+<span class="fc" id="L79">	}</span>
+
+	
+	/**Tests if the procedure is giving the total of cycles/complexity in the class that it's in 
+	 * 
+	 * Test method for {@link Metrics.Result#getWmc()}.
+	 */
+	@Test
+	void testGetWmc() {
+<span class="fc" id="L88">		Assertions.assertEquals(3, a.getWmc());</span>
+<span class="fc" id="L89">	}</span>
+
+	
+	/**Tests if the procedure is giving the right number of lines in the method
+	 * 
+	 * Test method for {@link Metrics.Result#getLocm()}.
+	 */
+	@Test
+	void testGetLocm() {
+<span class="fc" id="L98">		Assertions.assertEquals(4, a.getLocm());</span>
+<span class="fc" id="L99">	}</span>
+
+	/**Tests if the procedure is giving the right number of cycles/complexity of each method in a file 
+	 * 
+	 * Test method for {@link Metrics.Result#getCyclom()}.
+	 */
+	@Test
+	void testGetCyclom() {
+<span class="fc" id="L107">		Assertions.assertEquals(5, a.getCyclom());</span>
+<span class="fc" id="L108">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

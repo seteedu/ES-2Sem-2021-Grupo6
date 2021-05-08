@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Logic_Expressions.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">CodeSmell</a> &gt; <span class="el_source">Logic_Expressions.java</span></div><h1>Logic_Expressions.java</h1><pre class="source lang-java linenums">package CodeSmell;
+
+<span class="fc" id="L3">public class Logic_Expressions {</span>
+	
+	/**Returns a boolean resulted from the comparison between one threshold and 
+	 * a value gotten from the excel file with the project metrics
+	 *  
+	 * 
+	 * @param t		Threshold from Rule being used
+	 * @param val	Value from metrics to compare
+	 * @return boolean from the comparison
+	 */
+	public boolean one(Threshold t, int val) {
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">		if ( t.getMath().equals(&quot;&lt;&quot;))</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">			if( val &lt; t.getValue())</span>
+<span class="fc" id="L16">				return true;</span>
+			else 
+<span class="fc" id="L18">				return false;</span>
+		else 
+<span class="nc bnc" id="L20" title="All 2 branches missed.">			if( val &gt; t.getValue())</span>
+<span class="nc" id="L21">				return true;</span>
+			else
+<span class="nc" id="L23">				return false;</span>
+	}
+	
+	/**Returns a boolean from an &quot;OR&quot; comparison to find the logic value of the rule being used
+	 * 
+	 * @param b		current boolean from others expression logics
+	 * @param t		threshold for the comparison
+	 * @param val	value for the comparison 
+	 * @return		boolean from an &quot;AND&quot; expression logic
+	 */
+	public boolean twoAnd(boolean b, Threshold t, int val) {
+<span class="pc bpc" id="L34" title="1 of 4 branches missed.">		if ( one(t, val) &amp;&amp; b)</span>
+<span class="fc" id="L35">			return true;</span>
+		else 
+<span class="fc" id="L37">			return false;</span>
+	}
+	
+	/**Returns a boolean from an &quot;AND&quot; comparison to find the logic value of the rule being used
+	 * 
+	 * @param b		current boolean from others expression logics
+	 * @param t		threshold for the comparison
+	 * @param val	value for the comparison 
+	 * @return		boolean from an &quot;OR&quot; expression logic
+	 */
+	public boolean twoOr(boolean b, Threshold t, int val) {
+<span class="pc bpc" id="L48" title="2 of 4 branches missed.">		if ( one(t, val) || b)</span>
+<span class="fc" id="L49">			return true;</span>
+		else 
+<span class="nc" id="L51">			return false;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

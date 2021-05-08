@@ -1,0 +1,2 @@
+default1, is_God_Class, LOC_Class, <, 100
+default2, is_Long_Method, LOC_Method, <, 20
