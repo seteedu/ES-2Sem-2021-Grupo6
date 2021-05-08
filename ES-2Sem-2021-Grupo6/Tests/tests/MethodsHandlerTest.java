@@ -41,13 +41,21 @@ class MethodsHandlerTest {
 	 * 
 	 * @throws java.lang.Exception if any error occurs before the test
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@BeforeEach
 	void setUp() throws Exception {
-		a.countMethods("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
-		listA.add( new Pair("ParsingException", 6));
+		a.countMethods("testing\\Teste\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
+		listA();
+	}
+
+
+	/**Adds Pairs to the list manually counted
+	 * 
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void listA() {
+		listA.add(new Pair("ParsingException", 6));
 		listA.add(new Pair("ParsingException", 5));
-		listA.add( new Pair("ParsingException", 4));
+		listA.add(new Pair("ParsingException", 4));
 		listA.add(new Pair("ParsingException", 3));
 		listA.add(new Pair("ParsingException", 3));
 		listA.add(new Pair("getMessage", 20));

@@ -23,8 +23,8 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
  */
 public class CYCLO_Method {
 
-	private static int count = 1; //count of complexity always starts at one
-	private static ArrayList<Integer> nCycle;	//store the number of complexity in each method
+	private int count = 1; //count of complexity always starts at one
+	private ArrayList<Integer> nCycle;	//store the number of complexity in each method
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class CYCLO_Method {
 	 *Will be created one Visitor for each method or constructor declaration
 	 *
 	 */
-	private static class Visitor extends VoidVisitorAdapter<Void> {
+	private class Visitor extends VoidVisitorAdapter<Void> {
 
 		/**Visits each "if" statement in a class 
 		 * for each "if" it iterates the counter of cycles/complexity
@@ -114,7 +114,7 @@ public class CYCLO_Method {
 		 * Searches for each method declarations existent in a class to start the search for the above statements
 		 *	Extends VoidVisitorAdapter in order to find each type of method
 		 */
-		private static class VisitorMethod extends VoidVisitorAdapter<Void> {
+		private class VisitorMethod extends VoidVisitorAdapter<Void> {
 
 			/**Visits each "method" declaration in a class and instantiate the Visitor class to
 			 * start the counter of cycles/complexity in that method
@@ -128,7 +128,8 @@ public class CYCLO_Method {
 				super.visit(md, arg);
 				VoidVisitor<Void> cycloVisitor = new Visitor();
 				cycloVisitor.visit(md, null);
-				nCycle.add(count);				
+				nCycle.add(count);	
+				count = 1;
 			}
 			
 			/**Visits each "constructor" declaration in a class and instantiate the Visitor class to
@@ -144,6 +145,7 @@ public class CYCLO_Method {
 				VoidVisitor<Void> cycloVisitor = new Visitor();
 				cycloVisitor.visit(md, null);
 				nCycle.add(count);
+				count = 1;
 			}
 		}
 
@@ -160,7 +162,7 @@ public class CYCLO_Method {
 		VoidVisitor<Void> methodVisitor = new VisitorMethod();
 		methodVisitor.visit(cu, null);
 		} catch (ParseProblemException e) {
-			System.out.println("PARSE EXCEPTION");
+			System.out.println("PARSE EXCEPTION CYCLES");
 		}
 	}
 	

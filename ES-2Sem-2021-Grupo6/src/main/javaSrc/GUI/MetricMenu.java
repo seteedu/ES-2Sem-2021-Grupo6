@@ -89,7 +89,7 @@ public class MetricMenu extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("Número total de linhas de código ");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3.setBounds(392, 381, 204, 29);
+		lblNewLabel_3.setBounds(392, 381, 292, 29);
 		getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
@@ -124,10 +124,16 @@ public class MetricMenu extends JFrame {
 		locSumTotalLabel.setBounds(629, 388, 192, 14);
 		getContentPane().add(locSumTotalLabel);
 		
+		JLabel lblErro = new JLabel("Selecione um ficheiro excel");
+		lblErro.setVisible(false);
+		lblErro.setForeground(Color.RED);
+		lblErro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblErro.setBounds(99, 274, 174, 13);
+		panel.add(lblErro);
 		/**
 		 * Button to show the metrics summary
 		 */
-		JButton btnNewButton = new JButton("VER EXCEL");
+		JButton btnNewButton = new JButton("Escolher Excel");
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -140,19 +146,18 @@ public class MetricMenu extends JFrame {
 					numClasses.setText(String.valueOf(es.getNumClasses()));
 					nomSumTotalLabel.setText(String.valueOf(es.getNumMethods()));
 					locSumTotalLabel.setText(String.valueOf(es.getNumLines()));
-				} catch (IOException e) {
+					lblErro.setVisible(false);
+				} catch (Exception e) {
 					// ESCREVER NA GUI FICHEIRO NAO ENCONTRADO
-					e.printStackTrace();
+					lblErro.setVisible(true);
 				}
 				
 			}
 		});
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setBounds(28, 297, 316, 106);
 		panel.add(btnNewButton);
+		
 		
 		/**
 		 * Button to get back to the main window

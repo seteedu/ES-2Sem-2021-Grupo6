@@ -17,6 +17,7 @@ import Metrics.LOC_class;
 class LOC_classTest {
 	private static LOC_class a;
 	private static String nameClassTest;
+	private static String namePackageTest;
 	private static int locTest;
 	
 	/** Setup of the classes needed for the test
@@ -35,9 +36,10 @@ class LOC_classTest {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		a.countLines("C:\\Users\\setee\\OneDrive\\Universidade\\3 ano\\2ºsemestre\\Engenharia de Software\\test\\testFiles\\src\\com\\jasml\\compiler\\ParsingException.java");
-		locTest = 44;
-		nameClassTest = "ParsingException";
+		a.countLines("testing\\Teste\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java");
+		locTest = 1321;
+		nameClassTest = "SourceCodeParser";
+		namePackageTest = "com.jasml.compiler";
 	}
 	
 	/**	Tests if the procedure is giving the right number of lines of the parsed file 
@@ -57,6 +59,15 @@ class LOC_classTest {
 	@Test
 	void testNameClass() {
 		Assertions.assertEquals(nameClassTest, a.getNameClass());
+	}
+	
+	/**Tests if the procedure is giving the right name of the package
+	 * 
+	 * Test method for {@link Metrics.LOC_class#namePackage()}.
+	 */
+	@Test
+	void testNamePackage() {
+		Assertions.assertEquals(namePackageTest, a.getNamePackage());
 	}
 
 	

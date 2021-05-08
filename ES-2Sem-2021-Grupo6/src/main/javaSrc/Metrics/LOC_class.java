@@ -17,14 +17,14 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
  */
 public class LOC_class {
 
-	private static ArrayList<String> copyArray;	//transforms the String[] returned from visitor to ArrayList in order to ease the text format 
-	private static String nameClass;	//stores the class name
-	private static String namePackage;	//stores the package name
+	private ArrayList<String> copyArray = new ArrayList<>();	//transforms the String[] returned from visitor to ArrayList in order to ease the text format 
+	private String nameClass = new String();	//stores the class name
+	private String namePackage = new String();	//stores the package name
 	
 	/** 
 	 * Visitor class to search for classes or interfaces in a parsed file
 	 */
-	private static class Visitor extends VoidVisitorAdapter<Void> {
+	private class Visitor extends VoidVisitorAdapter<Void> {
 
 		/**Visits each "class" or "interface" declaration in a parsed file 
 		 * for each "class" or "interface" it stores its name, the package it's in and the number of lines
@@ -63,7 +63,7 @@ public class LOC_class {
 			VoidVisitor<Void> methodNameVisitor = new Visitor();
 			methodNameVisitor.visit(cu, null);
 			} catch (ParseProblemException e) {
-				System.out.println("PARSE EXCEPTION");
+				System.out.println("PARSE EXCEPTION LINES");
 			}
 			return copyArray.size();
 	}

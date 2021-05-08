@@ -34,58 +34,69 @@ public class Excell_Summary {
 			XSSFWorkbook workbook = new XSSFWorkbook(is);
 			XSSFSheet firstSheet = (XSSFSheet) workbook.getSheetAt(0);
 	        String np = firstSheet.getRow(1).getCell(1).getStringCellValue();
-	        int count = 1;
-	        int it = 1;
-	        int last = firstSheet.getLastRowNum();
-	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
-	            XSSFRow nextRow = firstSheet.getRow(it);
-	            System.out.println("LIHNA -> " + nextRow.getCell(1));
-	            if( nextRow.getCell(1) != null) {
-		            String cell = nextRow.getCell(1).getStringCellValue();
-		            if (!np.equals(cell)) {
-		            	np = cell;
-		            	count ++;
-		            }                
-	            }
-	            it++;
-	        }
-	        System.out.println(count);
-	        num_packages=count;
-	        
-	        double count_methods = firstSheet.getRow(1).getCell(4).getNumericCellValue();
-	        double count_lines = firstSheet.getRow(1).getCell(5).getNumericCellValue();
-	        int count_classes = 1;
-	        it = 1;
+			num_packages= countPackages(firstSheet, np);
 	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
-	        while (it != last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
-	            XSSFRow nextRow = firstSheet.getRow(it);
-	            if( nextRow.getCell(2) != null) {
-		            String cell = nextRow.getCell(2).getStringCellValue();
-		            if (!np.equals(cell)) {
-		            	np = cell;
-		            	count_classes ++;
-		            	if(nextRow.getCell(5) != null && nextRow.getCell(4)!=null) {
-		            		count_methods += nextRow.getCell(4).getNumericCellValue();
-		            		count_lines += nextRow.getCell(5).getNumericCellValue();
-		            	}
-		            		
-		            }                
-	            }
-	            it++;
-	        }
-	        System.out.println(count_classes);
-	        num_classes=count_classes;
-	        System.out.println(count_lines);
-	        num_lines=(int) count_lines;
-	        num_methods = (int) count_methods;
-	        System.out.println(num_methods);
-	        
+	        num_classes = count_classes(firstSheet, np);
 	        workbook.close();
 	        is.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/** Counts the number of classes, methods and lines 
+	 * 
+	 * @param firstSheet Sheet of excel
+	 * @param np name of the first class
+	 * @return	number of classes
+	 */
+	private int count_classes(XSSFSheet firstSheet, String np) {
+		int count_classes = 1;
+		int count_methods = (int) firstSheet.getRow(1).getCell(4).getNumericCellValue();
+		int count_lines = (int) firstSheet.getRow(1).getCell(5).getNumericCellValue();
+		int it = 1;
+		int last = firstSheet.getLastRowNum();
+		while (it != last) {
+			XSSFRow nextRow = firstSheet.getRow(it);
+			if (firstSheet.getRow(it).getCell(2) != null) {
+				String cell = nextRow.getCell(2).getStringCellValue();
+				if (!np.equals(cell)) {
+					np = cell;
+					if(nextRow.getCell(5) != null && nextRow.getCell(4)!=null) {
+            			count_methods += nextRow.getCell(4).getNumericCellValue();
+            			count_lines += nextRow.getCell(5).getNumericCellValue();
+            		}              
+					count_classes++;
+				}
+			}
+			it++;
+		}
+        num_lines=(int) count_lines;
+        num_methods = (int) count_methods;
+		return count_classes;
+	}
+	
+	/** Counts the number of packages
+	 * 
+	 * @param firstSheet Sheet of excel
+	 * @param np name of the first package
+	 * @return	number of packages
+	 */
+	private int countPackages(XSSFSheet firstSheet, String np) {
+		int count = 1;
+        int it = 1;
+        int last = firstSheet.getLastRowNum();
+		while (it != last && !firstSheet.getRow(it).getCell(1).equals("")) {
+			XSSFRow nextRow = firstSheet.getRow(it);
+			String cell = nextRow.getCell(1).getStringCellValue();
+			if (!np.equals(cell)) {
+				np = cell;
+				count++;
+			}
+			it++;
+		}
+		return count;
 	}
 	
 	/**Get the number of packages written in the excel file

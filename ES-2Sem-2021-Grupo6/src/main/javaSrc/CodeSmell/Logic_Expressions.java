@@ -31,7 +31,6 @@ public class Logic_Expressions {
 	 * @return		boolean from an "AND" expression logic
 	 */
 	public boolean twoAnd(boolean b, Threshold t, int val) {
-		System.out.println("Estou no and");
 		if ( one(t, val) && b)
 			return true;
 		else 
@@ -46,7 +45,6 @@ public class Logic_Expressions {
 	 * @return		boolean from an "OR" expression logic
 	 */
 	public boolean twoOr(boolean b, Threshold t, int val) {
-		System.out.println("Estou no or");
 		if ( one(t, val) || b)
 			return true;
 		else 

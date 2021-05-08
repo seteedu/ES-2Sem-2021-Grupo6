@@ -45,36 +45,30 @@ public class CodeSmell_Detector {
 	 * @param method	rule for code smell "is_Long_Method"
 	 * @throws IOException	throws an exception if it can't read from the excel file
 	 */
-	@SuppressWarnings("rawtypes")
 	public void detect(String file, Rule god, Rule method) throws IOException {
 		classSmells.clear();
 		methodSmells.clear();
 		File f = new File(file);
 		try {
 			FileInputStream is = new FileInputStream(f);
-
 			XSSFWorkbook workbook = new XSSFWorkbook(is);
 			XSSFSheet firstSheet = (XSSFSheet) workbook.getSheetAt(0);
 			int it = 1;
 			int last = firstSheet.getLastRowNum();
-			while( it <= last && firstSheet.getRow(it).getCell(10)!=null && firstSheet.getRow(it).getCell(7)!=null) {
-				System.out.println(it);
+			while( it <= last) {
 				XSSFRow nextRow = firstSheet.getRow(it);
 				boolean godB = expression(god, nextRow);
 				boolean methodB = expression(method, nextRow);
-				classSmells.put(nextRow.getCell(2).getStringCellValue(), new Pair<Boolean, Boolean>(godB, nextRow.getCell(7).getBooleanCellValue()));
-				methodSmells.put(nextRow.getCell(3).getStringCellValue(), new Pair<Boolean, Boolean>(methodB, nextRow.getCell(10).getBooleanCellValue()));
+				if(firstSheet.getRow(it).getCell(7)!=null)
+					classSmells.put(nextRow.getCell(2).getStringCellValue(), new Pair<Boolean, Boolean>(godB, Boolean.parseBoolean(nextRow.getCell(7).getStringCellValue())));
+				if( nextRow.getCell(3) != null && firstSheet.getRow(it).getCell(10)!=null)
+					methodSmells.put(nextRow.getCell(3).getStringCellValue(), new Pair<Boolean, Boolean>(methodB, Boolean.parseBoolean(nextRow.getCell(10).getStringCellValue())));
 				it++;
 			}
 			FileOutputStream os = new FileOutputStream(f);
 			workbook.write(os);
 			workbook.close();
 			is.close();
-			for (HashMap.Entry mapElement : classSmells.entrySet()) {
-				@SuppressWarnings("unchecked")
-				String s = mapElement.getKey() + ": " + ((Pair<Boolean,Boolean>)mapElement.getValue()).a.toString();
-				System.out.println("MAPA: " + s);
-			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +85,6 @@ public class CodeSmell_Detector {
 		Logic_Expressions le = new Logic_Expressions();
 		ArrayList<Threshold> t = rule.getThresholds();
 		for( int i = 0 ; i < rule.getThresholds().size(); i++) {
-			System.out.println("REGRA: " + rule.toString());
 			int val = (int)row.getCell(m.get(t.get(i).getName())).getNumericCellValue();
 			if( i != rule.getThresholds().size()-1) {
 				if ( t.get(i).getLogic().equals("E"))

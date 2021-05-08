@@ -176,9 +176,9 @@ public class MenuCodeSmells extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if( textField.getText().equals("")|| !textField.getText().endsWith(".xlsx")) {
-						lblAviso.setVisible(false);
-					}else {
 						lblAviso.setVisible(true);
+					}else {
+						lblAviso.setVisible(false);
 						Rule rule = rs.getHashMap().get(comboBox.getSelectedItem()); 
 						Rule rule2 = rs.getHashMap().get(comboBox_1.getSelectedItem());
 						CSD.detect(ficheiro, rule, rule2);

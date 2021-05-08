@@ -26,6 +26,7 @@ import java.io.File;
 
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 /** Where the user will choose a java project to extract the metrics
  * and create an excel file with those metrics
@@ -98,7 +99,7 @@ public class ExtrairMetricasMenu extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon(ExtrairMetricasMenu.class.getResource("/GUI/istaLogo.png")));
 		lblNewLabel_1.setBounds(209, -3, 450, 267);
 		getContentPane().add(lblNewLabel_1);
-
+		
 		/**Button to extract metrics and then shows a message if the action was well done
 		 */
 		JButton btnNewButton_1 = new JButton("Extrair métricas");
@@ -110,9 +111,8 @@ public class ExtrairMetricasMenu extends JFrame {
 						@SuppressWarnings("unused")
 						FileHandler fh = new FileHandler(dc);
 						JOptionPane.showMessageDialog(ExtrairMetricasMenu.this, "Métricas extraidas com sucesso");
-					} catch (EncryptedDocumentException e) {
+					} catch (Exception e) {
 						JOptionPane.showMessageDialog(ExtrairMetricasMenu.this, "Falha ao extrair métricas");
-						e.printStackTrace();
 					}
 
 				} else {
@@ -137,6 +137,8 @@ public class ExtrairMetricasMenu extends JFrame {
 		});
 		btnNewButton_2.setBounds(402, 376, 89, 23);
 		getContentPane().add(btnNewButton_2);
+		
+		
 
 	}
 }

@@ -35,7 +35,7 @@ class Excell_SummaryTest {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		e.getMetrics(new File("Code_Smells.xlsx"));
+		e.getMetrics(new File("testing\\TestTeste.xlsx"));
 	}
 	
 	/** Tests if the procedure is giving the right number of packages in a folder
@@ -45,7 +45,7 @@ class Excell_SummaryTest {
 	 */
 	@Test
 	void testNumPack() {
-		Assertions.assertEquals(1, e.getNumPackages());
+		Assertions.assertEquals(5, e.getNumPackages());
 	}
 	
 	/** Tests if the procedure is giving the right number of classes in a folder
@@ -55,7 +55,7 @@ class Excell_SummaryTest {
 	 */
 	@Test
 	void testNumClass() {
-		Assertions.assertEquals(11, e.getNumClasses());
+		Assertions.assertEquals(42, e.getNumClasses());
 	}
 
 	/** Tests if the procedure is giving the right number of methods in a folder
@@ -65,7 +65,7 @@ class Excell_SummaryTest {
 	 */
 	@Test
 	void testNumMethods() {
-		Assertions.assertEquals(22, e.getNumMethods());
+		Assertions.assertEquals(253, e.getNumMethods());
 	}
 
 	/** Tests if the procedure is giving the right number of lines in a folder
@@ -75,6 +75,6 @@ class Excell_SummaryTest {
 	 */
 	@Test
 	void testNumLines() {
-		Assertions.assertEquals(285, e.getNumLines());
+		Assertions.assertEquals(6772, e.getNumLines());
 	}
 }
