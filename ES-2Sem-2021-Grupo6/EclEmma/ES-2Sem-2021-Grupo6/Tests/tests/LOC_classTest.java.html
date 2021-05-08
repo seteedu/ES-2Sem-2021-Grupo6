@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>LOC_classTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">Tests</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">LOC_classTest.java</span></div><h1>LOC_classTest.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package tests;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import Metrics.LOC_class;
+
+/**
+ * To test the &quot;LOC_Class&quot; class and its procedure to get the number of lines in a class
+ *
+ */
+<span class="fc" id="L17">class LOC_classTest {</span>
+	private static LOC_class a;
+	private static String nameClassTest;
+	private static String namePackageTest;
+	private static int locTest;
+	
+	/** Setup of the classes needed for the test
+	 * 	Instantiate the a LOC_Class, creates an integer with the number manually counted and a string with the name of the class
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L30">		a = new LOC_class();</span>
+<span class="fc" id="L31">	}</span>
+
+	/** Starts the procedure in a java file and creates an ArrayList with the values manually counted
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L39">		a.countLines(&quot;testing\\Teste\\testFiles\\src\\com\\jasml\\compiler\\SourceCodeParser.java&quot;);</span>
+<span class="fc" id="L40">		locTest = 1321;</span>
+<span class="fc" id="L41">		nameClassTest = &quot;SourceCodeParser&quot;;</span>
+<span class="fc" id="L42">		namePackageTest = &quot;com.jasml.compiler&quot;;</span>
+<span class="fc" id="L43">	}</span>
+	
+	/**	Tests if the procedure is giving the right number of lines of the parsed file 
+	 *
+	 * Test method for {@link Metrics.LOC_class#getLines()}.
+	 */
+	@Test
+	void testGetLines() {
+<span class="fc" id="L51">		Assertions.assertEquals(locTest, a.getLines());</span>
+<span class="fc" id="L52">	}</span>
+
+	
+	/**Tests if the procedure is giving the right name of the parsed file 
+	 * 
+	 * Test method for {@link Metrics.LOC_class#nameClass()}.
+	 */
+	@Test
+	void testNameClass() {
+<span class="fc" id="L61">		Assertions.assertEquals(nameClassTest, a.getNameClass());</span>
+<span class="fc" id="L62">	}</span>
+	
+	/**Tests if the procedure is giving the right name of the package
+	 * 
+	 * Test method for {@link Metrics.LOC_class#namePackage()}.
+	 */
+	@Test
+	void testNamePackage() {
+<span class="fc" id="L70">		Assertions.assertEquals(namePackageTest, a.getNamePackage());</span>
+<span class="fc" id="L71">	}</span>
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

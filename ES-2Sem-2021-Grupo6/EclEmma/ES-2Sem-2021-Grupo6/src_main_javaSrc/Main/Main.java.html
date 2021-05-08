@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">Main</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package Main;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import Metrics.*;
+
+/**Used in &quot;FileHandler&quot;
+ *
+ */
+<span class="nc" id="L11">public class Main {</span>
+
+<span class="nc" id="L13">	private ArrayList&lt;Result&gt; results = new ArrayList&lt;&gt;(); // array that transports the lines for excel</span>
+	@SuppressWarnings(&quot;unused&quot;)
+	private int nomSum; // total of methods in a class
+	private int locSum; // total of lines in a class
+	private int wmcSum; // total of complexity in a class
+
+	/**Extracts the metrics from a class 
+	 * 	
+	 * @param path	path of the class to be extracted
+	 */
+	public void main(String path) {
+<span class="nc" id="L24">		MethodsHandler mh = new MethodsHandler();</span>
+<span class="nc" id="L25">		LOC_class lc = new LOC_class();</span>
+<span class="nc" id="L26">		CYCLO_Method cm = new CYCLO_Method();</span>
+		try {
+<span class="nc bnc" id="L28" title="All 2 branches missed.">			if (lc.countLines(path) &gt; 2) {</span>
+<span class="nc" id="L29">				results(path, mh, lc, cm);</span>
+<span class="nc" id="L30">				nomSum = mh.getPair().size();</span>
+		  }
+
+<span class="nc" id="L33">		} catch (FileNotFoundException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L35">			e.printStackTrace();</span>
+		}
+
+<span class="nc" id="L38">	}</span>
+
+	/**Creates a Result in the condition of the class having methods or not
+	 * 
+	 * @param path of the file to be parsed
+	 * @param mh	MethodsHandler to return the number of methods
+	 * @param lc	LOC_Class to return the number of lines of the class
+	 * @param cm	CYCLO_Method to return the number of cycles/complexity of each method
+	 * @throws FileNotFoundException	if it doesn't find the file
+	 */
+	private void results(String path, MethodsHandler mh, LOC_class lc, CYCLO_Method cm) throws FileNotFoundException {
+<span class="nc" id="L49">		locSum = lc.countLines(path);</span>
+<span class="nc" id="L50">		cm.countCyclo(path);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">		for (Integer c : cm.getNCycles()) {</span>
+<span class="nc" id="L52">			wmcSum += c;</span>
+		}
+<span class="nc" id="L54">		mh.countMethods(path);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">		if (mh.getPair().size() == 0) {</span>
+<span class="nc" id="L56">			Result result = resultWOMethod(lc);</span>
+<span class="nc" id="L57">			results.add(result);</span>
+<span class="nc" id="L58">		} else {</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">			for (int i = 0; i &lt; mh.getPair().size(); i++) {</span>
+<span class="nc" id="L60">				Result result = resultWMethod(mh, lc, cm, i);</span>
+<span class="nc" id="L61">				results.add(result);</span>
+			}
+		}
+<span class="nc" id="L64">	}</span>
+
+	/**Creates a Result with methods
+	 * 
+	 * @param mh Gives the number of methods of the class
+	 * @param lc Gives the number of lines of the class
+	 * @return Rule without methods
+	 */
+	private Result resultWMethod(MethodsHandler mh, LOC_class lc, CYCLO_Method cm, int i) {
+<span class="nc" id="L73">		String namePackage = lc.getNamePackage();</span>
+<span class="nc" id="L74">		String nameClass = lc.getNameClass();</span>
+<span class="nc" id="L75">		String nameMethod = mh.getPair().get(i).a;</span>
+<span class="nc" id="L76">		int nom = mh.getPair().size();</span>
+<span class="nc" id="L77">		int loc = lc.getLines();</span>
+<span class="nc" id="L78">		int locm = mh.getPair().get(i).b;</span>
+<span class="nc" id="L79">		int cyclo = cm.getNCycles().get(i);</span>
+<span class="nc" id="L80">		Result result = new Result(namePackage, nameClass, nameMethod, nom, loc, locm, wmcSum, cyclo);</span>
+<span class="nc" id="L81">		return result;</span>
+	}
+
+	/**Creates a Result without methods
+	 * 
+	 * @param lc Gives the number of lines of the class
+	 * @return Rule without methods
+	 */
+	private Result resultWOMethod(LOC_class lc) {
+<span class="nc" id="L90">		String namePackage = lc.getNamePackage();</span>
+<span class="nc" id="L91">		String nameClass = lc.getNameClass();</span>
+<span class="nc" id="L92">		String nameMethod = null;</span>
+<span class="nc" id="L93">		int nom = 0;</span>
+<span class="nc" id="L94">		int loc = locSum;</span>
+<span class="nc" id="L95">		int locm = 0;</span>
+<span class="nc" id="L96">		int cyclo = 0;</span>
+<span class="nc" id="L97">		Result result = new Result(namePackage, nameClass, nameMethod, nom, loc, locm, wmcSum, cyclo);</span>
+<span class="nc" id="L98">		return result;</span>
+	}
+
+
+	/**Gives the list of results of each class
+	 * 
+	 * @return	an ArrayList of results
+	 */
+	public ArrayList&lt;Result&gt; getResults() {
+<span class="nc" id="L107">		return results;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

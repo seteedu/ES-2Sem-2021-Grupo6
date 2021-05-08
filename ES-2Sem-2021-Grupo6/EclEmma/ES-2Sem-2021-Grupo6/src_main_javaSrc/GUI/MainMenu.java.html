@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MainMenu.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">GUI</a> &gt; <span class="el_source">MainMenu.java</span></div><h1>MainMenu.java</h1><pre class="source lang-java linenums">package GUI;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import org.apache.poi.EncryptedDocumentException;
+
+import CodeSmell.RuleSet;
+import Main.Excell_Summary;
+
+import javax.swing.JLabel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+/**
+ * Main window of the program where shows the features 
+ */
+
+@SuppressWarnings(&quot;serial&quot;)
+public class MainMenu extends JFrame {
+<span class="nc" id="L30">	MainMenu mainmenu = this;</span>
+<span class="nc" id="L31">	public static String FILE_PATH = &quot;./regras.txt&quot;;</span>
+	
+	/** Constructor of the main window 
+	 * 	When the program starts is created an HashMap for the rules based on a text file 
+	 */
+<span class="nc" id="L36">	public MainMenu() {</span>
+		
+<span class="nc" id="L38">		RuleSet rs = new RuleSet();</span>
+<span class="nc" id="L39">		rs.initializeMap(FILE_PATH);</span>
+		
+<span class="nc" id="L41">		setSize(900,500);</span>
+<span class="nc" id="L42">		setTitle(&quot;Projeto ES&quot;);</span>
+<span class="nc" id="L43">		setResizable(false);</span>
+<span class="nc" id="L44">		getContentPane().setLayout(null);</span>
+		
+<span class="nc" id="L46">		setLocationRelativeTo(null);</span>
+		
+		/** When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
+<span class="nc" id="L51">		WindowListener exitListener = new WindowAdapter() {</span>
+
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+<span class="nc" id="L55">		    	rs.writeFile(FILE_PATH);</span>
+<span class="nc" id="L56">		    	System.exit(0);</span>
+<span class="nc" id="L57">		    }</span>
+		};
+<span class="nc" id="L59">		this.addWindowListener(exitListener);</span>
+		
+<span class="nc" id="L61">		JPanel panel_1 = new JPanel();</span>
+<span class="nc" id="L62">		panel_1.setBounds(10, 11, 439, 449);</span>
+<span class="nc" id="L63">		getContentPane().add(panel_1);</span>
+<span class="nc" id="L64">		panel_1.setLayout(null);</span>
+		
+<span class="nc" id="L66">		JLabel lblNewLabel = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L67">		lblNewLabel.setIcon(new ImageIcon(MainMenu.class.getResource(&quot;/GUI/istaLogo.png&quot;)));</span>
+<span class="nc" id="L68">		lblNewLabel.setBounds(0, 0, 439, 186);</span>
+<span class="nc" id="L69">		panel_1.add(lblNewLabel);</span>
+		
+<span class="nc" id="L71">		JPanel panel = new JPanel();</span>
+<span class="nc" id="L72">		panel.setBounds(253, 11, 631, 449);</span>
+<span class="nc" id="L73">		getContentPane().add(panel);</span>
+<span class="nc" id="L74">		panel.setLayout(null);</span>
+		
+		/**
+		 * Button to open the extract metrics window
+		 */
+<span class="nc" id="L79">		JButton btnNewButton = new JButton(&quot;Extrair métricas&quot;);</span>
+<span class="nc" id="L80">		btnNewButton.setBounds(252, 11, 152, 50);</span>
+<span class="nc" id="L81">		panel.add(btnNewButton);</span>
+<span class="nc" id="L82">		btnNewButton.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent arg0) {
+				
+					try {
+						
+<span class="nc" id="L87">						ExtrairMetricasMenu menu = new ExtrairMetricasMenu(mainmenu, rs);</span>
+<span class="nc" id="L88">						menu.setVisible(true);</span>
+<span class="nc" id="L89">						dispose();</span>
+
+<span class="nc" id="L91">					} catch (EncryptedDocumentException e) {</span>
+						// TODO Auto-generated catch block
+<span class="nc" id="L93">						e.printStackTrace();</span>
+					}
+<span class="nc" id="L95">			}</span>
+		});
+		
+		/**
+		 * Button to open the metrics summary window
+		 */
+<span class="nc" id="L101">		JButton btnVerExcel = new JButton(&quot;Ver excel&quot;);</span>
+<span class="nc" id="L102">		btnVerExcel.setBounds(252, 72, 152, 50);</span>
+<span class="nc" id="L103">		panel.add(btnVerExcel);</span>
+<span class="nc" id="L104">		btnVerExcel.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L107">				MetricMenu metric = new MetricMenu(new Excell_Summary(),mainmenu,rs);</span>
+<span class="nc" id="L108">				metric.setVisible(true);</span>
+<span class="nc" id="L109">				dispose();</span>
+<span class="nc" id="L110">			}</span>
+        });
+		
+		/**
+		 * Button to open the window where the user can create new rules
+		 */
+<span class="nc" id="L116">		JButton btnNewButton_2 = new JButton(&quot;Criar Regras&quot;);</span>
+<span class="nc" id="L117">		btnNewButton_2.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L120">				MenuRegras regras = new MenuRegras(mainmenu, rs);</span>
+<span class="nc" id="L121">				regras.setVisible(true);</span>
+<span class="nc" id="L122">				dispose();</span>
+<span class="nc" id="L123">			}</span>
+		});
+<span class="nc" id="L125">		btnNewButton_2.setBounds(252, 133, 152, 50);</span>
+<span class="nc" id="L126">		panel.add(btnNewButton_2);</span>
+		
+		/**
+		 * Button to open the window where the user can modify his rules
+		 */
+<span class="nc" id="L131">		JButton btnModificarRegras = new JButton(&quot;Modificar Regras&quot;);</span>
+<span class="nc" id="L132">		btnModificarRegras.setBounds(252, 193, 152, 50);</span>
+<span class="nc" id="L133">		panel.add(btnModificarRegras);</span>
+<span class="nc" id="L134">		btnModificarRegras.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L137">				ModificarRegras regras = new ModificarRegras(mainmenu, rs);</span>
+<span class="nc" id="L138">				regras.setVisible(true);</span>
+<span class="nc" id="L139">				dispose();</span>
+<span class="nc" id="L140">			}</span>
+		});
+		
+		/**
+		 * Button to open the window where the user can see the code smells of his project
+		 */
+<span class="nc" id="L146">		JButton btnCodeSmells = new JButton(&quot;Code Smells&quot;);</span>
+<span class="nc" id="L147">		btnCodeSmells.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+<span class="nc" id="L150">				MenuCodeSmells menuCodeSmells = new MenuCodeSmells(mainmenu, rs);</span>
+<span class="nc" id="L151">				menuCodeSmells.setVisible(true);</span>
+<span class="nc" id="L152">				dispose();</span>
+<span class="nc" id="L153">			}</span>
+		});
+<span class="nc" id="L155">		btnCodeSmells.setBounds(252, 254, 152, 50);</span>
+<span class="nc" id="L156">		panel.add(btnCodeSmells);</span>
+		
+<span class="nc" id="L158">	}</span>
+	
+	/**Program main 
+	 * 
+	 * @param args	doesn't need any arguments
+	 */
+	public static void main(String[] args) {
+<span class="nc" id="L165">		new MainMenu().setVisible(true);</span>
+<span class="nc" id="L166">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

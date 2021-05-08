@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Excell_SummaryTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">Tests</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">Excell_SummaryTest.java</span></div><h1>Excell_SummaryTest.java</h1><pre class="source lang-java linenums">package tests;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import Main.Excell_Summary;
+
+/**
+ * To test the &quot;Excel_Summary&quot; class and its procedure to get the summary of the metrics written in excel
+ *
+ */
+<span class="fc" id="L17">class Excell_SummaryTest {</span>
+	
+	private static Excell_Summary e;
+
+	
+	/** Setup of the classes needed for the test
+	 * 	Instantiate the a Excell_Summary and creates an empty ArrayList of integers
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L29">		e = new Excell_Summary();</span>
+<span class="fc" id="L30">	}</span>
+
+	/** Starts the procedure in a java file and creates an ArrayList with the values manually counted
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L38">		e.getMetrics(new File(&quot;testing\\TestTeste.xlsx&quot;));</span>
+<span class="fc" id="L39">	}</span>
+	
+	/** Tests if the procedure is giving the right number of packages in a folder
+	 * 
+	 * Test method for {@link Metrics.Excell_Summary#getNumPackages()}.
+	 * @throws FileNotFoundException if any error occurs during the test
+	 */
+	@Test
+	void testNumPack() {
+<span class="fc" id="L48">		Assertions.assertEquals(5, e.getNumPackages());</span>
+<span class="fc" id="L49">	}</span>
+	
+	/** Tests if the procedure is giving the right number of classes in a folder
+	 * 
+	 * Test method for {@link Metrics.Excell_Summary#getNumClasses()}.
+	 * @throws FileNotFoundException if any error occurs during the test
+	 */
+	@Test
+	void testNumClass() {
+<span class="fc" id="L58">		Assertions.assertEquals(42, e.getNumClasses());</span>
+<span class="fc" id="L59">	}</span>
+
+	/** Tests if the procedure is giving the right number of methods in a folder
+	 * 
+	 * Test method for {@link Metrics.Excell_Summary#getNumMethods()}.
+	 * @throws FileNotFoundException if any error occurs during the test
+	 */
+	@Test
+	void testNumMethods() {
+<span class="fc" id="L68">		Assertions.assertEquals(253, e.getNumMethods());</span>
+<span class="fc" id="L69">	}</span>
+
+	/** Tests if the procedure is giving the right number of lines in a folder
+	 * 
+	 * Test method for {@link Metrics.Excell_Summary#getNumLines()}.
+	 * @throws FileNotFoundException if any error occurs during the test
+	 */
+	@Test
+	void testNumLines() {
+<span class="fc" id="L78">		Assertions.assertEquals(6772, e.getNumLines());</span>
+<span class="fc" id="L79">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

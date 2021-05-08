@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MenuRegras.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">GUI</a> &gt; <span class="el_source">MenuRegras.java</span></div><h1>MenuRegras.java</h1><pre class="source lang-java linenums">package GUI;
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+import CodeSmell.Rule;
+import CodeSmell.RuleSet;
+import CodeSmell.Threshold;
+
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
+
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+/**
+ * 
+ * Window where the user creates the rules
+ *
+ */
+@SuppressWarnings(&quot;serial&quot;)
+public class MenuRegras extends JFrame {
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JComboBox&lt;Object&gt; comboBox_Metrica;
+	private JComboBox&lt;?&gt; comboBox_logica;
+	private JComboBox&lt;?&gt; comboBox_Sinal;
+<span class="nc" id="L41">	private String[] codeSmell = { &quot;is_God_Class&quot;, &quot;is_Long_Method&quot; };</span>
+<span class="nc" id="L42">	private String[] metricasClasse = { &quot;LOC_Class&quot;, &quot;WMC_Class&quot;, &quot;NOM_Class&quot; };</span>
+<span class="nc" id="L43">	private String[] metricasMetodos = { &quot;LOC_Method&quot;, &quot;CYCLO_Method&quot; };</span>
+<span class="nc" id="L44">	private JComboBox&lt;?&gt; comboBox = new JComboBox&lt;Object&gt;(codeSmell);</span>
+<span class="nc" id="L45">	private ArrayList&lt;Threshold&gt; arraylist = new ArrayList&lt;&gt;();</span>
+
+	/**	Transforms a string into an Object so that it can be added to a ComboBox
+	 * 
+	 * @param item	String to be converted
+	 * @return	an Object to use in a ComboBox
+	 */
+	private Object makeObj(final String item) {
+<span class="nc" id="L53">		return new Object() {</span>
+			public String toString() {
+<span class="nc" id="L55">				return item;</span>
+			}
+		};
+	}
+
+	/**Rules creator window constructor 
+	 * 
+	 * @param mainmenu	main window to get back
+	 * @param rs		hashMap to add the rules
+	 */
+<span class="nc" id="L65">	public MenuRegras(MainMenu mainmenu, RuleSet rs) {</span>
+<span class="nc" id="L66">		setResizable(false);</span>
+<span class="nc" id="L67">		setSize(900, 500);</span>
+<span class="nc" id="L68">		getContentPane().setLayout(null);</span>
+
+<span class="nc" id="L70">		setLocationRelativeTo(null);</span>
+		
+		/*
+		 * When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
+<span class="nc" id="L76">		WindowListener exitListener = new WindowAdapter() {</span>
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+<span class="nc" id="L80">				rs.writeFile(MainMenu.FILE_PATH);</span>
+<span class="nc" id="L81">				System.exit(0);</span>
+<span class="nc" id="L82">			}</span>
+		};
+<span class="nc" id="L84">		this.addWindowListener(exitListener);</span>
+
+<span class="nc" id="L86">		JPanel panel_1 = new JPanel();</span>
+<span class="nc" id="L87">		getContentPane().add(panel_1);</span>
+<span class="nc" id="L88">		panel_1.setBounds(10, 23, 874, 449);</span>
+<span class="nc" id="L89">		panel_1.setLayout(null);</span>
+
+<span class="nc" id="L91">		textField = new JTextField(&quot;&quot;);</span>
+<span class="nc" id="L92">		textField.setBounds(156, 63, 180, 20);</span>
+<span class="nc" id="L93">		panel_1.add(textField);</span>
+<span class="nc" id="L94">		textField.setColumns(10);</span>
+
+<span class="nc" id="L96">		JLabel lblNewLabel = new JLabel(&quot;Regra&quot;);</span>
+<span class="nc" id="L97">		lblNewLabel.setBounds(156, 39, 46, 14);</span>
+<span class="nc" id="L98">		panel_1.add(lblNewLabel);</span>
+
+<span class="nc" id="L100">		textField_2 = new JTextField();</span>
+<span class="nc" id="L101">		textField_2.setEditable(false);</span>
+<span class="nc" id="L102">		textField_2.setBounds(180, 280, 444, 23);</span>
+<span class="nc" id="L103">		panel_1.add(textField_2);</span>
+<span class="nc" id="L104">		textField_2.setColumns(10);</span>
+
+<span class="nc" id="L106">		JLabel lblARegraNo = new JLabel(&quot;A regra não pode terminar numa proposição logica&quot;);</span>
+<span class="nc" id="L107">		lblARegraNo.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L108">		lblARegraNo.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L109">		lblARegraNo.setVisible(false);</span>
+<span class="nc" id="L110">		lblARegraNo.setForeground(Color.RED);</span>
+<span class="nc" id="L111">		lblARegraNo.setBounds(186, 313, 502, 13);</span>
+<span class="nc" id="L112">		panel_1.add(lblARegraNo);</span>
+
+<span class="nc" id="L114">		JButton btnConfirmar = new JButton(&quot;Confirmar&quot;);</span>
+<span class="nc" id="L115">		btnConfirmar.setBounds(544, 362, 117, 23);</span>
+<span class="nc" id="L116">		panel_1.add(btnConfirmar);</span>
+
+<span class="nc" id="L118">		JLabel lbl_sucesso = new JLabel(&quot;Regra criada com sucesso!&quot;);</span>
+<span class="nc" id="L119">		lbl_sucesso.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L120">		lbl_sucesso.setVisible(false);</span>
+<span class="nc" id="L121">		lbl_sucesso.setForeground(Color.GREEN);</span>
+<span class="nc" id="L122">		lbl_sucesso.setBounds(349, 313, 175, 13);</span>
+<span class="nc" id="L123">		panel_1.add(lbl_sucesso);</span>
+
+<span class="nc" id="L125">		JButton btnNewButton_1 = new JButton(&quot;+&quot;);</span>
+<span class="nc" id="L126">		btnNewButton_1.setBounds(617, 233, 46, 23);</span>
+<span class="nc" id="L127">		panel_1.add(btnNewButton_1);</span>
+		
+		/**
+		 * Creates the new rule based on what the user's selected options
+		 * and adds it to the hashMap
+		 */
+<span class="nc" id="L133">		ActionListener confirmActionListener = new ActionListener() {// add actionlistner to listen for change</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc bnc" id="L137" title="All 2 branches missed.">				if (rs.getHashMap().containsKey(textField.getText())) {</span>
+<span class="nc" id="L138">					lblARegraNo.setText(&quot;A regra com esse nome já existe!&quot;);</span>
+<span class="nc" id="L139">					lblARegraNo.setVisible(true);</span>
+<span class="nc" id="L140">				} else {</span>
+<span class="nc" id="L141">					String[] s = textField_2.getText().split(&quot; &quot;);</span>
+<span class="nc bnc" id="L142" title="All 6 branches missed.">					if (s[s.length - 1].equals(&quot;E&quot;) || (s[s.length - 1].equals(&quot;OU&quot;)) || s[s.length - 1].equals(&quot;&quot;)) {</span>
+						// DAR ARRAY LIST DE THRESHOLDS
+<span class="nc" id="L144">						lbl_sucesso.setVisible(false);</span>
+<span class="nc" id="L145">						lblARegraNo.setText(&quot;A regra não pode terminar numa proposição logica&quot;);</span>
+<span class="nc" id="L146">						lblARegraNo.setVisible(true);</span>
+<span class="nc" id="L147">					} else {</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">						if (textField.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L149">							lblARegraNo.setText(&quot;Por favor dê um título à regra!&quot;);</span>
+<span class="nc" id="L150">							lblARegraNo.setVisible(true);</span>
+<span class="nc" id="L151">						} else {</span>
+<span class="nc" id="L152">							lblARegraNo.setVisible(false);</span>
+<span class="nc" id="L153">							lbl_sucesso.setVisible(true);</span>
+							// RETORNAR ARRAY LIST PARA BACKEND
+<span class="nc" id="L155">							Rule rule = new Rule(textField.getText(), comboBox.getSelectedItem().toString(), arraylist);</span>
+<span class="nc" id="L156">							rs.addRule(rule);</span>
+<span class="nc" id="L157">							arraylist = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L158">							textField.setText(&quot;&quot;);</span>
+<span class="nc" id="L159">							textField_2.setText(&quot;&quot;);</span>
+<span class="nc" id="L160">							comboBox.setEnabled(true);</span>
+<span class="nc" id="L161">							btnNewButton_1.setEnabled(true);</span>
+						}
+					}
+
+				}
+<span class="nc" id="L166">			}</span>
+		};
+
+<span class="nc" id="L169">		btnConfirmar.addActionListener(confirmActionListener);</span>
+
+		/**
+		 * Button to get back to the main window
+		 */
+<span class="nc" id="L174">		JButton btnNewButton_2 = new JButton(&quot;Voltar&quot;);</span>
+<span class="nc" id="L175">		btnNewButton_2.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L178">				mainmenu.setVisible(true);</span>
+<span class="nc" id="L179">				dispose();</span>
+<span class="nc" id="L180">			}</span>
+		});
+<span class="nc" id="L182">		btnNewButton_2.setBounds(234, 362, 89, 23);</span>
+<span class="nc" id="L183">		panel_1.add(btnNewButton_2);</span>
+
+<span class="nc" id="L185">		JLabel lblNewLabel_1 = new JLabel(&quot;Code Smell&quot;);</span>
+<span class="nc" id="L186">		lblNewLabel_1.setBounds(617, 39, 65, 14);</span>
+<span class="nc" id="L187">		panel_1.add(lblNewLabel_1);</span>
+
+<span class="nc" id="L189">		comboBox.setBounds(595, 62, 117, 20);</span>
+<span class="nc" id="L190">		panel_1.add(comboBox);</span>
+
+<span class="nc" id="L192">		JPanel panel = new JPanel();</span>
+<span class="nc" id="L193">		panel.setBounds(156, 129, 610, 94);</span>
+<span class="nc" id="L194">		panel_1.add(panel);</span>
+<span class="nc" id="L195">		panel.setLayout(null);</span>
+
+<span class="nc" id="L197">		addComponents(panel);</span>
+
+<span class="nc" id="L199">		JLabel lblNewLabel_5 = new JLabel(&quot;E/OU:&quot;);</span>
+<span class="nc" id="L200">		lblNewLabel_5.setBounds(500, 27, 45, 13);</span>
+<span class="nc" id="L201">		panel.add(lblNewLabel_5);</span>
+		
+		/**
+		 * 
+		 */
+<span class="nc" id="L206">		ActionListener cbActionListener = new ActionListener() {// add actionlistner to listen for change</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L210">				String s = (String) comboBox.getSelectedItem();// get the selected item</span>
+
+<span class="nc bnc" id="L212" title="All 3 branches missed.">				switch (s) {// check for a match</span>
+				case &quot;is_God_Class&quot;:
+<span class="nc" id="L214">					comboBox_Metrica.removeAllItems();</span>
+<span class="nc" id="L215">					comboBox_Metrica.addItem(makeObj(&quot;LOC_Class&quot;));</span>
+<span class="nc" id="L216">					comboBox_Metrica.addItem(makeObj(&quot;WMC_Class&quot;));</span>
+<span class="nc" id="L217">					comboBox_Metrica.addItem(makeObj(&quot;NOM_Class&quot;));</span>
+<span class="nc" id="L218">					break;</span>
+
+				case &quot;is_Long_Method&quot;:
+<span class="nc" id="L221">					comboBox_Metrica.removeAllItems();</span>
+<span class="nc" id="L222">					comboBox_Metrica.addItem(makeObj(&quot;LOC_Method&quot;));</span>
+<span class="nc" id="L223">					comboBox_Metrica.addItem(makeObj(&quot;CYCLO_Method&quot;));</span>
+					break;
+				}
+<span class="nc" id="L226">			}</span>
+		};
+
+<span class="nc" id="L229">		comboBox.addActionListener(cbActionListener);</span>
+
+<span class="nc" id="L231">		JLabel ifLabel = new JLabel(&quot;SE (&quot;);</span>
+<span class="nc" id="L232">		ifLabel.setFont(new Font(&quot;Tahoma&quot;, Font.PLAIN, 17));</span>
+<span class="nc" id="L233">		ifLabel.setBounds(144, 267, 45, 43);</span>
+<span class="nc" id="L234">		panel_1.add(ifLabel);</span>
+
+<span class="nc" id="L236">		JLabel lblNewLabel_4 = new JLabel(&quot;)&quot;);</span>
+<span class="nc" id="L237">		lblNewLabel_4.setFont(new Font(&quot;Tahoma&quot;, Font.PLAIN, 17));</span>
+<span class="nc" id="L238">		lblNewLabel_4.setBounds(634, 273, 45, 31);</span>
+<span class="nc" id="L239">		panel_1.add(lblNewLabel_4);</span>
+
+		/**
+		 * Button to clear the rule being created
+		 */
+<span class="nc" id="L244">		JButton btnLimpar = new JButton(&quot;Limpar Regra&quot;);</span>
+<span class="nc" id="L245">		btnLimpar.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L248">				lblARegraNo.setVisible(false);</span>
+<span class="nc" id="L249">				lbl_sucesso.setVisible(false);</span>
+<span class="nc" id="L250">				arraylist.clear();</span>
+<span class="nc" id="L251">				textField.setText(&quot;&quot;);</span>
+<span class="nc" id="L252">				textField_2.setText(&quot;&quot;);</span>
+<span class="nc" id="L253">				comboBox.setEnabled(true);</span>
+<span class="nc" id="L254">				btnNewButton_1.setEnabled(true);</span>
+<span class="nc" id="L255">			}</span>
+		});
+
+<span class="nc" id="L258">		btnLimpar.setBounds(378, 363, 117, 21);</span>
+<span class="nc" id="L259">		panel_1.add(btnLimpar);</span>
+
+		/**
+		 * Button to add thresholds
+		 */
+<span class="nc" id="L264">		btnNewButton_1.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+<span class="nc" id="L267">				comboBox.setEnabled(false);</span>
+				;
+				try {
+<span class="nc bnc" id="L270" title="All 2 branches missed.">					if (!textField_2.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L271">						String[] s = textField_2.getText().split(&quot; &quot;);</span>
+<span class="nc bnc" id="L272" title="All 4 branches missed.">						if (!((s[s.length - 1].equals(&quot;E&quot;)) || (s[s.length - 1].equals(&quot;OU&quot;)))) {</span>
+<span class="nc" id="L273">							btnNewButton_1.setEnabled(false);</span>
+<span class="nc" id="L274">							lblARegraNo.setText(</span>
+<span class="nc" id="L275">									&quot;Não pode adicionar mais proposições! Por favor confirme ou limpe a regra.&quot;);</span>
+<span class="nc" id="L276">							lblARegraNo.setVisible(true);</span>
+<span class="nc" id="L277">						} else {</span>
+<span class="nc" id="L278">							lblARegraNo.setVisible(false);</span>
+<span class="nc" id="L279">							createThreshold(comboBox_Metrica.getSelectedItem().toString(),</span>
+<span class="nc" id="L280">									comboBox_Sinal.getSelectedItem().toString(),</span>
+<span class="nc" id="L281">									Integer.parseInt(textField_1.getText()),</span>
+<span class="nc" id="L282">									comboBox_logica.getSelectedItem().toString());</span>
+<span class="nc" id="L283">							writeToString();</span>
+<span class="nc" id="L284">							panel.removeAll();</span>
+<span class="nc" id="L285">							addComponents(panel);</span>
+<span class="nc" id="L286">							panel.revalidate();</span>
+<span class="nc" id="L287">							panel.repaint();</span>
+						}
+<span class="nc" id="L289">					} else {</span>
+<span class="nc" id="L290">						lblARegraNo.setVisible(false);</span>
+<span class="nc" id="L291">						createThreshold(comboBox_Metrica.getSelectedItem().toString(),</span>
+<span class="nc" id="L292">								comboBox_Sinal.getSelectedItem().toString(), Integer.parseInt(textField_1.getText()),</span>
+<span class="nc" id="L293">								comboBox_logica.getSelectedItem().toString());</span>
+<span class="nc" id="L294">						writeToString();</span>
+<span class="nc" id="L295">						panel.removeAll();</span>
+<span class="nc" id="L296">						addComponents(panel);</span>
+<span class="nc" id="L297">						panel.revalidate();</span>
+<span class="nc" id="L298">						panel.repaint();</span>
+					}
+<span class="nc" id="L300">				} catch (Exception e) {</span>
+					// FAZER CATCH DO ERRO
+<span class="nc" id="L302">					lblARegraNo.setText(&quot;Os limites têm de ser numeros!&quot;);</span>
+<span class="nc" id="L303">					lblARegraNo.setVisible(true);</span>
+				}
+
+<span class="nc" id="L306">			}</span>
+		});
+<span class="nc" id="L308">	}</span>
+
+	// -------------------------------------------------------------
+	/**Fills the ComboBox lists for the user to use
+	 * 
+	 * @param panel	JPanel of this window
+	 */
+	private void addComponents(JPanel panel) {
+
+<span class="nc" id="L317">		JLabel lblNewLabel_2 = new JLabel(&quot;Métrica:&quot;);</span>
+<span class="nc" id="L318">		lblNewLabel_2.setBounds(31, 26, 46, 14);</span>
+<span class="nc" id="L319">		panel.add(lblNewLabel_2);</span>
+
+<span class="nc bnc" id="L321" title="All 2 branches missed.">		if (comboBox.getSelectedItem().equals(&quot;isLongMethod&quot;)) {</span>
+<span class="nc" id="L322">			comboBox_Metrica = new JComboBox&lt;Object&gt;(metricasMetodos);</span>
+<span class="nc bnc" id="L323" title="All 2 branches missed.">		} else if (comboBox.getSelectedItem().equals(&quot;is_God_Class&quot;)) {</span>
+<span class="nc" id="L324">			comboBox_Metrica = new JComboBox&lt;Object&gt;(metricasClasse);</span>
+		}
+<span class="nc" id="L326">		comboBox_Metrica.setBounds(10, 50, 180, 20);</span>
+<span class="nc" id="L327">		panel.add(comboBox_Metrica);</span>
+
+<span class="nc" id="L329">		String[] ss = { &quot;&quot;, &quot;E&quot;, &quot;OU&quot; };</span>
+<span class="nc" id="L330">		comboBox_logica = new JComboBox&lt;Object&gt;(ss);</span>
+<span class="nc" id="L331">		comboBox_logica.setBounds(500, 50, 86, 21);</span>
+<span class="nc" id="L332">		panel.add(comboBox_logica);</span>
+
+
+<span class="nc" id="L335">		String[] s = { &quot;&lt;&quot;, &quot;&gt;&quot; };</span>
+<span class="nc" id="L336">		comboBox_Sinal = new JComboBox&lt;Object&gt;(s);</span>
+<span class="nc" id="L337">		comboBox_Sinal.setBounds(245, 50, 65, 20);</span>
+<span class="nc" id="L338">		panel.add(comboBox_Sinal);</span>
+
+<span class="nc" id="L340">		textField_1 = new JTextField();</span>
+<span class="nc" id="L341">		textField_1.setBounds(381, 51, 56, 20);</span>
+<span class="nc" id="L342">		panel.add(textField_1);</span>
+<span class="nc" id="L343">		textField_1.setColumns(10);</span>
+
+<span class="nc" id="L345">		JLabel lblNewLabel_3 = new JLabel(&quot;Limite:&quot;);</span>
+<span class="nc" id="L346">		lblNewLabel_3.setBounds(391, 26, 46, 14);</span>
+<span class="nc" id="L347">		panel.add(lblNewLabel_3);</span>
+
+<span class="nc" id="L349">	}</span>
+
+	/**
+	 * Writes on the window the thresholds that user sets while creating the new rule
+	 */
+	private void writeToString() {
+<span class="nc" id="L355">		String newS = textField_2.getText() + &quot; &quot; + comboBox_Metrica.getSelectedItem() + &quot; &quot;</span>
+<span class="nc" id="L356">				+ comboBox_Sinal.getSelectedItem() + &quot; &quot; + textField_1.getText() + &quot; &quot;</span>
+<span class="nc" id="L357">				+ comboBox_logica.getSelectedItem();</span>
+<span class="nc" id="L358">		textField_2.setText(newS);</span>
+
+<span class="nc" id="L360">	}</span>
+
+	/**Creates the new Thresholds everytime the user sets a new one 
+	 * then it's added to the new arrayList to create the new rule
+	 * 
+	 * @param name	identifies the metrics 
+	 * @param math	&quot;&lt;&quot; or &quot;&gt;&quot; to instantiate a new Threshold
+	 * @param value	value to be compared
+	 * @param logic	&quot;E&quot; or &quot;OU&quot; logic operators
+	 */
+	private void createThreshold(String name, String math, int value, String logic) {
+<span class="nc bnc" id="L371" title="All 2 branches missed.">		if (logic.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L372">			Threshold t = new Threshold(name, math, value);</span>
+<span class="nc" id="L373">			arraylist.add(t);</span>
+<span class="nc" id="L374">		} else {</span>
+<span class="nc" id="L375">			Threshold t = new Threshold(name, math, value, logic);</span>
+<span class="nc" id="L376">			arraylist.add(t);</span>
+		}
+<span class="nc" id="L378">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

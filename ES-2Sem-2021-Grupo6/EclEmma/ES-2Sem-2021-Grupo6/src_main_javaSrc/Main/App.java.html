@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">Main</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package Main;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import Metrics.Result;
+
+
+/**Creates the excel file with template in the same folder as the user selected 
+ * It will be used to show the metrics extracted
+ */
+public class App {
+	private Workbook workbook;
+	//first row titles
+<span class="nc" id="L26">	private String[] titles = {&quot;MethodID&quot;, &quot;Package&quot;, &quot;Class&quot;, &quot;Method&quot;, &quot;NOM_Class&quot;, &quot;LOC_Class&quot;, &quot;WMC_Class&quot;, &quot;is_God_Class&quot;, &quot;LOC_Method&quot;, &quot;CYCLO_Method&quot;, &quot;is_Long_Method&quot;};</span>
+	//columns sizes 
+<span class="nc" id="L28">	private int[] sizes = {3000, 3000, 6000, 8000, 3000,3000,3000, 3000, 3000, 3000, 3000};</span>
+	FileOutputStream outputStream;
+	String fileLocation1;
+	String fileLocation2;
+	Sheet sheet;
+	
+	/**Constructor of the excel file
+	 * 
+	 * @param file	name of the folder selected by the user
+	 * @param results	ArrayList with results gotten by the program to write in the file
+	 * @throws IOException	Exception if it write on the new excel file
+	 */
+<span class="nc" id="L40">    public App ( String file, ArrayList&lt;Result&gt; results) throws IOException</span>
+    {	
+<span class="nc" id="L42">     	File currDir = new File(file);</span>
+<span class="nc" id="L43">    	String path = currDir.getAbsolutePath();</span>
+<span class="nc" id="L44">    	fileLocation1 = path.substring(0, path.length() - 1) + currDir.getName() + &quot;.xlsx&quot;;</span>
+    
+<span class="nc" id="L46">    	workbook = new XSSFWorkbook();</span>
+    	try {
+    	
+<span class="nc" id="L49">    	sheet = workbook.createSheet(&quot;Results&quot;);</span>
+    	
+    	
+    	//creating style format for first row
+<span class="nc" id="L53">    	CellStyle headerStyle = workbook.createCellStyle();</span>
+<span class="nc" id="L54">    	XSSFFont font = ((XSSFWorkbook) workbook).createFont();</span>
+<span class="nc" id="L55">    	font.setFontName(&quot;Arial&quot;);</span>
+<span class="nc" id="L56">    	font.setFontHeightInPoints((short) 11);</span>
+<span class="nc" id="L57">    	font.setBold(true);</span>
+<span class="nc" id="L58">    	headerStyle.setFont(font);</span>
+    	
+    	//creating first row with terms {MethodID, Package, Class, Method, NOM_Class, LOC_class, WMC_Class, is_God_Class, LOC_Method, CYCLO_Method, is_Long_Method
+<span class="nc" id="L61">    	Row header = sheet.createRow(0);</span>
+    	Cell headerCell;
+<span class="nc bnc" id="L63" title="All 2 branches missed.">    	for (int i = 0; i &lt; sizes.length; i++) {</span>
+<span class="nc" id="L64">    		sheet.setColumnWidth(i, sizes[i]);</span>
+<span class="nc" id="L65">    		headerCell = header.createCell(i);</span>
+<span class="nc" id="L66">    		headerCell.setCellValue(titles[i]);</span>
+<span class="nc" id="L67">    		headerCell.setCellStyle(headerStyle);</span>
+    	}
+    	
+    	//writing results in sheet
+    	Row row;
+<span class="nc bnc" id="L72" title="All 2 branches missed.">    	for (int i = 0; i &lt; results.size(); i++ ) {</span>
+<span class="nc" id="L73">    		row = sheet.createRow(i + 1);</span>
+<span class="nc" id="L74">    		writeResult(results.get(i), row);</span>
+    	}
+<span class="nc" id="L76">		outputStream = new FileOutputStream(fileLocation1);</span>
+<span class="nc" id="L77">		workbook.write(outputStream);</span>
+<span class="nc" id="L78">		workbook.close();</span>
+<span class="nc" id="L79">		} catch (FileNotFoundException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L81">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L83">    }</span>
+	
+    /**Method to write each result 
+     * 
+     * @param res	Result gotten from the program 
+     * @param line	Row to write the result
+     */
+	public void writeResult(Result res, Row line) {
+<span class="nc" id="L91">		Cell coluna = line.createCell(0);</span>
+<span class="nc" id="L92">		coluna.setCellValue(line.getRowNum());</span>
+<span class="nc" id="L93">		coluna = line.createCell(1);</span>
+<span class="nc" id="L94">		coluna.setCellValue(res.getPackage1());</span>
+<span class="nc" id="L95">		coluna = line.createCell(2);</span>
+<span class="nc" id="L96">		coluna.setCellValue(res.getClass1());</span>
+<span class="nc" id="L97">		coluna = line.createCell(3);</span>
+<span class="nc" id="L98">		coluna.setCellValue(res.getMethod1());</span>
+<span class="nc" id="L99">		coluna = line.createCell(4);</span>
+<span class="nc" id="L100">		coluna.setCellValue(res.getNom());</span>
+<span class="nc" id="L101">		coluna = line.createCell(5);</span>
+<span class="nc" id="L102">		coluna.setCellValue(res.getLoc());</span>
+<span class="nc" id="L103">		coluna = line.createCell(6);</span>
+<span class="nc" id="L104">		coluna.setCellValue(res.getWmc());</span>
+<span class="nc" id="L105">		coluna = line.createCell(8);</span>
+<span class="nc" id="L106">		coluna.setCellValue(res.getLocm());</span>
+<span class="nc" id="L107">		coluna = line.createCell(9);</span>
+<span class="nc" id="L108">		coluna.setCellValue(res.getCyclom());</span>
+<span class="nc" id="L109">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MenuAvaliacao.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">GUI</a> &gt; <span class="el_source">MenuAvaliacao.java</span></div><h1>MenuAvaliacao.java</h1><pre class="source lang-java linenums">package GUI;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.JFrame;
+
+import CodeSmell.RuleSet;
+import Main.CodeSmell_Detector;
+import Main.Quality_Graph;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+
+/**
+ * 
+ * Where is shown the Bar chart for the user to see the quality of the code smells detection
+ *
+ */
+@SuppressWarnings(&quot;serial&quot;)
+public class MenuAvaliacao extends JFrame {
+	
+	/**Graph window constructor  
+	 * 
+	 * @param rs	HashMap with rules for when the window is closed the rules will be written in the text file
+	 * @param CD	CodeSmell_Detector to give the hashMaps with all classes and methods and each code smell 
+	 * @param mcs	Code smells detector window to get back 
+	 */
+<span class="nc" id="L37">	public MenuAvaliacao(RuleSet rs, CodeSmell_Detector CD, MenuCodeSmells mcs) {</span>
+<span class="nc" id="L38">		setResizable(false);</span>
+<span class="nc" id="L39">		setSize(900, 500);</span>
+<span class="nc" id="L40">		getContentPane().setLayout(null);</span>
+		
+
+<span class="nc" id="L43">		setLocationRelativeTo(null);</span>
+		/**
+		 * When user closes the window it ends the program and writes the rules
+		 * from hashMap into the text file
+		 */
+<span class="nc" id="L48">		WindowListener exitListener = new WindowAdapter() {</span>
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+<span class="nc" id="L52">				rs.writeFile(MainMenu.FILE_PATH);</span>
+<span class="nc" id="L53">				System.exit(0);</span>
+<span class="nc" id="L54">			}</span>
+		};
+<span class="nc" id="L56">		this.addWindowListener(exitListener);</span>
+		
+		
+<span class="nc" id="L59">		JButton btnVoltar = new JButton(&quot;Voltar&quot;);</span>
+<span class="nc" id="L60">		btnVoltar.setBounds(38, 409, 89, 23);</span>
+<span class="nc" id="L61">		getContentPane().add(btnVoltar);</span>
+		
+<span class="nc" id="L63">		JLabel lblVerdadeirosPositivos = new JLabel(&quot;Verdadeiros Positivos:&quot;);</span>
+<span class="nc" id="L64">		lblVerdadeirosPositivos.setBounds(10, 63, 170, 13);</span>
+<span class="nc" id="L65">		getContentPane().add(lblVerdadeirosPositivos);</span>
+		
+<span class="nc" id="L67">		JLabel lblVerdadeirosNegativos = new JLabel(&quot;Verdadeiros Negativos:&quot;);</span>
+<span class="nc" id="L68">		lblVerdadeirosNegativos.setBounds(10, 86, 170, 13);</span>
+<span class="nc" id="L69">		getContentPane().add(lblVerdadeirosNegativos);</span>
+		
+<span class="nc" id="L71">		JLabel lblFalsosPositivos = new JLabel(&quot;Falsos Positivos:&quot;);</span>
+<span class="nc" id="L72">		lblFalsosPositivos.setBounds(10, 125, 153, 13);</span>
+<span class="nc" id="L73">		getContentPane().add(lblFalsosPositivos);</span>
+		
+<span class="nc" id="L75">		JLabel lblFalsosNegativos = new JLabel(&quot;Falsos Negativos:&quot;);</span>
+<span class="nc" id="L76">		lblFalsosNegativos.setBounds(10, 148, 170, 13);</span>
+<span class="nc" id="L77">		getContentPane().add(lblFalsosNegativos);</span>
+		
+<span class="nc" id="L79">		JLabel lblVPValor = new JLabel(&quot;0&quot;);</span>
+<span class="nc" id="L80">		lblVPValor.setBounds(191, 63, 45, 13);</span>
+<span class="nc" id="L81">		getContentPane().add(lblVPValor);</span>
+		
+<span class="nc" id="L83">		JLabel lblVNValor = new JLabel(&quot;0&quot;);</span>
+<span class="nc" id="L84">		lblVNValor.setBounds(190, 86, 45, 13);</span>
+<span class="nc" id="L85">		getContentPane().add(lblVNValor);</span>
+		
+<span class="nc" id="L87">		JLabel lblFPValor = new JLabel(&quot;0&quot;);</span>
+<span class="nc" id="L88">		lblFPValor.setBounds(191, 125, 45, 13);</span>
+<span class="nc" id="L89">		getContentPane().add(lblFPValor);</span>
+		
+<span class="nc" id="L91">		JLabel lblFNValor = new JLabel(&quot;0&quot;);</span>
+<span class="nc" id="L92">		lblFNValor.setBounds(191, 148, 45, 13);</span>
+<span class="nc" id="L93">		getContentPane().add(lblFNValor);</span>
+		
+<span class="nc" id="L95">		Quality_Graph graph = new Quality_Graph(CD.classPairs(),CD.methodPairs());</span>
+		
+<span class="nc" id="L97">		JFreeChart chart = ChartFactory.createBarChart(</span>
+<span class="nc" id="L98">		         &quot;Indicadores&quot;,           </span>
+<span class="nc" id="L99">		         &quot;&quot;,            </span>
+<span class="nc" id="L100">		         &quot;Numero de indicadores&quot;,            </span>
+<span class="nc" id="L101">		         graph.getDataset(),          </span>
+<span class="nc" id="L102">		         PlotOrientation.VERTICAL,           </span>
+<span class="nc" id="L103">		         true, true, false);</span>
+		
+<span class="nc" id="L105">		 ChartPanel chartPanel = new ChartPanel( chart );        </span>
+<span class="nc" id="L106">		 chartPanel.setBounds(262, 22, 544, 337);</span>
+<span class="nc" id="L107">	     chartPanel.setPreferredSize(new java.awt.Dimension( 300 , 150 ) );        </span>
+<span class="nc" id="L108">	     getContentPane().add( chartPanel );</span>
+	      
+<span class="nc" id="L110">	     lblFNValor.setText(String.valueOf(graph.getFN()));</span>
+<span class="nc" id="L111">	     lblFPValor.setText(String.valueOf(graph.getFP()));</span>
+<span class="nc" id="L112">	     lblVNValor.setText(String.valueOf(graph.getVN()));</span>
+<span class="nc" id="L113">	     lblVPValor.setText(String.valueOf(graph.getVP()));</span>
+		
+		//Listeners
+		/**
+		 * Button to get back to the code smell detector window
+		 */
+<span class="nc" id="L119">		btnVoltar.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L122">				mcs.setVisible(true);</span>
+<span class="nc" id="L123">				dispose();</span>
+<span class="nc" id="L124">			}</span>
+		});
+		
+		
+<span class="nc" id="L128">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

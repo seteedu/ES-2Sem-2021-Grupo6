@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CodeSmell_Detector.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">Main</a> &gt; <span class="el_source">CodeSmell_Detector.java</span></div><h1>CodeSmell_Detector.java</h1><pre class="source lang-java linenums">package Main;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.DefaultListModel;
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.github.javaparser.utils.Pair;
+
+import CodeSmell.Logic_Expressions;
+import CodeSmell.Rule;
+import CodeSmell.Threshold;
+
+<span class="fc" id="L23">public class CodeSmell_Detector {</span>
+
+<span class="fc" id="L25">	private HashMap&lt;String, Pair&lt;Boolean, Boolean&gt;&gt; classSmells = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L26">	private HashMap&lt;String, Pair&lt;Boolean, Boolean&gt;&gt; methodSmells = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L28">	private static final HashMap&lt;String, Integer&gt; m = new HashMap&lt;&gt;();</span>
+	static {
+<span class="fc" id="L30">		m.put(&quot;NOM_Class&quot;, 4);</span>
+<span class="fc" id="L31">		m.put(&quot;LOC_Class&quot;, 5);</span>
+<span class="fc" id="L32">		m.put(&quot;WMC_Class&quot;, 6);	</span>
+<span class="fc" id="L33">		m.put(&quot;is_God_Class&quot;, 7);</span>
+<span class="fc" id="L34">		m.put(&quot;LOC_Method&quot;, 8);</span>
+<span class="fc" id="L35">		m.put(&quot;CYCLO_Method&quot;,9);</span>
+<span class="fc" id="L36">		m.put(&quot;is_Long_Method&quot;, 10);</span>
+<span class="fc" id="L37">	}</span>
+
+
+	
+	/**Starts the detection of code smells in the excel file
+	 * 
+	 * @param file	excel file to read
+	 * @param god	rule for code smell &quot;is_God_Class&quot; 
+	 * @param method	rule for code smell &quot;is_Long_Method&quot;
+	 * @throws IOException	throws an exception if it can't read from the excel file
+	 */
+	public void detect(String file, Rule god, Rule method) throws IOException {
+<span class="fc" id="L49">		classSmells.clear();</span>
+<span class="fc" id="L50">		methodSmells.clear();</span>
+<span class="fc" id="L51">		File f = new File(file);</span>
+		try {
+<span class="fc" id="L53">			FileInputStream is = new FileInputStream(f);</span>
+<span class="fc" id="L54">			XSSFWorkbook workbook = new XSSFWorkbook(is);</span>
+<span class="fc" id="L55">			XSSFSheet firstSheet = (XSSFSheet) workbook.getSheetAt(0);</span>
+<span class="fc" id="L56">			int it = 1;</span>
+<span class="fc" id="L57">			int last = firstSheet.getLastRowNum();</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">			while( it &lt;= last) {</span>
+<span class="fc" id="L59">				XSSFRow nextRow = firstSheet.getRow(it);</span>
+<span class="fc" id="L60">				boolean godB = expression(god, nextRow);</span>
+<span class="fc" id="L61">				boolean methodB = expression(method, nextRow);</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">				if(firstSheet.getRow(it).getCell(7)!=null)</span>
+<span class="fc" id="L63">					classSmells.put(nextRow.getCell(2).getStringCellValue(), new Pair&lt;Boolean, Boolean&gt;(godB, Boolean.parseBoolean(nextRow.getCell(7).getStringCellValue())));</span>
+<span class="pc bpc" id="L64" title="1 of 4 branches missed.">				if( nextRow.getCell(3) != null &amp;&amp; firstSheet.getRow(it).getCell(10)!=null)</span>
+<span class="fc" id="L65">					methodSmells.put(nextRow.getCell(3).getStringCellValue(), new Pair&lt;Boolean, Boolean&gt;(methodB, Boolean.parseBoolean(nextRow.getCell(10).getStringCellValue())));</span>
+<span class="fc" id="L66">				it++;</span>
+			}
+<span class="fc" id="L68">			FileOutputStream os = new FileOutputStream(f);</span>
+<span class="fc" id="L69">			workbook.write(os);</span>
+<span class="fc" id="L70">			workbook.close();</span>
+<span class="fc" id="L71">			is.close();</span>
+<span class="pc" id="L72">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L73">			e.printStackTrace();</span>
+		}
+<span class="fc" id="L75">	}</span>
+
+	/**Returns a boolean from the comparison of the rule and the value gotten form the excel file 
+	 * 
+	 * @param rule	rule to detect code smell	
+	 * @param row	row of the excel file to get the value to compare
+	 * @return	boolean of code smell detection
+	 */
+	public boolean expression (Rule rule, XSSFRow row) {
+<span class="fc" id="L84">		boolean b = true;</span>
+<span class="fc" id="L85">		Logic_Expressions le = new Logic_Expressions();</span>
+<span class="fc" id="L86">		ArrayList&lt;Threshold&gt; t = rule.getThresholds();</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">		for( int i = 0 ; i &lt; rule.getThresholds().size(); i++) {</span>
+<span class="fc" id="L88">			int val = (int)row.getCell(m.get(t.get(i).getName())).getNumericCellValue();</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">			if( i != rule.getThresholds().size()-1) {</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">				if ( t.get(i).getLogic().equals(&quot;E&quot;))</span>
+<span class="nc" id="L91">					b = le.twoAnd(b, t.get(i), val);</span>
+				else
+<span class="nc" id="L93">					b = le.twoOr(b, t.get(i), val);</span>
+<span class="nc" id="L94">			} </span>
+			else {
+<span class="fc" id="L96">				b = le.twoAnd(b, t.get(i), val);</span>
+			}
+		}
+<span class="fc" id="L99">		return b;</span>
+
+	}
+	
+	/**Prepares a list of the classes and code smell detections 
+	 * 
+	 * @return	DefaultListModel specific type of list to be shown in JList
+	 */
+	@SuppressWarnings(&quot;rawtypes&quot;)
+	public DefaultListModel&lt;String&gt; showClassSmells () {
+<span class="nc" id="L109">		DefaultListModel&lt;String&gt; a = new DefaultListModel&lt;&gt;();</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">		for (HashMap.Entry mapElement : classSmells.entrySet()) {</span>
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L112">			String s = mapElement.getKey() + &quot;: &quot; + ((Pair&lt;Boolean,Boolean&gt;)mapElement.getValue()).a.toString();</span>
+<span class="nc" id="L113">			a.addElement(s);</span>
+		}
+<span class="nc" id="L115">		return a;</span>
+	}
+
+
+	/**Prepares a list of the methods and code smell detections 
+	 * 
+	 * @return	DefaultListModel specific type of list to be shown in JList
+	 */
+	@SuppressWarnings(&quot;rawtypes&quot;)
+	public DefaultListModel&lt;String&gt; showMethodSmells () {
+<span class="nc" id="L125">		DefaultListModel&lt;String&gt; a = new DefaultListModel&lt;&gt;();</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">		for (HashMap.Entry mapElement : methodSmells.entrySet()) {</span>
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L128">			String s = mapElement.getKey() + &quot;: &quot; + ((Pair&lt;Boolean,Boolean&gt;)mapElement.getValue()).a.toString();</span>
+<span class="nc" id="L129">			a.addElement(s);</span>
+		}
+<span class="nc" id="L131">		return a;</span>
+	}
+
+	/**HashMap with the classes names as keys and a tuple with the boolean gotten 
+	 * from code smell detection and the boolean written by the user 
+	 * 
+	 * @return HashMap with classes and a tuple
+	 */
+	public HashMap&lt;String, Pair&lt;Boolean, Boolean&gt;&gt; classPairs(){
+<span class="fc" id="L140">		return classSmells;</span>
+	}
+
+
+	/**HashMap with the methods names as keys and a tuple with the boolean gotten 
+	 * from code smell detection and the boolean written by the user 
+	 * 
+	 * @return HashMap with methods and a tuple
+	 */
+	public HashMap&lt;String, Pair&lt;Boolean, Boolean&gt;&gt; methodPairs(){
+<span class="fc" id="L150">		return methodSmells;</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

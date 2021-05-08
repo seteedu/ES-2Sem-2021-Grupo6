@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Logic_ExpressionsTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">Tests</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">Logic_ExpressionsTest.java</span></div><h1>Logic_ExpressionsTest.java</h1><pre class="source lang-java linenums">package tests;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import CodeSmell.Logic_Expressions;
+import CodeSmell.Threshold;
+
+/**
+ * To test the &quot;Logic_Expressions&quot; class and its procedure to get the boolean of a logic expression
+ *
+ */
+<span class="fc" id="L14">class Logic_ExpressionsTest {</span>
+
+	private static Threshold cr;
+	private static Logic_Expressions le;
+	
+	/** Setup of the classes needed for the test
+	 * 	Instantiate the a Logic_Expression and a Threshold to get the logic value
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L26">		cr = new Threshold(&quot;LOC_Class&quot;, &quot;&lt;&quot;, 100);</span>
+<span class="fc" id="L27">		le = new Logic_Expressions();</span>
+		
+<span class="fc" id="L29">	}</span>
+	
+	/**	Tests if the procedure is giving the right logic value from the comparison with Threshold 
+	 *
+	 * Test method for {@link CodeSmell.Logic_Expression#one()}.
+	 */
+	@Test
+	void testLogicExpressionsOne() {
+<span class="fc" id="L37">		Assertions.assertEquals(true,le.one(cr,70));</span>
+<span class="fc" id="L38">	}</span>
+	
+	/**	Tests if the procedure is giving the right logic value from the comparison between two logic expressions 
+	 * using the logic operator &quot;E&quot;
+	 *
+	 * Test method for {@link CodeSmell.Logic_Expression#twoAnd()}.
+	 */
+	@Test
+	void testLogicExpressionsTwoAnd() {
+<span class="fc" id="L47">		Assertions.assertEquals(false, le.twoAnd(true, cr, 110));</span>
+<span class="fc" id="L48">	}</span>
+	
+	/**	Tests if the procedure is giving the right logic value from the comparison between two logic expressions 
+	 * using the logic operator &quot;OU&quot;
+	 *
+	 * Test method for {@link CodeSmell.Logic_Expression#twoOr()}.
+	 */
+	@Test
+	void testLogicExpressionsTwoOr() {
+<span class="fc" id="L57">		Assertions.assertEquals(true, le.twoOr(true, cr, 110));</span>
+<span class="fc" id="L58">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

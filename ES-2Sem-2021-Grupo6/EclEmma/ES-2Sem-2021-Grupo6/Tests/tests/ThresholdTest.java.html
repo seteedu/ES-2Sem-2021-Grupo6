@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ThresholdTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">Tests</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">ThresholdTest.java</span></div><h1>ThresholdTest.java</h1><pre class="source lang-java linenums">package tests;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import CodeSmell.Threshold;
+
+/**
+ * To test the &quot;Threshold&quot; class and its procedure to create the rules that the user wants
+ *
+ */
+<span class="fc" id="L14">class ThresholdTest {</span>
+	
+	private static Threshold t1;
+	private static Threshold t2;
+	private static String s2;
+	private static String s1;
+	private static String toString;
+
+	/** Setup of the classes needed for the test
+	 * 	Instantiate a RuleSet to get the the thresholds from a text file and Threshold with the values manually counted 
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L29">		t1 = new Threshold(&quot;LOC_Class&quot;, &quot;&lt;&quot;, 100);</span>
+<span class="fc" id="L30">		t2 = new Threshold(&quot;LOC_Class&quot;, &quot;&gt;&quot;, 20, &quot;E&quot;);</span>
+<span class="fc" id="L31">		s1 = &quot;LOC_Class, &lt;, 100&quot;;</span>
+<span class="fc" id="L32">		s2 = &quot;LOC_Class, &gt;, 20, E&quot;;</span>
+<span class="fc" id="L33">		toString = &quot;LOC_Class &gt; 20 E&quot;;</span>
+<span class="fc" id="L34">	}</span>
+
+	/** Starts the procedure and creates a Threshold with the values manually counted
+	 * 
+	 * @throws java.lang.Exception if any error occurs before the test
+	 */
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L42">	}</span>
+
+	/**Tests if the procedure is giving the right metric's name of the threshold
+	 * Constructor without logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getName()}.
+	 */
+	@Test
+	void testThreshold1Name() {
+<span class="fc" id="L51">		Assertions.assertEquals(&quot;LOC_Class&quot;,t1.getName());</span>
+<span class="fc" id="L52">	}</span>
+	
+	/**Tests if the procedure is giving the right comparison operator of the threshold
+	 * Constructor without logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getMath()}.
+	 */
+	@Test
+	void testThreshold1Math() {
+<span class="fc" id="L61">		Assertions.assertEquals(&quot;&lt;&quot;,t1.getMath());</span>
+<span class="fc" id="L62">	}</span>
+	
+	/**Tests if the procedure is giving the right value used as reference for detecting code smells
+	 * Constructor without logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getValue()}.
+	 */
+	@Test
+	void testThreshold1Value() {
+<span class="fc" id="L71">		Assertions.assertEquals(100,t1.getValue());</span>
+<span class="fc" id="L72">	}</span>
+
+	/**Tests if the procedure is giving the right logic operator &quot;&quot;
+	 * Constructor without logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testThreshold1Logic() {
+<span class="fc" id="L81">		Assertions.assertEquals(null,t1.getLogic());</span>
+<span class="fc" id="L82">	}</span>
+	
+	/**Tests if the procedure is giving the right name of the threshold code smell
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getName()}.
+	 */
+	@Test
+	void testThreshold2Name() {
+<span class="fc" id="L91">		Assertions.assertEquals(&quot;LOC_Class&quot;,t2.getName());</span>
+<span class="fc" id="L92">	}</span>
+	
+	/**Tests if the procedure is giving the right comparison operator for detecting code smells
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getMath()}.
+	 */
+	@Test
+	void testThreshold2Math() {
+<span class="fc" id="L101">		Assertions.assertEquals(&quot;&gt;&quot;,t2.getMath());</span>
+<span class="fc" id="L102">	}</span>
+	
+	/**Tests if the procedure is giving the right value used as reference for detecting code smells
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getValue()}.
+	 */
+	@Test
+	void testThreshold2Value() {
+<span class="fc" id="L111">		Assertions.assertEquals(20,t2.getValue());</span>
+<span class="fc" id="L112">	}</span>
+
+	/**Tests if the procedure is giving the right logic operator &quot;E&quot; or &quot;OU&quot;
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testThreshold2Logic() {
+<span class="fc" id="L121">		Assertions.assertEquals(&quot;E&quot;,t2.getLogic());</span>
+<span class="fc" id="L122">	}</span>
+	
+	
+	/**Tests if the procedure is giving the format to write the threshold in a file
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testToFileS1() {
+<span class="fc" id="L132">		Assertions.assertEquals(s1,t1.toFile());</span>
+<span class="fc" id="L133">	}</span>
+	
+	/**Tests if the procedure is giving the format to write the threshold in a file
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testToFileS2() {
+<span class="fc" id="L142">		Assertions.assertEquals(s2,t2.toFile());</span>
+<span class="fc" id="L143">	}</span>
+	
+	/**Tests if the procedure is giving the format to write the threshold on the GUI
+	 * Constructor with logic operator
+	 * 
+	 * Test method for {@link CodeSmell.Threshold#getLogic()}.
+	 */
+	@Test
+	void testToStringS1() {
+<span class="fc" id="L152">		Assertions.assertEquals(toString,t2.toString());</span>
+<span class="fc" id="L153">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

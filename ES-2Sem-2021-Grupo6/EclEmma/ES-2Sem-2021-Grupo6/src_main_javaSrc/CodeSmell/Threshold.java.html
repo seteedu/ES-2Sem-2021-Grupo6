@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Threshold.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">CodeSmell</a> &gt; <span class="el_source">Threshold.java</span></div><h1>Threshold.java</h1><pre class="source lang-java linenums">package CodeSmell;
+
+public class Threshold{
+	private String name;
+	private int value;
+	private String math;
+	private String logic;
+	
+	/**Threshold constructor when it comes with logical operators (&quot;E&quot; or &quot;OU&quot;)
+	 * 
+	 * @param name	metrics name to compare
+	 * @param math	&quot;&lt;&quot; or &quot;&gt;&quot; to compare the metrics value and the value given to this threshold
+	 * @param value	value defined by user to use as code smells barrier
+	 * @param logic	logical operator if the Rule has more Thresholds after this
+	 */
+<span class="fc" id="L16">	public Threshold (String name,  String math, int value, String logic) {</span>
+<span class="fc" id="L17">		this.name = name;</span>
+<span class="fc" id="L18">		this.value = value;</span>
+<span class="fc" id="L19">		this.math = math;</span>
+<span class="fc" id="L20">		this.logic = logic;</span>
+<span class="fc" id="L21">	}</span>
+	
+	/**Threshold constructor when it doesn't come with logical operators (&quot;E&quot; or &quot;OU&quot;)
+	 * 
+	 * @param name	metrics name to compare
+	 * @param math	&quot;&lt;&quot; or &quot;&gt;&quot; to compare the metrics value and the value given to this threshold
+	 * @param value	value defined by user to use as code smells barrier
+	 */
+<span class="fc" id="L29">	public Threshold (String name,  String math, int value) {</span>
+<span class="fc" id="L30">		this.name = name;</span>
+<span class="fc" id="L31">		this.value = value;</span>
+<span class="fc" id="L32">		this.math = math;</span>
+<span class="fc" id="L33">	}</span>
+	
+	/** Returns how the threshold should be shown in the GUI
+	 * 	Depends on which constructor was used
+	 * 
+	 * @return string with the thresholds attributes separated by &quot; &quot;
+	 */
+	@Override
+	public String toString () {
+<span class="fc bfc" id="L42" title="All 2 branches covered.">		if (logic == null)</span>
+<span class="fc" id="L43">			return name + &quot; &quot; + math + &quot; &quot; + value;</span>
+		else
+<span class="fc" id="L45">			return  name + &quot; &quot; + math + &quot; &quot; + value + &quot; &quot; + logic;</span>
+	}
+
+	/**Returns how the threshold should be written in the text file
+	 * Depends on which constructor was used
+	 * 
+	 * @return	string with thresholds attributes separated by &quot;,&quot;
+	 */
+	public String toFile() {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		if (logic == null) {</span>
+<span class="fc" id="L55">			return name + &quot;, &quot; + math + &quot;, &quot; + value;</span>
+		}
+		else 
+<span class="fc" id="L58">			return name + &quot;, &quot; + math + &quot;, &quot; + value + &quot;, &quot; + logic;</span>
+	}
+	
+	/**Returns the metrics used in this threshold to get the value of excel file
+	 * 
+	 * @return string of metrics name
+	 */
+	public String getName() {
+<span class="fc" id="L66">		return name;</span>
+	}
+	
+	/** Returns the operator to compare
+	 * 
+	 * @return	&quot;&lt;&quot; or &quot;&gt;&quot;
+	 */
+	public String getMath() {
+<span class="fc" id="L74">		return math;</span>
+	}
+	
+	/** Returns the value to compare with metrics value obtained in excel file
+	 * 
+	 * @return integer defined by user as code smell barrier
+	 */
+	public int getValue() {
+<span class="fc" id="L82">		return value;</span>
+	}
+	
+	/** Returns the logic operator 
+	 * 
+	 * @return &quot;E&quot; or &quot;OU&quot;
+	 */
+	public String getLogic() {
+<span class="fc" id="L90">		return logic;</span>
+	}
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>

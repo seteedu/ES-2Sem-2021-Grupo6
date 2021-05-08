@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>FileHandler.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</a> &gt; <a href="../../index.html" class="el_group">ES-2Sem-2021-Grupo6</a> &gt; <a href="../index.html" class="el_bundle">src/main/javaSrc</a> &gt; <a href="index.source.html" class="el_package">Main</a> &gt; <span class="el_source">FileHandler.java</span></div><h1>FileHandler.java</h1><pre class="source lang-java linenums">package Main;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import Metrics.Result;
+
+/**
+ * 
+ * Used in &quot;ExtrairMetricasMenu&quot; window to explore the folder given by the user
+ *
+ */
+public class FileHandler {
+
+<span class="nc" id="L16">	private static ArrayList&lt;Result&gt; result = new ArrayList&lt;Result&gt;();</span>
+
+	/**Constructor where it creates the excel file 
+	 * 
+	 * @param path	of the project given by the user
+	 */
+<span class="nc" id="L22">	public FileHandler(String path) {</span>
+		try {
+			@SuppressWarnings(&quot;unused&quot;)
+<span class="nc" id="L25">			App app = new App(path, handler(path));</span>
+<span class="nc" id="L26">		} catch (IOException e) {</span>
+			// TODO Auto-generated catch block
+		}
+<span class="nc" id="L29">	}</span>
+
+	/**Explores each file and folder in the folder given by the user
+	 * 
+	 * @param path	path of the folder/java file to explore
+	 * @return	an ArrayList with results gotten from parsed java files
+	 * @throws IOException	throws an exception if it can't read the folder/file
+	 */
+	public ArrayList&lt;Result&gt; handler(String path)
+			throws IOException {
+<span class="nc" id="L39">		File root = new File(path);</span>
+<span class="nc" id="L40">		File[] list = root.listFiles();</span>
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">		for (File f : list) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">			if (f.isDirectory()) { // opens a new handler for new directory</span>
+<span class="nc" id="L44">				handler(f.getAbsolutePath());</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">			} else if (f.getPath().endsWith(&quot;.java&quot;)) { // only searches for .java files and starts a main for each</span>
+														// class
+<span class="nc" id="L47">				Main main = new Main();</span>
+<span class="nc" id="L48">				main.main(f.getAbsolutePath());</span>
+<span class="nc" id="L49">				result.addAll(main.getResults());</span>
+			}
+		}
+<span class="nc" id="L52">		return result;</span>
+
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>ES-2Sem-2021-Grupo6 (08/05/2021 22:50:13)</div></body></html>
