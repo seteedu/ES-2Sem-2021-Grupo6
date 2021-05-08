@@ -1,0 +1,35 @@
+Main.Main	private void results(java.lang.String, Metrics.MethodsHandler, Metrics.LOC_class, Metrics.CYCLO_Method) throws java.io.FileNotFoundException	results	B2	0/9
+Main.Main	private void results(java.lang.String, Metrics.MethodsHandler, Metrics.LOC_class, Metrics.CYCLO_Method) throws java.io.FileNotFoundException	results	B4	0/7
+CodeSmell.RuleSet	private CodeSmell.Rule rule(java.lang.String[], ArrayList<CodeSmell.Threshold>) throws java.lang.NumberFormatException	ts	B1	0/7
+CodeSmell.RuleSet	private CodeSmell.Rule rule(java.lang.String[], ArrayList<CodeSmell.Threshold>) throws java.lang.NumberFormatException	ts	B2	0/6
+CodeSmell.RuleSet	public void initializeMap(java.lang.String) 	myWriter	B7	0/6
+GUI.MenuRegras	private void addComponents(javax.swing.JPanel) 	comboBox_Metrica	B1	0/5
+CodeSmell.RuleSet	public void writeFile(java.lang.String) 	myWriter	B2	0/5
+CodeSmell.RuleSet	public void writeFile(java.lang.String) 	myWriter	B3	0/4
+tests.RuleSetTest	static void setUpBeforeClass() throws java.lang.Exception	rulesTest	B1	0/4
+tests.RuleSetTest	static void setUpBeforeClass() throws java.lang.Exception	showRulesTest	B1	0/4
+tests.RuleTest	static void setUpBeforeClass() throws java.lang.Exception	defClassRule1	B1	0/4
+GUI.MenuRegras	private void addComponents(javax.swing.JPanel) 	comboBox_Sinal	B5	0/3
+GUI.MenuRegras	private void addComponents(javax.swing.JPanel) 	comboBox_logica	B5	0/3
+GUI.MenuRegras	private void addComponents(javax.swing.JPanel) 	textField_1	B5	0/3
+tests.Quality_GraphTest	static void setUpBeforeClass() throws java.lang.Exception	crl	B1	0/3
+tests.Quality_GraphTest	static void setUpBeforeClass() throws java.lang.Exception	mrl	B1	0/3
+tests.RuleTest	static void setUpBeforeClass() throws java.lang.Exception	crl	B1	0/3
+tests.RuleTest	static void setUpBeforeClass() throws java.lang.Exception	t_list	B1	0/3
+CodeSmell.RuleSet	public void initializeMap(java.lang.String) 	crl	B7	0/3
+CodeSmell.RuleSet	public void initializeMap(java.lang.String) 	mrl	B7	0/3
+tests.RuleSetTest	static void setUpBeforeClass() throws java.lang.Exception	r	B1	0/2
+tests.RuleSetTest	static void setUpBeforeClass() throws java.lang.Exception	rReplace	B1	0/2
+tests.RuleSetTest	static void setUpBeforeClass() throws java.lang.Exception	showRulesFilteredTest	B1	0/2
+Main.CodeSmell_Detector	public void detect(java.lang.String, CodeSmell.Rule, CodeSmell.Rule) throws java.io.IOException	f	B1	2/3
+CodeSmell.RuleSet	public void initializeMap(java.lang.String) 	f	B1	3/4
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_lines	B1	10/12
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_lines	B2	8/9
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_lines	B3	5/6
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_lines	B4	3/4
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_lines	B5	1/2
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_methods	B1	10/12
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_methods	B2	8/9
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_methods	B3	5/6
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_methods	B4	3/4
+Main.Excell_Summary	private int count_classes(org.apache.poi.xssf.usermodel.XSSFSheet, java.lang.String) 	count_methods	B5	1/2

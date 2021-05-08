@@ -1,0 +1,4 @@
+Refactoring Type	Source Entity	Target Class	Source/Target accessed members	Rate it!
+Move Method	Main.App::writeResult(Metrics.Result, org.apache.poi.ss.usermodel.Row):void	Metrics.Result	0/8	
+Move Method	CodeSmell.Logic_Expressions::one(CodeSmell.Threshold, int):boolean	CodeSmell.Threshold	0/2	
+Move Method	Main.Main::resultWMethod(Metrics.MethodsHandler, Metrics.LOC_class, Metrics.CYCLO_Method, int):Metrics.Result	Metrics.LOC_class	1/3	
