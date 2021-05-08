@@ -37,6 +37,7 @@ public class Excell_Summary {
 			num_packages= countPackages(firstSheet, np);
 	        np = firstSheet.getRow(1).getCell(2).getStringCellValue();
 	        num_classes = count_classes(firstSheet, np);
+
 	        workbook.close();
 	        is.close();
 		} catch (FileNotFoundException e) {
